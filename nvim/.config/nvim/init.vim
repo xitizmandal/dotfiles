@@ -28,7 +28,7 @@ Plug 'mitsuhiko/vim-sparkup'
 Plug 'Valloric/YouCompleteMe'
 
 " Python
-Plug 'klen/python-mode'
+Plug 'python-mode/python-mode', {'branch':'develop'}
 Plug 'scrooloose/syntastic'
 
 " FZF
