@@ -83,6 +83,14 @@ set scrolloff=10			" let 10 lines before/afer cursor during scroll
 
 set clipboard=unnamed			" use system clipboard
 
+
+" Disable Arrow keys in Normal mode
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+
 " Airline settings
 let g:airline_theme='one'		
 let g:airline#extensions#tabline#enabled=1
