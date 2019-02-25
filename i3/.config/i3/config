@@ -212,14 +212,8 @@ exec_always feh --bg-scale /home/lt144/Pictures/wallpapers/darth_vader.jpg
 
 exec_always xrandr --output DP-1 --off --output HDMI-1 --mode 1920x1080 --pos 1366x0 --rotate normal --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-2 --off --dpi 100
 
-# Swap caps lock and escape
-exec_always --no-startup-id xmodmap -e "clear lock"
-exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
-exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
-
 # Custom class
 for_window [class="Yad"] floating enable
 
-
-
-
+# Print Screen
+bindsym --release Ctrl+Print exec scrot -s '/home/lt144/Pictures/screenshots/%Y-%m-%d_$wx$h.png'
