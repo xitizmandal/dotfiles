@@ -3,13 +3,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
 Plug 'majutsushi/tagbar'		" Class/module browser
-Plug 'kien/ctrlp.vim'			" Fast transitioins on project files
+" Plug 'kien/ctrlp.vim'			" Fast transitioins on project files
 
 
 "-------------------- Others -------------------
 Plug 'vim-airline/vim-airline'			
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/TaskList.vim'		" Task List
+" Plug 'vim-scripts/TaskList.vim'		" Task List
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 " Plug 'flazz/vim-colorschemes'		" Colorschemes
 Plug 'rakr/vim-one'
@@ -17,15 +17,15 @@ Plug 'rakr/vim-one'
 " Plug 'joshdick/onedark.vim'
 
 "-------------------- Snippets support ------------
-Plug 'garbas/vim-snipmate'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'honza/vim-snippets'
+" Plug 'garbas/vim-snipmate'
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
+" Plug 'honza/vim-snippets'
 
 " Languange support
 Plug 'tpope/vim-commentary'
-Plug 'mitsuhiko/vim-sparkup'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'mitsuhiko/vim-sparkup'
+" Plug 'Valloric/YouCompleteMe'
 
 " Python
 Plug 'python-mode/python-mode', {'branch':'develop'}
@@ -41,7 +41,7 @@ Plug '~/.fzf', {'do':'./install --all' }
 Plug 'Yggdroot/indentLine'
 call plug#end()
 
-let g:python3_host_prog='/home/lt144/Documents/anaconda3/envs/neovim/bin/python'
+" let g:python3_host_prog='/home/lt144/Documents/anaconda3/envs/neovim/bin/python'
 " Color Scheme
 if (has('termguicolors'))
 	set termguicolors
@@ -81,8 +81,8 @@ set backspace=indent,eol,start		" backspace removes all (indents, EOLS, start)
 
 set scrolloff=10			" let 10 lines before/afer cursor during scroll
 
-set clipboard=unnamed			" use system clipboard
-
+" set clipboard=unnamed			" use system clipboard
+set clipboard+=unnamedplus
 
 " Disable Arrow keys in Normal mode
 noremap <up> <nop>
@@ -132,8 +132,8 @@ let g:indentLine_setColors = 0
 set mouse=
 
 " Autocomplete
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclartaion<CR>
+"let g:ycm_autoclose_preview_window_after_completion=1
+" map <leader>g :YcmCompleter GoToDefinitionElseDeclartaion<CR>
 
 filetype plugin indent on
 
@@ -142,8 +142,8 @@ filetype plugin indent on
 "=====================================================
 
 " python executables for different plugins
-let g:pymode_python='python'
-let g:syntastic_python_python_exec='python'
+let g:pymode_python='python3'
+let g:syntastic_python_python_exec='python3'
 
 " rope
 let g:pymode_rope=0
@@ -221,11 +221,11 @@ let g:syntastic_style_warning_symbol='x'
 let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
 
 " YouCompleteMe
-set completeopt-=preview
+" set completeopt-=preview
 
-let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
+" let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
+" let g:ycm_confirm_extra_conf=0
 
-nmap <leader>g :YcmCompleter GoTo<CR>
-nmap <leader>d :YcmCompleter GoToDefinition<CR>
+" nmap <leader>g :YcmCompleter GoTo<CR>
+" nmap <leader>d :YcmCompleter GoToDefinition<CR>
 
