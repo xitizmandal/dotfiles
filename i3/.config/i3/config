@@ -137,10 +137,10 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace 10
 
-assign [class="Code"] $ws1
-assign [class="Firefox"] $ws3
+# assign [class="Code"] $ws1
+#assign [class="Firefox"] $ws3
 # assign [class="Gnome-terminal"] $ws2
-assign [class="Spotify"] $ws9
+# assign [class="Spotify"] $ws9
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
