@@ -193,14 +193,14 @@ hide_edge_borders both
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-# bar {
-#        	status_command i3blocks -c ~/.config/i3/i3blocks.conf
-# 	# status_command i3status
-# 	position top
-#         tray_output primary
-# }
+bar {
+       	status_command i3blocks -c ~/.config/i3/i3blocks.conf
+	# status_command i3status
+	position top
+        tray_output primary
+}
 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
 
 
@@ -211,6 +211,23 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
+# Monitor options
+set $monitor Display: [l]eft [r]ight [m]irror [s]econdary [p]rimary
+
+mode "$monitor" {
+    bindsym f exec firefox, mode "default"
+    bindsym l exec  --no-startup-id ~/.screenlayout/left.sh, mode "default"
+    bindsym r exec  --no-startup-id ~/.screenlayout/right.sh, mode "default"
+    bindsym m exec  --no-startup-id ~/.screenlayout/mirror.sh, mode "default"
+    bindsym s exec  --no-startup-id ~/.screenlayout/external.sh, mode "default"
+    bindsym p exec  --no-startup-id ~/.screenlayout/laptop.sh, mode "default"
+    
+    # back to normal: Enter or escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+x mode "$monitor"
 # Media player controls
 #bindsym XF868AudioPlay exec playerctl play
 #bindsym XF868AudioPause exec playerctl pause
@@ -234,7 +251,7 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jp
 
 # exec_always compton
 # Custom class
-#for_window [class="Yad"] floating enable
+# for_window [class="Yad"] floating enable
 
 # Print Screen
 # bendsym --release Ctrl+Prt123
