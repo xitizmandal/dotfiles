@@ -207,9 +207,9 @@ bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
 bindsym $mod+space exec rofi -show run  
 bindsym $mod+m exec i3-msg move workspace to output left 
 # Pulse Audio Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master -q 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master -q 5%-
+bindsym XF86AudioMute exec --no-startup-id pactl amixer -D pulse set Master 1+ toggle
 
 # Monitor options
 set $monitor Display: [l]eft [r]ight [m]irror [s]econdary [p]rimary
