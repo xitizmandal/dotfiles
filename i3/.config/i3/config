@@ -256,3 +256,6 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jp
 # Print Screen
 # bendsym --release Ctrl+Prt123
 # nt exec scrot -s '/home/lt144/Pictures/screenshots/%Y-%m-%d_$wx$h.png'
+#
+# For test purpose
+# bindsym $mod+u exec /home/fm-pc-lt-125/.config/dunst/dtest
