@@ -84,7 +84,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod++Control+h split h
+bindsym $mod+Control+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -123,25 +123,25 @@ bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace $ws9
+bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
 bindsym $mod+Shift+4 move container to workspace 4
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-assign [class="Code"] $ws1
-assign [class="Firefox"] $ws3
+# assign [class="Code"] $ws1
+#assign [class="Firefox"] $ws3
 # assign [class="Gnome-terminal"] $ws2
-assign [class="Spotify"] $ws9
+# assign [class="Spotify"] $ws9
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -206,13 +206,34 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
 
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
+bindsym Ctrl+$alt+l exec $HOME/.scripts/lockscreen.sh
 
 bindsym $mod+space exec rofi -show run  
-#bindsym $mod+m exec i3-msg move workspace to output left 
+bindsym $mod+m exec i3-msg move workspace to output left 
 # Pulse Audio Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master -q 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master -q 5%-
+bindsym XF86AudioMute exec --no-startup-id pactl amixer -D pulse set Master 1+ toggle
+
+# Monitor options
+set $monitor Display: [l]eft [r]ight [m]irror [s]econdary [p]rimary
+
+mode "$monitor" {
+    bindsym f exec firefox, mode "default"
+    bindsym l exec  --no-startup-id ~/.screenlayout/left.sh, mode "default"
+    bindsym r exec  --no-startup-id ~/.screenlayout/right.sh, mode "default"
+    bindsym m exec  --no-startup-id ~/.screenlayout/mirror.sh, mode "default"
+    bindsym s exec  --no-startup-id ~/.screenlayout/external.sh, mode "default"
+    bindsym p exec  --no-startup-id ~/.screenlayout/laptop.sh, mode "default"
+    
+    # back to normal: Enter or escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+x mode "$monitor"
 # Media player controls
 #bindsym XF868AudioPlay exec playerctl play
 #bindsym XF868AudioPause exec playerctl pause
@@ -228,7 +249,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 # bindsym XF86KbdBrightnessDown exec --no-startup-id {$HOME}/.scripts/kb-light.py -
 
 # trackpad click
-exec xinput set-prop 16 273 1
+# exec xinput set-prop 16 273 1
 
 # Set wallpaper
 exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jpg
@@ -236,8 +257,11 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jp
 
 # exec_always compton
 # Custom class
-#for_window [class="Yad"] floating enable
+# for_window [class="Yad"] floating enable
 
 # Print Screen
 # bendsym --release Ctrl+Prt123
 # nt exec scrot -s '/home/lt144/Pictures/screenshots/%Y-%m-%d_$wx$h.png'
+#
+# For test purpose
+# bindsym $mod+u exec /home/fm-pc-lt-125/.config/dunst/dtest
