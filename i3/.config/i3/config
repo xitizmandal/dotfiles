@@ -12,11 +12,11 @@
 # i3-gaps
 # hide_edge_borders both
 # for_window [class="^.*"] border pixel 2
-gaps inner 4
-gaps outer 4
+# gaps inner 4
+# gaps outer 4
 
-bindsym $mod+z gaps outer current plus 5
-bindsym $mod+Shift+z gaps outer current minus 5
+# bindsym $mod+z gaps outer current plus 5
+# bindsym $mod+Shift+z gaps outer current minus 5
 
 
 set $mod Mod4
@@ -204,9 +204,6 @@ hide_edge_borders both
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
-
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
 bindsym Ctrl+$alt+l exec $HOME/.scripts/lockscreen.sh
 
