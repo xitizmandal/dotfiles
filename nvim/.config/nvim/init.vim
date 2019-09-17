@@ -1,47 +1,98 @@
+" xitiz-nvim-config
+
+" ============================================================================
+" Vim-plug initialization
+" Avoid modifying this section, unless you are very sure of what you are doing
+
+let vim_plug_just_installed = 0
+let vim_plug_path = expand('~/.local/share/nvim/autoload/plug.vim')
+if !filereadable(vim_plug_path)
+    echo "Installing Vim-plug..."
+    echo ""
+    silent !mkdir -p ~/.local/share/nvim/autoload
+    silent !curl -fLo ~/.local/share/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let vim_plug_just_installed = 1
+endif
+
+" manually load vim-plug the first time
+if vim_plug_just_installed
+    :execute 'source '.fnameescape(vim_plug_path)
+endif
+" ============================================================================
+
+"-------------------- Active Plugins -------------------
+
 call plug#begin('~/.local/share/nvim/plugged')
+
+" Override configs by directory
+Plug 'arielrossanigo/dir-configs-override.vim'
+
+"-------------------- Code Commenter -------------------
+" Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
 Plug 'majutsushi/tagbar'		" Class/module browser
-" Plug 'kien/ctrlp.vim'			" Fast transitioins on project files
-
-
-"-------------------- Others -------------------
-Plug 'vim-airline/vim-airline'			
-Plug 'vim-airline/vim-airline-themes'
-" Plug 'vim-scripts/TaskList.vim'		" Task List
-Plug 'tpope/vim-surround'		" Parentheses, brackets
 
 
 "-------------------- Colorschemes -------------------
-" Plug 'rakr/vim-one'
 Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
 
-"-------------------- Snippets support ------------
-" Plug 'garbas/vim-snipmate'
-" Plug 'MarcWeber/vim-addon-mw-utils'
-" Plug 'tomtom/tlib_vim'
-" Plug 'honza/vim-snippets'
-
-" Languange support
-Plug 'tpope/vim-commentary'
-" Plug 'mitsuhiko/vim-sparkup'
-" Plug 'Valloric/YouCompleteMe'
-
-" Python
-" Plug 'python-mode/python-mode', {'branch':'develop'}
-" Plug 'scrooloose/syntastic'
-
+"-------------------- File traversing -------------------
 " FZF
-Plug '~/.fzf', {'do':'./install --all' }
-" Git gutter
-"Plug 'airblade/vim-gutter'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+"-------------------- Airline -------------------
+Plug 'vim-airline/vim-airline'			
+Plug 'vim-airline/vim-airline-themes'
+
+"-------------------- Task list ------------
+Plug 'fisadev/FixedTaskList.vim'
+
+"-------------------- AutoComplete ------------
+" Async autocompletion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Completion from other opened files
+Plug 'Shougo/context_filetype.vim'
+" Python autocompletion
+Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+" Just to add the python go-to-definition and similar features, autocompletion
+" from this plugin is disabled
+Plug 'davidhalter/jedi-vim'
+
+" Automatically close parenthesis, etc
+Plug 'Townk/vim-autoclose'
+Plug 'tpope/vim-surround'		" Parentheses, brackets
+
+" Better language packs
+Plug 'sheerun/vim-polyglot'
+
+" Window chooser
+" Similar to tmux pane
+" Plug 't9md/vim-choosewin'
+
+"-------------------- Python ------------
+" Automatically sort python imports
+Plug 'fisadev/vim-isort'
+
+"-------------------- Git ------------
+" Git integration
+Plug 'tpope/vim-fugitive'
+
+" Git/mercurial/others diff icons on the side of the file lines
+Plug 'mhinz/vim-signify'
+
+
+" Yank history navigation
+" Plug 'vim-scripts/YankRing.vim'
 
 " brackets
 " Indented lines
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
 call plug#end()
+" ============================================================================
 
 " let g:python3_host_prog='/home/lt144/Documents/anaconda3/envs/neovim/bin/python'
 " Color Scheme
@@ -49,42 +100,40 @@ if (has('termguicolors'))
 	set termguicolors
 endif
 
-
-filetype on
-filetype plugin on
-filetype plugin indent on
-
-" General Settings
-syntax enable				" syntax highlight
-
-set t_Co=256				" set 256 colors
-set background=dark
-colorscheme solarized8
-
+" Configurations
 set number
-set ruler
+set relativenumber
 
-set tabstop=4				" 4 whitespace for tabs visual presentation
-set shiftwidth=4			" shift lines by 4 space
-set smarttab				" set tabs for shifttabs logic
 set expandtab				" expands tabs into space
-set autoindent				" indent when moving to next line while writing code
+set tabstop=4				" 4 whitespace for tabs visual presentation
+set softtabstop=4
+set shiftwidth=4			" shift lines by 4 space
 
-set cursorline				" show line under cursor's line
-set showmatch				" shows matching part of bracket pairs (), [], {}
+if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
+	let &t_Co = 256
+    colorscheme solarized8
+else
+    colorscheme delek
+endif
 
-set enc=utf-8
+" needed so deoplete can auto select the first suggestion
+set completeopt+=noinsert
+" comment this line to enable autocompletion preview window
+" (displays documentation related to the selected completion option)
+set completeopt-=preview
 
-set nobackup
-set nowritebackup
-set noswapfile
+" autocompletion of files and commands behaves like shell
+" (complete only the common part, list the options that match)
+set wildmode=list:longest
 
-set backspace=indent,eol,start		" backspace removes all (indents, EOLS, start)
+" when scrolling, keep cursor 3 lines away from screen border
+set scrolloff=4
 
-set scrolloff=10			" let 10 lines before/afer cursor during scroll
+" clear search results
+nnoremap <silent> // :noh<CR>
 
-" set clipboard=unnamed			" use system clipboard
-set clipboard+=unnamedplus
+" clear empty spaces at the end of lines on save of python files
+autocmd BufWritePre *.py :%s/\s\+$//e
 
 " Disable Arrow keys in Normal mode
 noremap <up> <nop>
@@ -92,18 +141,19 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
+" ============================================================================
 
 " Airline settings
-let g:airline_theme='solarized_flood'		
-" let g:airline#extensions#tabline#enabled=0
-" let g:airline#extensions#tabline#formatter='default'
-" let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts = 0
+let g:airline_theme = 'bubblegum'
+let g:airline#extensions#whitespace#enabled = 0
 
 " TagBar settings
-let g:tagbar_autofocus=0
+map <F4> :TagbarToggle<CR>
+let g:tagbar_autofocus=1
 let g:tagbar_width=42
-autocmd BufEnter *py :call tagbar#autoopen(0)
-autocmd BufWinLeave *.py :TagbarClose
+"autocmd BufEnter *py :call tagbar#autoopen(0)
+"autocmd BufWinLeave *.py :TagbarClose
 
 " NERDTree settings
 " autocmd vimenter * NERDTree
@@ -117,78 +167,71 @@ autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim 
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+map ,t :NERDTreeFind<CR>
+
 " SnipMate settings
 " let g:snippets_dir='~/.vim/vim-snippets/snippets'
 
-
-" Configurations
-set number
-set relativenumber
+" show pending tasks list
+map <F2> :TaskList<CR>
 
 " Indent line
-let g:indentLine_setColors = 0
+" let g:indentLine_setColors = 0
 
-" cursorlie
+" Fzf ------------------------------
+
+" file finder mapping
+nmap ,e :Files<CR>
+" tags (symbols) in current file finder mapping
+nmap ,g :BTag<CR>
+" tags (symbols) in all files finder mapping
+nmap ,G :Tags<CR>
+" general code finder in current file mapping
+nmap ,f :BLines<CR>
+" general code finder in all files mapping
+nmap ,F :Lines<CR>
+" commands finder mapping
+nmap ,c :Commands<CR>
+
 
 " disable mouse
 set mouse=
 
-" Autocomplete
-"let g:ycm_autoclose_preview_window_after_completion=1
-" map <leader>g :YcmCompleter GoToDefinitionElseDeclartaion<CR>
 
-filetype plugin indent on
+" filetype plugin indent on
 
 "=====================================================
 "python settings
 "=====================================================
 
+" Deoplete -----------------------------
+
+" Use deoplete.
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_ignore_case = 1
+let g:deoplete#enable_smart_case = 1
+" complete with words from any opened file
+let g:context_filetype#same_filetypes = {}
+let g:context_filetype#same_filetypes._ = '_'
+
+" Jedi-vim ------------------------------
+
+" Disable autocompletion (using deoplete instead)
+let g:jedi#completions_enabled = 0
+
+" All these mappings work only for python code:
+" Go to definition
+let g:jedi#goto_command = ',d'
+" Find ocurrences
+let g:jedi#usages_command = ',o'
+" Find assignments
+let g:jedi#goto_assignments_command = ',a'
+" Go to definition in new tab
+nmap ,D :tab split<CR>:call jedi#goto()<CR>
 " python executables for different plugins
 " let g:pymode_python='python3'
 " let g:syntastic_python_python_exec='python3'
-
-" " rope
-" let g:pymode_rope=0
-" let g:pymode_rope_completion=0
-" let g:pymode_rope_complete_on_dot=0
-" let g:pymode_rope_auto_project=0
-" let g:pymode_rope_enable_autoimport=0
-" let g:pymode_rope_autoimport_generate=0
-" let g:pymode_rope_guess_project=0
-
-" " documentation
-" let g:pymode_doc=0
-" let g:pymode_doc_bind='K'
-
-" " lints
-" let g:pymode_lint=0
-
-" " virtualenv
-" let g:pymode_virtualenv=1
-
-" " breakpoints
-" let g:pymode_breakpoint=1
-" let g:pymode_breakpoint_key='<leader>b'
-
-" " syntax highlight
-" let g:pymode_syntax=1
-" let g:pymode_syntax_slow_sync=1
-" let g:pymode_syntax_all=1
-" let g:pymode_syntax_print_as_function=g:pymode_syntax_all
-" let g:pymode_syntax_highlight_async_await=g:pymode_syntax_all
-" let g:pymode_syntax_highlight_equal_operator=g:pymode_syntax_all
-" let g:pymode_syntax_highlight_stars_operator=g:pymode_syntax_all
-" let g:pymode_syntax_highlight_self=g:pymode_syntax_all
-" let g:pymode_syntax_indent_errors=g:pymode_syntax_all
-" let g:pymode_syntax_string_formatting=g:pymode_syntax_all
-" let g:pymode_syntax_space_errors=g:pymode_syntax_all
-" let g:pymode_syntax_string_format=g:pymode_syntax_all
-" let g:pymode_syntax_string_templates=g:pymode_syntax_all
-" let g:pymode_syntax_doctests=g:pymode_syntax_all
-" let g:pymode_syntax_builtin_objs=g:pymode_syntax_all
-" let g:pymode_syntax_builtin_types=g:pymode_syntax_all
-" let g:pymode_syntax_highlight_exceptions=g:pymode_syntax_all
-" let g:pymode_syntax_docstrings=g:pymode_syntax_all
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
@@ -199,35 +242,25 @@ augroup vimrc_autocmds
     autocmd FileType python,rst,c,cpp set colorcolumn=80
 augroup END
 
-" code folding
-" let g:pymode_folding=0
+" Autoclose ------------------------------
 
-" pep8 indents
-" let g:pymode_indent=1
+" Fix to let ESC work as espected with Autoclose plugin
+" (without this, when showing an autocompletion window, ESC won't leave insert
+"  mode)
+let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 
-" code running
-" let g:pymode_run=1
-" let g:pymode_run_bind='<F5>'
+" Signify ------------------------------
 
-" syntastic
-" let g:syntastic_always_populate_loc_list=1
-" let g:syntastic_auto_loc_list=1
-" let g:syntastic_enable_signs=1
-" let g:syntastic_check_on_wq=0
-" let g:syntastic_aggregate_errors=1
-" let g:syntastic_loc_list_height=5
-" let g:syntastic_error_symbol='X'
-" let g:syntastic_style_error_symbol='X'
-" let g:syntastic_warning_symbol='x'
-" let g:syntastic_style_warning_symbol='x'
-" let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
-
-" YouCompleteMe
-" set completeopt-=preview
-
-" let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-" let g:ycm_confirm_extra_conf=0
-
-" nmap <leader>g :YcmCompleter GoTo<CR>
-" nmap <leader>d :YcmCompleter GoToDefinition<CR>
-
+" this first setting decides in which order try to guess your current vcs
+" UPDATE it to reflect your preferences, it will speed up opening files
+let g:signify_vcs_list = [ 'git', 'hg' ]
+" mappings to jump to changed blocks
+nmap <leader>sn <plug>(signify-next-hunk)
+nmap <leader>sp <plug>(signify-prev-hunk)
+" nicer colors
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=119
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=167
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
+highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
+highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
+highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
