@@ -263,3 +263,7 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jp
 #
 # For test purpose
 # bindsym $mod+u exec /home/fm-pc-lt-125/.config/dunst/dtest
+
+bindsym --release Print exec scrot -m $HOME/Pictures/screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png
+bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png
+bindsym --release $mod+Shift+Print exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png
