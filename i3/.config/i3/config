@@ -12,6 +12,7 @@
 # i3-gaps
 # hide_edge_borders both
 # for_window [class="^.*"] border pixel 2
+
 # gaps inner 4
 # gaps outer 4
 
@@ -41,8 +42,8 @@ font pango:monospace 10
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec konsole
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -262,3 +263,7 @@ exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jp
 #
 # For test purpose
 # bindsym $mod+u exec /home/fm-pc-lt-125/.config/dunst/dtest
+
+bindsym --release Print exec scrot -m $HOME/Pictures/screenshots/%s_%H%M_%d.%m.%Y_$wx$h.png
+bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png
+bindsym --release $mod+Shift+Print exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H%M_%d%m%Y_$wx$h.png
