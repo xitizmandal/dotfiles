@@ -180,14 +180,15 @@ bindsym $mod+r mode "resize"
 
 set $bg_color			    #252525
 set $ac_color               #7cb342
-set $inactive_bg_color	    #2f343f
+set $active_bg_color	    #2f343f
+set $inactive_bg_color	    #252525
 set $text_color			    #f5f5f5
 set $inactive_text_color	#676e7d
 set $urgent_bg_color 		#e53935
 
 # window colors
 #		                	border			    background		    text			        indicator
-client.focused		        $ac_color		    $bg_color		    $ac_color		        #00ff00
+client.focused		        $active_bg_color    $bg_color		    $ac_color		        #00ff00
 client.unfocused    	    $inactive_bg_color  $bg_color	        $inactive_text_color	#01ff00
 # client.focused_inactive   $inactive_bg_color	$inactive_bg_color	$inactive_text_color	#00ff00
 client.urgent 		        $urgent_bg_color	$urget_bg_color		$text_color	        	#00ff00
