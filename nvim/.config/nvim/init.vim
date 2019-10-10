@@ -25,7 +25,7 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 " Override configs by directory
-Plug 'arielrossanigo/dir-configs-override.vim'
+" Plug 'arielrossanigo/dir-configs-override.vim'
 
 "-------------------- Code Commenter -------------------
 " Plug 'scrooloose/nerdcommenter'
@@ -38,6 +38,7 @@ Plug 'majutsushi/tagbar'		" Class/module browser
 
 "-------------------- Colorschemes -------------------
 Plug 'lifepillar/vim-solarized8'
+" Plug 'altercation/vim-colors-solarized'
 
 "-------------------- File traversing -------------------
 " FZF
@@ -53,11 +54,11 @@ Plug 'fisadev/FixedTaskList.vim'
 
 "-------------------- AutoComplete ------------
 " Async autocompletion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Completion from other opened files
 Plug 'Shougo/context_filetype.vim'
 " Python autocompletion
-Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-jedi', { 'do': ':UpdateRemotePlugins' }
 " Just to add the python go-to-definition and similar features, autocompletion
 " from this plugin is disabled
 Plug 'davidhalter/jedi-vim'
@@ -67,7 +68,7 @@ Plug 'Townk/vim-autoclose'
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
 " Better language packs
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 " Window chooser
 " Similar to tmux pane
@@ -75,7 +76,7 @@ Plug 'sheerun/vim-polyglot'
 
 "-------------------- Python ------------
 " Automatically sort python imports
-Plug 'fisadev/vim-isort'
+" Plug 'fisadev/vim-isort'
 
 "-------------------- Git ------------
 " Git integration
@@ -84,7 +85,7 @@ Plug 'tpope/vim-fugitive'
 " Git/mercurial/others diff icons on the side of the file lines
 Plug 'mhinz/vim-signify'
 
-
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " Yank history navigation
 " Plug 'vim-scripts/YankRing.vim'
 
@@ -94,7 +95,7 @@ Plug 'mhinz/vim-signify'
 call plug#end()
 " ============================================================================
 
-" let g:python3_host_prog='/home/lt144/Documents/anaconda3/envs/neovim/bin/python'
+let g:python3_host_prog='/home/fm-pc-lt-125/anaconda3/envs/nvim/bin/python'
 " Color Scheme
 if (has('termguicolors'))
 	set termguicolors
@@ -109,18 +110,21 @@ set tabstop=4				" 4 whitespace for tabs visual presentation
 set softtabstop=4
 set shiftwidth=4			" shift lines by 4 space
 
+set background=dark
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
 	let &t_Co = 256
     colorscheme solarized8
 else
-    colorscheme delek
+    colorscheme solarized8
 endif
-
+" set t_Co=256
+" set background=dark
+" colorscheme solarized
 " needed so deoplete can auto select the first suggestion
-set completeopt+=noinsert
+" set completeopt+=noinsert
 " comment this line to enable autocompletion preview window
 " (displays documentation related to the selected completion option)
-set completeopt-=preview
+" set completeopt-=preview
 
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
@@ -130,7 +134,7 @@ set wildmode=list:longest
 set scrolloff=4
 
 " clear search results
-nnoremap <silent> // :noh<CR>
+" nnoremap <silent> // :noh<CR>
 
 " clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
@@ -191,7 +195,7 @@ nmap ,f :BLines<CR>
 " general code finder in all files mapping
 nmap ,F :Lines<CR>
 " commands finder mapping
-nmap ,c :Commands<CR>
+" nmap ,c :Commands<CR>
 
 
 " disable mouse
@@ -211,6 +215,7 @@ set mouse=
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_ignore_case = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#auto_complete = 1
 " complete with words from any opened file
 let g:context_filetype#same_filetypes = {}
 let g:context_filetype#same_filetypes._ = '_'
