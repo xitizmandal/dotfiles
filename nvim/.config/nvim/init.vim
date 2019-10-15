@@ -145,12 +145,14 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
+imap jk <ESC>
 " ============================================================================
 
 " Airline settings
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
+" ============================================================================
 
 " TagBar settings
 map <F4> :TagbarToggle<CR>
@@ -158,6 +160,7 @@ let g:tagbar_autofocus=1
 let g:tagbar_width=42
 "autocmd BufEnter *py :call tagbar#autoopen(0)
 "autocmd BufWinLeave *.py :TagbarClose
+" ============================================================================
 
 " NERDTree settings
 " autocmd vimenter * NERDTree
@@ -172,16 +175,19 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 map ,t :NERDTreeFind<CR>
+" ============================================================================
 
 " SnipMate settings
 " let g:snippets_dir='~/.vim/vim-snippets/snippets'
 
 " show pending tasks list
 map <F2> :TaskList<CR>
+" ============================================================================
 
 " Indent line
 " let g:indentLine_setColors = 0
 
+" ============================================================================
 " Fzf ------------------------------
 
 " file finder mapping
@@ -197,6 +203,7 @@ nmap ,F :Lines<CR>
 " commands finder mapping
 " nmap ,c :Commands<CR>
 
+" ============================================================================
 
 " disable mouse
 set mouse=
@@ -212,18 +219,19 @@ set mouse=
 
 " Use deoplete.
 
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete = 1
-" complete with words from any opened file
-let g:context_filetype#same_filetypes = {}
-let g:context_filetype#same_filetypes._ = '_'
+" let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_ignore_case = 1
+" let g:deoplete#enable_smart_case = 1
+" let g:deoplete#auto_complete = 1
+" " complete with words from any opened file
+" let g:context_filetype#same_filetypes = {}
+" let g:context_filetype#same_filetypes._ = '_'
 
+"=====================================================
 " Jedi-vim ------------------------------
 
 " Disable autocompletion (using deoplete instead)
-let g:jedi#completions_enabled = 0
+" let g:jedi#completions_enabled = 0
 
 " All these mappings work only for python code:
 " Go to definition
@@ -238,6 +246,7 @@ nmap ,D :tab split<CR>:call jedi#goto()<CR>
 " let g:pymode_python='python3'
 " let g:syntastic_python_python_exec='python3'
 
+"=====================================================
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
     autocmd!
@@ -247,6 +256,7 @@ augroup vimrc_autocmds
     autocmd FileType python,rst,c,cpp set colorcolumn=80
 augroup END
 
+"=====================================================
 " Autoclose ------------------------------
 
 " Fix to let ESC work as espected with Autoclose plugin
@@ -254,6 +264,7 @@ augroup END
 "  mode)
 let g:AutoClosePumvisible = {"ENTER": "\<C-Y>", "ESC": "\<ESC>"}
 
+"=====================================================
 " Signify ------------------------------
 
 " this first setting decides in which order try to guess your current vcs
@@ -269,3 +280,4 @@ highlight DiffChange        cterm=bold ctermbg=none ctermfg=227
 highlight SignifySignAdd    cterm=bold ctermbg=237  ctermfg=119
 highlight SignifySignDelete cterm=bold ctermbg=237  ctermfg=167
 highlight SignifySignChange cterm=bold ctermbg=237  ctermfg=227
+"=====================================================
