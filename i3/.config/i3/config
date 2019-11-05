@@ -42,8 +42,8 @@ font pango:monospace 10
 floating_modifier $mod
 
 # start a terminal
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec konsole
+bindsym $mod+Return exec i3-sensible-terminal
+# bindsym $mod+Return exec konsole
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -255,7 +255,7 @@ bindsym $mod+x mode "$monitor"
 exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jpg
 #exec_always xrandr --output DP-1 --off --output HDMI-1 --mode 1920x1080 --pos 1366x0 --rotate normal --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-2 --off --dpi 100
 
-# exec_always compton
+exec_always compton
 # Custom class
 # for_window [class="Yad"] floating enable
 
