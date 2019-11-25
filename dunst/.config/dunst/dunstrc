@@ -41,7 +41,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0
+    transparency = 20
 
     # The height of the entire notification.  If the height is smaller
     # than the font height and padding combined, it will be raised
@@ -159,13 +159,14 @@
     ### Icons ###
 
     # Align icons left/right/off
-    icon_position = left
+    icon_position = off
 
     # Scale larger icons down to this size, set to 0 to disable
     max_icon_size = 32
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    # icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
+    icon_path = /usr/share/icons/Arc/status/16/status/:/usr/share/icons/Arc/status/16/devices/
 
     ### History ###
 

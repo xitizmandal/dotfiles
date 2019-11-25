@@ -3,10 +3,10 @@
 pidof dunst && killall dunst
 dunst &
 
-notify-send -u low "message-one"
-notify-send -u critical "message-two" " this is the body"
-notify-send "message-three"
-notify-send "message-four"
-notify-send "message-five"
-notify-send "message-six"
+dunstify -u low "message-one"
+dunstify -u critical "message-two" " this is the body"
+dunstify "message-three"
+dunstify "message-four"
+dunstify "message-five"
+dunstify "message-six"
 
