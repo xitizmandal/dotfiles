@@ -26,7 +26,8 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
 " Indented lines
-" Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
+
 call plug#end()
 
 " ============================================================================
@@ -119,3 +120,6 @@ nmap ,F :Lines<CR>
 " nmap ,c :Commands<CR>
 
 " ============================================================================
+
+" Indent line
+let g:indentLine_setColors = 0
