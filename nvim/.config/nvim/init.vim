@@ -28,6 +28,11 @@ Plug 'tpope/vim-surround'		" Parentheses, brackets
 " Indented lines
 Plug 'Yggdroot/indentLine'
 
+" Auto completion
+Plug 'ycm-core/YouCompleteMe'
+
+" Colorscheme
+Plug 'dikiaap/minimalist'
 call plug#end()
 
 " ============================================================================
@@ -43,8 +48,13 @@ set tabstop=4				" 4 whitespace for tabs visual presentation
 set softtabstop=4
 set shiftwidth=4			" shift lines by 4 space
 
+set t_Co=256
+syntax on
+colorschem minimalist
 set background=dark
 
+set cursorline
+" hi CursorLine term=bold cterm=bold guibg=Grey40
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
 set wildmode=list:longest
@@ -64,7 +74,9 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
+" Disable esc and map to jk
 imap jk <ESC>
+" inoremap <ESC> <nop>
 
 " disable mouse
 set mouse=
@@ -81,10 +93,24 @@ augroup END
 " ============================================================================
 
 " Airline settings
-let g:airline_powerline_fonts = 0
-let g:airline_theme = 'bubblegum'
-let g:airline#extensions#whitespace#enabled = 0
+" let g:airline_powerline_fonts = 0
+" let g:airline_theme = 'bubblegum'
+" let g:airline#extensions#whitespace#enabled = 0
 
+let g:airline_theme = 'minimalist'
+let g:airline_powerline_fonts = 0
+let g:airline#extensions#tabline#enabled = 1
+" ============================================================================
+" YouCompleteMe
+"
+let g:ycm_python_interpreter_path = ''
+let g:ycm_python_sys_path = []
+let g:ycm_extra_conf_vim_data = [
+    \ 'g:ycm_python_interpreter_path',
+    \ 'g:ycm_python_sys_path'
+    \]
+
+let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
 " ============================================================================
 
 
