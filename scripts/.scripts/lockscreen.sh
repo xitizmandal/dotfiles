@@ -1,9 +1,11 @@
 #!/bin/bash
 
-scrot /tmp/screen.png
+scrot -o /tmp/screen.png 
 convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
 
-SCREENLOCK=.scripts/screen-lock.png
+# SCREENLOCK=.scripts/screen-lock.png
+SCREENLOCK=/tmp/screen.png
+
 
 if [[ -f $HOME/$SCREENLOCK ]] 
 then
