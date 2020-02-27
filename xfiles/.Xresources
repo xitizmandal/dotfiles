@@ -1,3 +1,8 @@
+Xft.dpi: 96
+Xft.hintstyle: hintslight
+Xft.antialias: true
+Xft.rgba: rgb
+
 
 ! special
 *.foreground: #93a1a1
@@ -49,3 +54,19 @@ URxvt.cursorUnderline: false
 URxvt.scrollBar: false
 URxvt.scrollBar_right: false
 URxvt.depth: 24
+URxvt.iso14755: false
+
+!! Extensions
+URxvt.perl-ext-common: default,resize-font,tabbed
+
+! change copy and paste to ctrl+shift+c/v
+URxvt.keysym.S-C-V: eval:paste_clipboard
+URxvt.keysym.S-C-C: eval:selection_to_clipboard
+URxvt.keysym.C-M-c: builin-string:
+URxvt.keysym.C-M-v: builin-string:
+
+! Tab colors
+! URxvt.tabbed.tabbar-fg: 2
+! URxvt.tabbed.tabbar-bg: 0
+! URxvt.tabbed.tab-fg: 3
+! URxvt.tabbed.tab-bf: 0
