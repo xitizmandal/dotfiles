@@ -50,7 +50,7 @@ set shiftwidth=4			" shift lines by 4 space
 
 set t_Co=256
 syntax on
-colorschem minimalist
+colorscheme minimalist
 set background=dark
 
 set cursorline
