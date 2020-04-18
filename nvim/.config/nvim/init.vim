@@ -10,7 +10,7 @@ Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
-" Plug 'majutsushi/tagbar'		" Class/module browser
+Plug 'majutsushi/tagbar'		" Class/module browser
 
 "-------------------- File traversing -------------------
 " FZF
@@ -20,6 +20,7 @@ Plug 'junegunn/fzf.vim'
 "-------------------- Airline -------------------
 Plug 'vim-airline/vim-airline'			
 Plug 'vim-airline/vim-airline-themes'
+" Plug 'itchyny/lightline.vim'
 
 " Automatically close parenthesis, etc
 " Plug 'Townk/vim-autoclose'
@@ -29,10 +30,10 @@ Plug 'tpope/vim-surround'		" Parentheses, brackets
 Plug 'Yggdroot/indentLine'
 
 " Auto completion
-Plug 'ycm-core/YouCompleteMe'
+" Plug 'ycm-core/YouCompleteMe'
 
 " Colorscheme
-Plug 'dikiaap/minimalist'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " ============================================================================
@@ -50,8 +51,11 @@ set shiftwidth=4			" shift lines by 4 space
 
 set t_Co=256
 syntax on
-colorscheme minimalist
+colorscheme gruvbox
 set background=dark
+
+" leader
+let mapleader=" "
 
 set cursorline
 " hi CursorLine term=bold cterm=bold guibg=Grey40
@@ -76,7 +80,7 @@ noremap <right> <nop>
 
 " Disable esc and map to jk
 imap jk <ESC>
-" inoremap <ESC> <nop>
+" noremap <ESC> <nop>
 
 " disable mouse
 set mouse=
@@ -93,13 +97,13 @@ augroup END
 " ============================================================================
 
 " Airline settings
-" let g:airline_powerline_fonts = 0
-" let g:airline_theme = 'bubblegum'
-" let g:airline#extensions#whitespace#enabled = 0
-
-let g:airline_theme = 'minimalist'
 let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline_theme = 'bubblegum'
+let g:airline#extensions#whitespace#enabled = 0
+
+let g:airline_theme = 'gruvbox'
+let g:airline_powerline_fonts = 0
+" let g:airline#extensions#tabline#enabled = 1
 " ============================================================================
 " YouCompleteMe
 "
@@ -131,21 +135,25 @@ map ,t :NERDTreeFind<CR>
 " ============================================================================
 
 " Fzf ------------------------------
-
+" nmap <leader><tab> <plug>(fzf-maps-n)
+" Windowsize
+let g:fzf_preview_window = 'right:60%'
 " file finder mapping
-nmap ,e :Files<CR>
+nmap <leader>e :Files<CR>
 " tags (symbols) in current file finder mapping
-nmap ,g :BTag<CR>
+nmap <leader>g :BTag<CR>
 " tags (symbols) in all files finder mapping
-nmap ,G :Tags<CR>
+nmap <leader>G :Tags<CR>
 " general code finder in current file mapping
-nmap ,f :BLines<CR>
+nmap <leader>f :BLines<CR>
 " general code finder in all files mapping
-nmap ,F :Lines<CR>
-" commands finder mapping
-" nmap ,c :Commands<CR>
+nmap <leader>F :Lines<CR>
+" buffers finder mapping
+nmap <leader>b :Buffers<CR>
 
 " ============================================================================
 
 " Indent line
 let g:indentLine_setColors = 0
+" let g:indentLine_bgcolor_term = 202
+let g:indentLine_char = '┊'
