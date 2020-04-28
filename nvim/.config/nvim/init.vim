@@ -11,7 +11,7 @@ Plug 'tpope/vim-commentary'
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
 Plug 'majutsushi/tagbar'		" Class/module browser
-
+" Plug 'liuchengxu/vista.vim'
 "-------------------- File traversing -------------------
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,15 +30,28 @@ Plug 'tpope/vim-surround'		" Parentheses, brackets
 Plug 'Yggdroot/indentLine'
 
 " Auto completion
-" Plug 'ycm-core/YouCompleteMe'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'deoplete-plugins/deoplete-jedi'
+Plug 'davidhalter/jedi-vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Linting and formating
+Plug 'dense-analysis/ale'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
+
+" Better language packs
+" Plug 'sheerun/vim-polyglot'
+Plug 'vim-python/python-syntax'
 call plug#end()
 
 " ============================================================================
 
-let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
+let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
 
 " Configurations
 set number
@@ -49,6 +62,9 @@ set tabstop=4				" 4 whitespace for tabs visual presentation
 set softtabstop=4
 set shiftwidth=4			" shift lines by 4 space
 
+" set splitbelow              " Preview windows in the bottom
+set clipboard=unnamedplus
+
 set t_Co=256
 syntax on
 colorscheme gruvbox
@@ -58,7 +74,7 @@ set background=dark
 let mapleader=" "
 
 set cursorline
-" hi CursorLine term=bold cterm=bold guibg=Grey40
+
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
 set wildmode=list:longest
@@ -85,25 +101,31 @@ imap jk <ESC>
 " disable mouse
 set mouse=
 
+hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
+
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
     autocmd!
-    autocmd FileType python,rst,c,cpp highlight Excess ctermbg=DarkGrey guibg=Black
+    autocmd FileType python,rst,c,cpp highlight Excess ctermbg=Gray guibg=Blue
     autocmd FileType python,rst,c,cpp match Excess /\%81v.*/
     autocmd FileType python,rst,c,cpp set nowrap
     autocmd FileType python,rst,c,cpp set colorcolumn=80
 augroup END
 
 " ============================================================================
+" Key bindings
+nnoremap <Leader>r :source $MYVIMRC<CR>
 
+" ============================================================================
 " Airline settings
+
 let g:airline_powerline_fonts = 0
 " let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 
 let g:airline_theme = 'gruvbox'
 let g:airline_powerline_fonts = 0
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 " ============================================================================
 " YouCompleteMe
 "
@@ -137,19 +159,19 @@ map ,t :NERDTreeFind<CR>
 " Fzf ------------------------------
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " Windowsize
-let g:fzf_preview_window = 'right:60%'
+" let g:fzf_preview_window = 'right:60%'
 " file finder mapping
-nmap <leader>e :Files<CR>
+nmap ,e :Files<CR>
 " tags (symbols) in current file finder mapping
-nmap <leader>g :BTag<CR>
+nmap ,g :BTag<CR>
 " tags (symbols) in all files finder mapping
-nmap <leader>G :Tags<CR>
+nmap ,G :Tags<CR>
 " general code finder in current file mapping
-nmap <leader>f :BLines<CR>
+nmap ,f :BLines<CR>
 " general code finder in all files mapping
-nmap <leader>F :Lines<CR>
+nmap ,F :Lines<CR>
 " buffers finder mapping
-nmap <leader>b :Buffers<CR>
+nmap ,b :Buffers<CR>
 
 " ============================================================================
 
@@ -157,3 +179,24 @@ nmap <leader>b :Buffers<CR>
 let g:indentLine_setColors = 0
 " let g:indentLine_bgcolor_term = 202
 let g:indentLine_char = '┊'
+
+" ============================================================================
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
+" Use tabs for auto completeion
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" ============================================================================
+
+" Jedi vim
+" disable autocompletion, cause we use deoplete for completion
+let g:jedi#completions_enabled = 0
+
+" open the go-to function in split, not another buffer
+let g:jedi#use_splits_not_buffers = "right"
+let g:jedi#auto_close_doc = 1
+
+" Syntax
+let g:python_highlight_all = 1
