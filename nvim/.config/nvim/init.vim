@@ -53,8 +53,8 @@ call plug#end()
 
 " ============================================================================
 
-" let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
-let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
+let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
+" let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
 
 " Configurations
 set number
