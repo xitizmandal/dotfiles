@@ -36,7 +36,7 @@ Plug 'davidhalter/jedi-vim'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Linting and formating
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -46,12 +46,15 @@ Plug 'morhetz/gruvbox'
 
 " Better language packs
 " Plug 'sheerun/vim-polyglot'
-Plug 'vim-python/python-syntax'
+" Plug 'vim-python/python-syntax'
+Plug 'ap/vim-css-color'
 call plug#end()
+
 
 " ============================================================================
 
-let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
+" let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
+let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
 
 " Configurations
 set number
@@ -112,9 +115,6 @@ augroup vimrc_autocmds
     autocmd FileType python,rst,c,cpp set colorcolumn=80
 augroup END
 
-" ============================================================================
-" Key bindings
-nnoremap <Leader>r :source $MYVIMRC<CR>
 
 " ============================================================================
 " Airline settings
@@ -199,4 +199,4 @@ let g:jedi#use_splits_not_buffers = "right"
 let g:jedi#auto_close_doc = 1
 
 " Syntax
-let g:python_highlight_all = 1
+" let g:python_highlight_all = 1
