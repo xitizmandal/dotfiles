@@ -262,7 +262,7 @@ bindsym $mod+Shift+e mode "$logout"
 # exec xinput set-prop 16 273 1
 
 # Set wallpaper
-exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jpg
+exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.png
 #exec_always xrandr --output DP-1 --off --output HDMI-1 --mode 1920x1080 --pos 1366x0 --rotate normal --output eDP-1 --primary --mode 1366x768 --pos 0x0 --rotate normal --output HDMI-2 --off --dpi 100
 
 exec_always compton
