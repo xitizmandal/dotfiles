@@ -47,7 +47,11 @@ Plug 'morhetz/gruvbox'
 " Better language packs
 " Plug 'sheerun/vim-polyglot'
 " Plug 'vim-python/python-syntax'
-Plug 'ap/vim-css-color'
+" Plug 'ap/vim-css-color'
+
+" Markdown
+Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
 
 
@@ -58,6 +62,7 @@ let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
 
 " Configurations
 set number
+set nocompatible
 set relativenumber
 
 set expandtab				" expands tabs into space
@@ -185,8 +190,8 @@ let g:indentLine_char = '┊'
 let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 " Use tabs for auto completeion
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " ============================================================================
 
@@ -200,3 +205,7 @@ let g:jedi#auto_close_doc = 1
 
 " Syntax
 " let g:python_highlight_all = 1
+
+" Markdown
+au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+autocmd filetype markdown normal zR 
