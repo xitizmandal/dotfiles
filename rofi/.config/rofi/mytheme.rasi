@@ -1,0 +1,102 @@
+* {
+  black:      #000000;
+  red:        #eb6e67;
+  green:      #95ee8f;
+  yellow:     #f8c456;
+  blue:       #6eaafb;
+  mangenta:   #d886f3;
+  cyan:       #6cdcf7;
+  orange:     #ffc000;
+  emphasis:   #50536b;
+  text:       #dfdfdf;
+  text-alt:   #b2b2b2;
+  fg:         #abb2bf;
+  bg:         #282c35;
+
+  spacing: 0;
+  background-color: transparent;
+
+  font: "Knack Nerd Font 10";
+  text-color: @text;
+}
+
+window {
+  transparency: "real";
+  /* fullscreen: true; */
+  /* width: 30%; */
+  /* height: 30%; */
+  background-color: argb:cc252939;
+  /* background-color: argb:44282c35; */
+  border: 1px;
+}
+
+mainbox {
+  /* padding: 30% 30%; */
+}
+
+inputbar {
+  margin: 0px 0px 1px 0px;
+  children: [prompt, entry];
+  /* border: 1px; */
+  /* border-color: @orange; */
+}
+
+prompt {
+    padding: 8;
+    border: 0 1px 0 0;
+}
+
+textbox {
+    background-color: @emphasis;
+    padding: 8px 8px;
+}
+
+entry {
+    padding: 8px;
+    text-color: @text-alt;
+}
+
+listview {
+  spacing: 5px;
+  dynamic: true;
+  scrollbar: false;
+  /* border: 0 1px 1px 1px; */
+  /* border-color: @green; */
+}
+
+element {
+  padding: 5px;
+  text-color: @text-alt;
+}
+
+element selected {
+    /* background-color: #2e343f; */
+  /* border: 1px; */
+  /* border-color: @green; */
+  background-color: @emphasis;
+  text-color: @text;
+}
+
+element urgent, element selected urgent {
+  text-color: @red;
+}
+
+element active, element selected active {
+  text-color: @purple;
+}
+
+message {
+  padding: 5px;
+  border-radius: 3px;
+  background-color: @emphasis;
+  border: 1px;
+  border-color: @cyan;
+}
+
+button selected {
+  padding: 5px;
+  border-radius: 3px;
+  background-color: @emphasis;
+}
+
+/* vim:ft=css

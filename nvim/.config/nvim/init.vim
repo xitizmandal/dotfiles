@@ -71,7 +71,7 @@ set softtabstop=4
 set shiftwidth=4			" shift lines by 4 space
 
 " set splitbelow              " Preview windows in the bottom
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 set t_Co=256
 syntax on
