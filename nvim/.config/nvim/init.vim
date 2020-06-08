@@ -33,7 +33,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'davidhalter/jedi-vim'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'zchee/deoplete-clang'
 
 " Linting and formating
 " Plug 'dense-analysis/ale'
@@ -43,6 +43,7 @@ Plug 'tpope/vim-fugitive'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
+Plug 'ryanoasis/vim-devicons'
 
 " Better language packs
 " Plug 'sheerun/vim-polyglot'
@@ -124,8 +125,6 @@ augroup END
 " ============================================================================
 " Airline settings
 
-let g:airline_powerline_fonts = 0
-" let g:airline_theme = 'bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 
 let g:airline_theme = 'gruvbox'
@@ -153,8 +152,8 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " autocmd StdinReadPre * let s:std_in=1
 map <C-n> :NERDTreeToggle<CR>
-autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim is run without arguments
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim is run without arguments
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 map ,t :NERDTreeFind<CR>
@@ -206,6 +205,12 @@ let g:jedi#auto_close_doc = 1
 " Syntax
 " let g:python_highlight_all = 1
 
+" ============================================================================
+" Clang
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-6.0/lib/libclang-6.0.so"
+let g:deoplete#sources#clang#clang_header = "/usr/lib/clang/"
+
+" ============================================================================
 " Markdown
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd filetype markdown normal zR 
