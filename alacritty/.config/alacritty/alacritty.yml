@@ -95,16 +95,16 @@ colors: *gruvbox_dark
 
 font:
     normal:
-        family: mononoki
+        family: mononoki Nerd Font Mono
         style: Regular
     bold:
-        family: mononoki 
+        family: mononoki Nerd Font Mono
         style: Bold
     italic:
-        family: mononoki
+        family: mononoki Nerd Font Mono
         style: Italic
     bold_italic:
-        family: monoki
+        family: monoki Nerd Font Mono
         style: BoldItalic
     size: 11
     offset:
