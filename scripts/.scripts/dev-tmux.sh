@@ -4,7 +4,7 @@
 # tmux split-window -h 'ipython'
 # tmux attach-session -d
 
-tmux new-session \; \
+tmux new-window \; \
   send-keys 'vim' C-m \; \
   split-window -v -p 30 \; \
   send-keys 'conda activate ' $1 C-m \; \
