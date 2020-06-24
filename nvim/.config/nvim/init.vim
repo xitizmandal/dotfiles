@@ -110,7 +110,7 @@ imap jk <ESC>
 " disable mouse
 set mouse=
 
-hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
+" hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
