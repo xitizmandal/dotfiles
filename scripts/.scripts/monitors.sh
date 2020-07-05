@@ -80,7 +80,7 @@ options_menu() {
     unset OPTIONS
     all_options
 
-    case "$(echo -e "$OPTIONS" | rofi -dmenu -i -p 'Display :')" in
+    case "$(echo "$OPTIONS" | rofi -dmenu -i -p 'Display :')" in
         '1. Dual') dual_setup ;;
         '2. Laptop') laptop_setup ;;
         '3. Primary') main_setup ;;
