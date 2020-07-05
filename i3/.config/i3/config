@@ -234,7 +234,9 @@ mode "$monitor" {
     bindsym Escape mode "default"
 }
 
-bindsym $mod+x mode "$monitor"
+# bindsym $mod+x mode "$monitor"
+bindsym $mod+x exec $HOME/.scripts/monitors.sh
+
 
 set $logout Display: [y] logout [n] cancel
 mode "$logout" {
@@ -264,7 +266,7 @@ bindsym $mod+Shift+e mode "$logout"
 # exec xinput set-prop 16 273 1
 
 # Set wallpaper
-exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.jpg
+exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/wallpaper.png
 
 exec_always compton
 
