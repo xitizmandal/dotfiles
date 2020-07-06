@@ -1,2 +1,4 @@
-alias audio-hdmi='pacmd set-card-profile 0 output:hdmi-stereo+input:analog:-stereo'
-alias audio-laptop='pacmd set-card-profile 0 output:analog-stereo+input:analog:-stereo'
+alias wkpy='cd ~/Documents/workspace/python'
+alias wkv='bash ~/.scripts/dev-tmux.sh'
+
+alias python=python3
