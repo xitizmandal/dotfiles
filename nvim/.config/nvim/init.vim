@@ -36,7 +36,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-clang'
 
 " Linting and formating
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -46,9 +46,10 @@ Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 
 " Better language packs
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 " Plug 'vim-python/python-syntax'
 " Plug 'ap/vim-css-color'
+" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 
 " Markdown
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
@@ -91,7 +92,6 @@ set wildmode=list:longest
 " when scrolling, keep cursor 4 lines away from screen border
 set scrolloff=4
 
-" clear search results
 " nnoremap <silent> // :noh<CR>
 
 " clear empty spaces at the end of lines on save of python files
@@ -110,6 +110,9 @@ imap jk <ESC>
 " disable mouse
 set mouse=
 
+"Change buffers without saving them
+set hidden
+
 " hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
 
 " highlight 'long' lines (>= 80 symbols) in python files
@@ -121,7 +124,7 @@ augroup vimrc_autocmds
     autocmd FileType python,rst,c,cpp set colorcolumn=80
 augroup END
 
-
+nnoremap <leader>sv :source $MYVIMRC<CR>
 " ============================================================================
 " Airline settings
 
@@ -130,17 +133,6 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_theme = 'gruvbox'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
-" ============================================================================
-" YouCompleteMe
-"
-let g:ycm_python_interpreter_path = ''
-let g:ycm_python_sys_path = []
-let g:ycm_extra_conf_vim_data = [
-    \ 'g:ycm_python_interpreter_path',
-    \ 'g:ycm_python_sys_path'
-    \]
-
-let g:ycm_global_ycm_extra_conf = '~/global_extra_conf.py'
 " ============================================================================
 
 
@@ -163,7 +155,7 @@ map ,t :NERDTreeFind<CR>
 " Fzf ------------------------------
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " Windowsize
-" let g:fzf_preview_window = 'right:60%'
+let g:fzf_preview_window = 'right:50%'
 " file finder mapping
 nmap ,e :Files<CR>
 " tags (symbols) in current file finder mapping
@@ -177,6 +169,11 @@ nmap ,F :Lines<CR>
 " buffers finder mapping
 nmap ,b :Buffers<CR>
 
+" Commits history
+nmap ,C :Commits<CR>
+
+" Commits history for current buffer
+nmap ,c :BCommits<CR>
 " ============================================================================
 
 " Indent line
@@ -214,3 +211,24 @@ let g:deoplete#sources#clang#clang_header = "/usr/lib/clang/"
 " Markdown
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd filetype markdown normal zR 
+" ============================================================================
+" ALE
+let g:ale_linters = {
+    \ 'python': ['flake8', 'pylint', 'black'],
+    \ }
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] [%code%] %s [%severity%]'
+
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+
+" let g:ale_set_loclist = 0
+" let g:ale_open_list = 1
+" let g:ale_set_quickfix = 1
+nmap ,lo :lopen<CR>
+nmap ,lc :lclose<CR>
+nmap ,ln :lnext<CR>
+nmap ,lp :lprevious<CR>
