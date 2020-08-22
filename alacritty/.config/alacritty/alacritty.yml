@@ -116,7 +116,8 @@ scrolling:
     multiplier: 3
 
 background_opacity: 0.95
-dynamic_title: true
+windows:
+  dynamic_title: true
 cursor:
     style: Block
 
