@@ -38,8 +38,11 @@ Plug 'zchee/deoplete-clang'
 " Linting and formating
 Plug 'dense-analysis/ale'
 
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
@@ -113,15 +116,19 @@ set mouse=
 "Change buffers without saving them
 set hidden
 
+"Do not conceal any level of codes, default is 2
+set conceallevel=0
+
+hi Normal ctermfg=None ctermbg=None
 " hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
     autocmd!
-    autocmd FileType python,rst,c,cpp highlight Excess ctermbg=Gray guibg=Blue
+    autocmd FileType python,rst,c,cpp highlight Excess ctermbg=White guibg=White
     autocmd FileType python,rst,c,cpp match Excess /\%81v.*/
     autocmd FileType python,rst,c,cpp set nowrap
-    autocmd FileType python,rst,c,cpp set colorcolumn=80
+    autocmd FileType python,rst,c,cpp set colorcolumn=75,80
 augroup END
 
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -211,6 +218,7 @@ let g:deoplete#sources#clang#clang_header = "/usr/lib/clang/"
 " Markdown
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd filetype markdown normal zR 
+let g:vim_markdown_conceal=0
 " ============================================================================
 " ALE
 let g:ale_linters = {
