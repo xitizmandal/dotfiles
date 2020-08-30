@@ -125,5 +125,9 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source $HOME/.local/bin/virtualenvwrapper.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='find .'
-export FZF_CTRL_T_COMMAND='find .'
+if type rg &> /dev/null; then
+    export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+    # export FZF_DEFAULT_COMMAND="rg --files --hidden"
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+# export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
