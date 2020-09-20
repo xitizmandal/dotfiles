@@ -51,12 +51,16 @@ Plug 'ryanoasis/vim-devicons'
 " Better language packs
 Plug 'sheerun/vim-polyglot'
 " Plug 'vim-python/python-syntax'
-" Plug 'ap/vim-css-color'
+"Plug 'ap/vim-css-color'
 " Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'metakirby5/codi.vim'
 
 " Markdown
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+
+" Colors
+Plug 'norcalli/nvim-colorizer.lua'
 call plug#end()
 
 
@@ -81,7 +85,7 @@ set clipboard+=unnamedplus
 set t_Co=256
 syntax on
 colorscheme gruvbox
-set background=dark
+" set background=dark
 
 " leader
 let mapleader=" "
@@ -162,7 +166,14 @@ map ,t :NERDTreeFind<CR>
 " Fzf ------------------------------
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " Windowsize
-let g:fzf_preview_window = 'right:50%'
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
+" let g:fzf_layout = {'window':{'width': 0.8, 'height': 0.6}}
+" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
+let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git, __pycache__,node_modules,vendor}/*"'
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+command! -bang -nargs=? -complete=dir Files
+     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 " file finder mapping
 nmap ,e :Files<CR>
 " tags (symbols) in current file finder mapping
@@ -181,6 +192,20 @@ nmap ,C :Commits<CR>
 
 " Commits history for current buffer
 nmap ,c :BCommits<CR>
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 " ============================================================================
 
 " Indent line
@@ -201,6 +226,7 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 " Jedi vim
 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#completions_enabled = 0
+set completeopt-=preview
 
 " open the go-to function in split, not another buffer
 let g:jedi#use_splits_not_buffers = "right"
