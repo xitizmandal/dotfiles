@@ -61,6 +61,9 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 
 " Colors
 Plug 'norcalli/nvim-colorizer.lua'
+
+" Project management
+Plug 'mhinz/vim-startify'
 call plug#end()
 
 
@@ -82,6 +85,7 @@ set shiftwidth=4			" shift lines by 4 space
 " set splitbelow              " Preview windows in the bottom
 set clipboard+=unnamedplus
 
+set termguicolors
 set t_Co=256
 syntax on
 colorscheme gruvbox
@@ -104,14 +108,6 @@ set scrolloff=4
 " clear empty spaces at the end of lines on save of python files
 autocmd BufWritePre *.py :%s/\s\+$//e
 
-" Disable Arrow keys in Normal mode
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-
-" Disable esc and map to jk
-imap jk <ESC>
 " noremap <ESC> <nop>
 
 " disable mouse
@@ -129,13 +125,30 @@ hi Normal ctermfg=None ctermbg=None
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
     autocmd!
-    autocmd FileType python,rst,c,cpp highlight Excess ctermbg=White guibg=White
-    autocmd FileType python,rst,c,cpp match Excess /\%81v.*/
-    autocmd FileType python,rst,c,cpp set nowrap
-    autocmd FileType python,rst,c,cpp set colorcolumn=75,80
+    autocmd FileType python highlight Excess ctermbg=Gray guibg=Gray
+    autocmd FileType python match Excess /\%81v.*/
+    autocmd FileType python set nowrap
+    autocmd FileType python set colorcolumn=75,80
 augroup END
 
+" ============================================================================
+" Custom mappings
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+" Disable Arrow keys in Normal mode
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+" Disable esc and map to jk
+imap jk <ESC>
+
+" Splits movement
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 " ============================================================================
 " Airline settings
 
@@ -169,8 +182,8 @@ map ,t :NERDTreeFind<CR>
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
 " let g:fzf_layout = {'window':{'width': 0.8, 'height': 0.6}}
 " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
-let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git, __pycache__,node_modules,vendor}/*"'
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,__pycache__,node_modules,vendor}/*"'
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=gruvbox --style=header,grid --line-range :300 {}'"
 command! -bang -nargs=? -complete=dir Files
      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
@@ -238,7 +251,7 @@ let g:jedi#auto_close_doc = 1
 " ============================================================================
 " Clang
 let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-6.0/lib/libclang-6.0.so"
-let g:deoplete#sources#clang#clang_header = "/usr/lib/clang/"
+let g:deoplete#sources#clang#clang_header = "/usr/include/clang/6.0/include/"
 
 " ============================================================================
 " Markdown
@@ -266,3 +279,29 @@ nmap ,lo :lopen<CR>
 nmap ,lc :lclose<CR>
 nmap ,ln :lnext<CR>
 nmap ,lp :lprevious<CR>
+
+" ============================================================================
+" Codi
+highlight CodiVirtualText guifg='#00ff80'
+let g:codi#virtual_text_prefix = "repl❯ "
+" ============================================================================
+" Colorizer
+lua require'colorizer'.setup()
+
+" ============================================================================
+" Startify
+let g:startify_session_dir = '~/.config/nvim/session'
+let g:startify_lists = [
+          \ { 'type': 'sessions',  'header': ['   Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ ]
+
+let g:startify_bookmarks = [
+            \ { 'p': '~/Documents/workspace/python' },
+            \ { 'd': '~/dotfiles' },
+            \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'c': '~/.config/i3/config' },
+            \ ]
+let g:startify_session_autoload = 1
+let g:startify_session_delete_buffers = 1
+let g:startify_session_persistence = 1

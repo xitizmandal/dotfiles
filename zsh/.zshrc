@@ -126,7 +126,7 @@ source $HOME/.local/bin/virtualenvwrapper.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if type rg &> /dev/null; then
-    export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+    export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --no-messages --glob '!.git/*'"
     # export FZF_DEFAULT_COMMAND="rg --files --hidden"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
