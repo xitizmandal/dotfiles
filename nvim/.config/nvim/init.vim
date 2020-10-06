@@ -11,7 +11,7 @@ Plug 'tpope/vim-commentary'
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
 Plug 'majutsushi/tagbar'		" Class/module browser
-" Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vista.vim'     " Class/module browser with coc vim
 "-------------------- File traversing -------------------
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,11 +30,7 @@ Plug 'tpope/vim-surround'		" Parentheses, brackets
 Plug 'Yggdroot/indentLine'
 
 " Auto completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'davidhalter/jedi-vim'
-Plug 'zchee/deoplete-clang'
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Linting and formating
 Plug 'dense-analysis/ale'
 
@@ -50,9 +46,6 @@ Plug 'ryanoasis/vim-devicons'
 
 " Better language packs
 Plug 'sheerun/vim-polyglot'
-" Plug 'vim-python/python-syntax'
-"Plug 'ap/vim-css-color'
-" Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'metakirby5/codi.vim'
 
 " Markdown
@@ -227,33 +220,6 @@ let g:indentLine_setColors = 0
 let g:indentLine_char = '┊'
 
 " ============================================================================
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
-" Use tabs for auto completeion
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" ============================================================================
-
-" Jedi vim
-" disable autocompletion, cause we use deoplete for completion
-let g:jedi#completions_enabled = 0
-set completeopt-=preview
-
-" open the go-to function in split, not another buffer
-let g:jedi#use_splits_not_buffers = "right"
-let g:jedi#auto_close_doc = 1
-
-" Syntax
-" let g:python_highlight_all = 1
-
-" ============================================================================
-" Clang
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-6.0/lib/libclang-6.0.so"
-let g:deoplete#sources#clang#clang_header = "/usr/include/clang/6.0/include/"
-
-" ============================================================================
 " Markdown
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd filetype markdown normal zR 
@@ -305,3 +271,18 @@ let g:startify_bookmarks = [
 let g:startify_session_autoload = 1
 let g:startify_session_delete_buffers = 1
 let g:startify_session_persistence = 1
+
+
+" ============================================================================
+" vista
+nmap <F9> :Vista!!<CR>
+let g:vista_default_executive = 'coc'
+let g:vista_fzf_preview = ['right:50%']
+" let g:vista_echo_cursor_strategy = 'scroll'
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+" let g:vista_icon_indent = ["▸ ", ""]
+":vista_echo_cursor_strategy = 'both'

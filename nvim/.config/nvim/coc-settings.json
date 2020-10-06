@@ -1,0 +1,41 @@
+{
+   "suggest.completionItemKindLabels": {
+      "text": "t",
+      "method": "m",
+      "function": ""
+   },
+   "diagnostic.errorSign": " ",
+   "diagnostic.warningSign": " ",
+   "diagnostic.infoSign": "",
+   "diagnostic.hintSign": " ",
+   "list.indicator": ">",
+   "list.selectedSignText": " ",
+   "coc.preferences.formatOnSaveFiletypes": [
+      "css",
+      "markdown",
+      "javascript",
+      "graphql",
+      "html",
+      "yaml",
+      "json",
+      "python",
+      "java"
+   ],
+   "coc.preferences.hoverTarget": "float",
+   "python.venvFolders": [
+      "envs",
+      ".pyvenv",
+      "~/envs",
+      "~/.venvs",
+      "~/miniconda3/envs"
+   ],
+   "python.linting.enabled": false,
+   "python.linting.pylintEnabled": false,
+   "python.linting.pylintPath": "~/envs/neovim3/bin/pylint",
+   "python.formatting.provider": "black",
+   "python.formatting.blackPath": "~/envs/neovim3/bin/black",
+   "python.sortImports.path": "/home/fm-pc-lt-146/envs/neovim3/bin/isort",
+   "python.condaPath": "~/miniconda3/bin/conda",
+   "python.jediEnabled": true,
+   "python.jediPath": "~/envs/neovim3/lib/python3.6/site-packages"
+}
