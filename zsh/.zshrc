@@ -68,7 +68,7 @@ ZSH_THEME="candy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode)
+plugins=(git vi-mode poetry)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -133,3 +133,5 @@ fi
 # export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
+
+export PATH="$HOME/.dotnet:$PATH"
