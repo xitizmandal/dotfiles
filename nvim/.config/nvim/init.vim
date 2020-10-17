@@ -30,12 +30,13 @@ Plug 'tpope/vim-surround'		" Parentheses, brackets
 Plug 'Yggdroot/indentLine'
 
 " Auto completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 " Linting and formating
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
@@ -237,25 +238,28 @@ autocmd filetype markdown normal zR
 let g:vim_markdown_conceal=0
 " ============================================================================
 " ALE
-let g:ale_linters = {
-    \ 'python': ['flake8', 'pylint', 'black'],
-    \ }
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] [%code%] %s [%severity%]'
+" let g:ale_linters = {
+"     \ 'python': ['pyls','flake8', 'pylint'],
+"     \ }
+" let g:ale_fixers = {
+"   \ 'python': ['black'],
+"   \ }
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%linter%] [%code%] %s [%severity%]'
 
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_enter = 0
 
-" let g:ale_set_loclist = 0
-" let g:ale_open_list = 1
-" let g:ale_set_quickfix = 1
-nmap ,lo :lopen<CR>
-nmap ,lc :lclose<CR>
-nmap ,ln :lnext<CR>
-nmap ,lp :lprevious<CR>
+" " let g:ale_set_loclist = 0
+" " let g:ale_open_list = 1
+" " let g:ale_set_quickfix = 1
+" nmap ,lo :lopen<CR>
+" nmap ,lc :lclose<CR>
+" nmap ,ln :lnext<CR>
+" nmap ,lp :lprevious<CR>
 
 " ============================================================================
 " Codi
@@ -287,7 +291,7 @@ let g:startify_session_persistence = 1
 " ============================================================================
 " vista
 nmap <F9> :Vista!!<CR>
-let g:vista_default_executive = 'coc'
+" let g:vista_default_executive = 'coc'
 let g:vista_fzf_preview = ['right:50%']
 " let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista#renderer#enable_icon = 1
@@ -307,22 +311,75 @@ let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:UltiSnipsEditSplit="vertical"
 let g:ultisnips_python_style="numpy"
-" " coc snippets
-" "" Use <C-l> for trigger snippet expand.
-" imap <C-l> <Plug>(coc-snippets-expand)
-
-" " Use <C-j> for select text for visual placeholder of snippet.
-" vmap <C-j> <Plug>(coc-snippets-select)
-
-" " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-" let g:coc_snippet_next = '<c-j>'
-
-" " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-" let g:coc_snippet_prev = '<c-k>'
-
-" " Use <C-j> for both expand and jump (make expand higher priority.)
-" imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " ============================================================================
 " Editor Config
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+
+" ============================================================================
+" Lsp Config
+
+:lua << EOF
+    local nvim_lsp = require('nvim_lsp')
+ 
+    local on_attach = function(_, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        require'diagnostic'.on_attach()
+        require'completion'.on_attach()
+    end
+
+    local servers = {'pyls_ms'}
+
+    for _, lsp in ipairs(servers) do
+        nvim_lsp[lsp].setup {
+            on_attach = on_attach,
+        }
+    end
+EOF
+
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
+
+let g:completion_enable_snippet = 'UltiSnips'
+" " let g:completion_enable_auto_hover = 0
+" " let g:completion_enable_auto_signature = 1
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:diagnostic_insert_delay = 1
+
+
+" Code navigation shortcuts nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" " nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+
+" Visualize diagonistics
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_trimmed_virtual_text = '40'
+
+" Don't show diagnostic while in insert mode
+let g:diagnostic_insert_delay = 1
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+" " Show diagnostic popup on cursor hold
+autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+
+" " Goto previous/next diagnostic warning/error
+" nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
+" nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
+
+" Remove jitterness when errors are poping around
+set signcolumn=yes
+
+" Enable type inlay hints
+" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+" \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
+
