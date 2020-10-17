@@ -31,6 +31,9 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'SirVer/ultisnips' 
+Plug 'honza/vim-snippets'
 " Linting and formating
 Plug 'dense-analysis/ale'
 
@@ -44,9 +47,10 @@ Plug 'junegunn/gv.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 
-" Better language packs
+" Better language support
 Plug 'sheerun/vim-polyglot'
 Plug 'metakirby5/codi.vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " Markdown
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
@@ -57,6 +61,10 @@ Plug 'norcalli/nvim-colorizer.lua'
 
 " Project management
 Plug 'mhinz/vim-startify'
+
+" Navigation
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 
@@ -76,6 +84,7 @@ set softtabstop=4
 set shiftwidth=4			" shift lines by 4 space
 
 " set splitbelow              " Preview windows in the bottom
+set splitright
 set clipboard+=unnamedplus
 
 set termguicolors
@@ -111,6 +120,8 @@ set hidden
 
 "Do not conceal any level of codes, default is 2
 set conceallevel=0
+
+set autoread
 
 hi Normal ctermfg=None ctermbg=None
 " hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
@@ -286,3 +297,32 @@ let g:vista#renderer#icons = {
 \  }
 " let g:vista_icon_indent = ["▸ ", ""]
 ":vista_echo_cursor_strategy = 'both'
+
+" ============================================================================
+" ultisnips
+let g:UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/UltiSnips/'
+let g:UltiSnipsSnippetDirectories =["UltiSnips"]
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsEditSplit="vertical"
+let g:ultisnips_python_style="numpy"
+" " coc snippets
+" "" Use <C-l> for trigger snippet expand.
+" imap <C-l> <Plug>(coc-snippets-expand)
+
+" " Use <C-j> for select text for visual placeholder of snippet.
+" vmap <C-j> <Plug>(coc-snippets-select)
+
+" " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+" let g:coc_snippet_next = '<c-j>'
+
+" " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+" let g:coc_snippet_prev = '<c-k>'
+
+" " Use <C-j> for both expand and jump (make expand higher priority.)
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" ============================================================================
+" Editor Config
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
