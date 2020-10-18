@@ -320,6 +320,15 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " ============================================================================
 " Lsp Config
 
+""" Ned to register pyls
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+
 :lua << EOF
     local nvim_lsp = require('nvim_lsp')
  
@@ -348,7 +357,8 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:diagnostic_insert_delay = 1
 
 
-" Code navigation shortcuts nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+" Code navigation shortcuts
+" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
 " nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
 " " nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
@@ -370,7 +380,7 @@ let g:diagnostic_insert_delay = 1
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " " Show diagnostic popup on cursor hold
-autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+" autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
 
 " " Goto previous/next diagnostic warning/error
 " nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
