@@ -291,7 +291,7 @@ let g:startify_session_persistence = 1
 " ============================================================================
 " vista
 nmap <F9> :Vista!!<CR>
-" let g:vista_default_executive = 'coc'
+let g:vista_default_executive = 'nvim_lsp'
 let g:vista_fzf_preview = ['right:50%']
 " let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista#renderer#enable_icon = 1
@@ -320,15 +320,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " ============================================================================
 " Lsp Config
 
-""" Ned to register pyls
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-
 :lua << EOF
     local nvim_lsp = require('nvim_lsp')
  
@@ -338,7 +329,7 @@ endif
         require'completion'.on_attach()
     end
 
-    local servers = {'pyls_ms'}
+    local servers = {'pyls'}
 
     for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
@@ -353,25 +344,25 @@ set shortmess+=c
 let g:completion_enable_snippet = 'UltiSnips'
 " " let g:completion_enable_auto_hover = 0
 " " let g:completion_enable_auto_signature = 1
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:diagnostic_insert_delay = 1
 
 
 " Code navigation shortcuts
-" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" " nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
 
 " Visualize diagonistics
 let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_trimmed_virtual_text = '40'
+let g:diagnostic_trimmed_virtual_text = '100'
 
 " Don't show diagnostic while in insert mode
 let g:diagnostic_insert_delay = 1
