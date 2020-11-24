@@ -13,8 +13,8 @@ find_monitors() {
 
 # dual
 dual_setup() {
-    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
-        --output $SECONDARY_DISPLAY --mode 1920x1080 --pos 0x0 --rotate normal \
+    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --pos 1080x0 --rotate normal \
+        --output $SECONDARY_DISPLAY --mode 1920x1080 --pos 0x0 --rotate right \
         --output $LAPTOP_DISPLAY --off
 }
 
@@ -28,7 +28,7 @@ main_setup() {
 #secondary
 secondary_setup() {
     xrandr --output $MAIN_DISPLAY --off \
-        --output $SECONDARY_DISPLAY --primary --mode 1920x1080 --pos 0x0 --rotate normal \
+        --output $SECONDARY_DISPLAY --primary --mode 1920x1080 --pos 0x0 --rotate right \
         --output $LAPTOP_DISPLAY --off
 }
 
