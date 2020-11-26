@@ -45,7 +45,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
 
 " Colorscheme
-Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " Better language support
@@ -91,7 +91,7 @@ set clipboard+=unnamedplus
 set termguicolors
 set t_Co=256
 syntax on
-colorscheme gruvbox
+colorscheme onedark
 " set background=dark
 
 " leader
@@ -159,7 +159,7 @@ nnoremap <C-l> <C-w>l
 
 let g:airline#extensions#whitespace#enabled = 0
 
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'onedark'
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 " ============================================================================
