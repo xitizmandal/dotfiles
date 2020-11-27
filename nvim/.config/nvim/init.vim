@@ -32,7 +32,7 @@ Plug 'Yggdroot/indentLine'
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
+" Plug 'nvim-lua/diagnostic-nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 " Linting and formating
@@ -172,7 +172,7 @@ let NERDTreeWinSize=40
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " autocmd StdinReadPre * let s:std_in=1
-map <C-n> :NERDTreeToggle<CR>
+map <F3> :NERDTreeToggle<CR>
 " autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim is run without arguments
 " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -302,6 +302,11 @@ let g:vista#renderer#icons = {
 " let g:vista_icon_indent = ["▸ ", ""]
 ":vista_echo_cursor_strategy = 'both'
 
+" function! NearestMethodOrFunction() abort
+"     return get(b:, 'vista_nearest_method_or_function', '')
+" endfunction
+
+" set statusline+=%{NearestMethodOrFunction()}
 " ============================================================================
 " ultisnips
 let g:UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/UltiSnips/'
@@ -321,11 +326,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " Lsp Config
 
 :lua << EOF
-    local nvim_lsp = require('nvim_lsp')
+    local nvim_lsp = require('lspconfig')
  
     local on_attach = function(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        require'diagnostic'.on_attach()
         require'completion'.on_attach()
     end
 
@@ -342,10 +346,9 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
 let g:completion_enable_snippet = 'UltiSnips'
-" " let g:completion_enable_auto_hover = 0
-" " let g:completion_enable_auto_signature = 1
+let g:completion_enable_auto_hover = 0
+let g:completion_enable_auto_signature = 0
 " let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:diagnostic_insert_delay = 1
 
 
 " Code navigation shortcuts
@@ -359,13 +362,8 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
-
-" Visualize diagonistics
-let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_trimmed_virtual_text = '100'
-
-" Don't show diagnostic while in insert mode
-let g:diagnostic_insert_delay = 1
+nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nmap ,lc :lclose<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -384,3 +382,12 @@ set signcolumn=yes
 " autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 " \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
 
+lua << EOF
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false,
+    signs = true,
+    update_in_insert = false,
+  }
+)
+EOF
