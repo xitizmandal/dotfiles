@@ -1,12 +1,9 @@
 #!/bin/bash
 
 pidof dunst && killall dunst
-dunst &
+dunst -conf dunstrc1 &
 
-dunstify -u low "message-one"
-dunstify -u critical "message-two" " this is the body"
-dunstify "message-three"
-dunstify "message-four"
-dunstify "message-five"
-dunstify "message-six"
+notify-send -u low "message-one"
+notify-send -u critical "message-two" "Lets write in a long messgae for the notifications"
+notify-send "message-three" "another message"
 
