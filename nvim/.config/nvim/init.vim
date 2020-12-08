@@ -330,7 +330,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
  
     local on_attach = function(_, bufnr)
         vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        require'completion'.on_attach()
+        -- require'completion'.on_attach()
     end
 
     local servers = {'pyls'}
@@ -345,6 +345,7 @@ EOF
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
+autocmd BufEnter * lua require'completion'.on_attach()
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_enable_auto_hover = 0
 let g:completion_enable_auto_signature = 0
