@@ -31,12 +31,10 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/diagnostic-nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete-lsp'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
-" Linting and formating
-" Plug 'dense-analysis/ale'
 
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
@@ -236,6 +234,11 @@ let g:indentLine_char = '┊'
 au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 autocmd filetype markdown normal zR 
 let g:vim_markdown_conceal=0
+
+" ============================================================================
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 " ============================================================================
 " ALE
 " let g:ale_linters = {
@@ -327,17 +330,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 :lua << EOF
     local nvim_lsp = require('lspconfig')
- 
-    local on_attach = function(_, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-        -- require'completion'.on_attach()
-    end
-
     local servers = {'pyls'}
 
     for _, lsp in ipairs(servers) do
         nvim_lsp[lsp].setup {
-            on_attach = on_attach,
         }
     end
 EOF
@@ -345,7 +341,6 @@ EOF
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
-autocmd BufEnter * lua require'completion'.on_attach()
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_enable_auto_hover = 0
 let g:completion_enable_auto_signature = 0
