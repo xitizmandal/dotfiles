@@ -35,6 +35,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-lsp'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
+Plug 'dense-analysis/ale'
 
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
@@ -64,6 +65,9 @@ Plug 'mhinz/vim-startify'
 " Navigation
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
+
+" Python
+" Plug 'psf/black', { 'branch': 'stable' }
 call plug#end()
 
 
@@ -241,28 +245,30 @@ let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 " ============================================================================
 " ALE
-" let g:ale_linters = {
-"     \ 'python': ['pyls','flake8', 'pylint'],
-"     \ }
-" let g:ale_fixers = {
-"   \ 'python': ['black'],
-"   \ }
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] [%code%] %s [%severity%]'
+let g:ale_linters = {
+    \ 'python': ['pyls','flake8'],
+    \ }
+let g:ale_fixers = {
+  \ 'python': ['black', 'isort'],
+  \ }
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] [%code%] %s [%severity%]'
+let g:ale_sign_error = ''
+let g:ale_sign_warning = ''
+let g:ale_sign_info = ''
 
-" let g:ale_lint_on_save = 1
+let g:ale_lint_on_save = 1
+let g:ale_fix_on_save = 1
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_insert_leave = 0
 " let g:ale_lint_on_enter = 0
 
-" " let g:ale_set_loclist = 0
-" " let g:ale_open_list = 1
-" " let g:ale_set_quickfix = 1
-" nmap ,lo :lopen<CR>
-" nmap ,lc :lclose<CR>
-" nmap ,ln :lnext<CR>
-" nmap ,lp :lprevious<CR>
+" let g:ale_set_loclist = 0
+" let g:ale_open_list = 1
+let g:ale_set_quickfix = 1
+nmap ,co :copen<CR>
+nmap ,cc :cclose<CR>
 
 " ============================================================================
 " Codi
@@ -358,8 +364,8 @@ nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
-nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-nmap ,lc :lclose<CR>
+" nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+" nmap ,lc :lclose<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -387,3 +393,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   }
 )
 EOF
+
+
+" ============================================================================
+" Black
+nnoremap <F6> :Black<CR>
