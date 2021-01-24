@@ -3,7 +3,8 @@ alias wkv='bash ~/.scripts/dev-tmux.sh'
 alias wkp='cd ~/Documents/workspace/projects'
 
 alias python=python3
-
+alias v=nvim
+alias vim=nvim
 
 alias delpyc='
 find . -name "*.py[co]" -delete

@@ -35,7 +35,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-lsp'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
-Plug 'dense-analysis/ale'
 
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
@@ -48,9 +47,8 @@ Plug 'joshdick/onedark.vim'
 Plug 'ryanoasis/vim-devicons'
 
 " Better language support
-Plug 'sheerun/vim-polyglot'
-Plug 'metakirby5/codi.vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Markdown
 Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
@@ -67,13 +65,14 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Python
-" Plug 'psf/black', { 'branch': 'stable' }
+Plug 'psf/black', { 'branch': 'stable' }
+Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 
 " ============================================================================
 
-let g:python3_host_prog='/home/fm-pc-lt-146/envs/neovim3/bin/python'
+let g:python3_host_prog='/home/fm-pc-lt-110/.venvs/nvim/bin/python'
 " let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
 
 " Configurations
@@ -85,8 +84,8 @@ set expandtab				" expands tabs into space
 set tabstop=4				" 4 whitespace for tabs visual presentation
 set softtabstop=4
 set shiftwidth=4			" shift lines by 4 space
-
 " set splitbelow              " Preview windows in the bottom
+
 set splitright
 set clipboard+=unnamedplus
 
@@ -187,7 +186,6 @@ map ,t :NERDTreeFind<CR>
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " Windowsize
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
-" let g:fzf_layout = {'window':{'width': 0.8, 'height': 0.6}}
 " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,__pycache__,node_modules,vendor}/*"'
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=gruvbox --style=header,grid --line-range :300 {}'"
@@ -227,7 +225,6 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 " ============================================================================
-
 " Indent line
 let g:indentLine_setColors = 0
 " let g:indentLine_bgcolor_term = 202
@@ -244,36 +241,7 @@ let g:vim_markdown_conceal=0
 let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
 " ============================================================================
-" ALE
-let g:ale_linters = {
-    \ 'python': ['pyls','flake8'],
-    \ }
-let g:ale_fixers = {
-  \ 'python': ['black', 'isort'],
-  \ }
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] [%code%] %s [%severity%]'
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_sign_info = ''
 
-let g:ale_lint_on_save = 1
-let g:ale_fix_on_save = 1
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 0
-" let g:ale_lint_on_enter = 0
-
-" let g:ale_set_loclist = 0
-" let g:ale_open_list = 1
-let g:ale_set_quickfix = 1
-nmap ,co :copen<CR>
-nmap ,cc :cclose<CR>
-
-" ============================================================================
-" Codi
-highlight CodiVirtualText guifg='#00ff80'
-let g:codi#virtual_text_prefix = "repl❯ "
 " ============================================================================
 " Colorizer
 lua require'colorizer'.setup()
@@ -315,6 +283,7 @@ let g:vista#renderer#icons = {
 "     return get(b:, 'vista_nearest_method_or_function', '')
 " endfunction
 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " set statusline+=%{NearestMethodOrFunction()}
 " ============================================================================
 " ultisnips
@@ -354,18 +323,20 @@ let g:completion_enable_auto_signature = 0
 
 
 " Code navigation shortcuts
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gh     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gH <cmd>lua vim.lsp.buf.code_action<CR>
 nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.declaration()<CR>
 
-" nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-" nmap ,lc :lclose<CR>
+nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nmap ,lc :lclose<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -398,3 +369,17 @@ EOF
 " ============================================================================
 " Black
 nnoremap <F6> :Black<CR>
+
+" ============================================================================
+" Editorconfig
+let g:EditorConfig_core_mode = 'external_command'
+
+" ============================================================================
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true
+  },
+}
+EOF
+
