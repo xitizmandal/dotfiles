@@ -11,7 +11,7 @@ Plug 'tpope/vim-commentary'
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
 Plug 'majutsushi/tagbar'		" Class/module browser
-Plug 'liuchengxu/vista.vim'     " Class/module browser with coc vim
+Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -20,10 +20,8 @@ Plug 'junegunn/fzf.vim'
 "-------------------- Airline -------------------
 Plug 'vim-airline/vim-airline'			
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'itchyny/lightline.vim'
 
 " Automatically close parenthesis, etc
-" Plug 'Townk/vim-autoclose'
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
 " Indented lines
@@ -39,7 +37,6 @@ Plug 'honza/vim-snippets'
 " Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
 
 " Colorscheme
@@ -67,6 +64,9 @@ Plug 'christoomey/vim-tmux-navigator'
 " Python
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
 call plug#end()
 
 
@@ -384,7 +384,7 @@ nnoremap <F6> :Black<CR>
 
 " ============================================================================
 " Editorconfig
-let g:EditorConfig_core_mode = 'external_command'
+" let g:EditorConfig_core_mode = 'external_command'
 
 " ============================================================================
 lua <<EOF
@@ -395,3 +395,10 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
+" ============================================================================
+" vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+" ============================================================================
+" vim maximizer
+let g:maximizer_set_mapping_with_bang = 1
+let g:maximizer_default_mapping_key = '<leader>m'
