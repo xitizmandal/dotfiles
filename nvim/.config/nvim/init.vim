@@ -173,7 +173,7 @@ let NERDTreeWinSize=40
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " autocmd StdinReadPre * let s:std_in=1
-map <F3> :NERDTreeToggle<CR>
+noremap <F3> :NERDTreeToggle<CR>
 " autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim is run without arguments
 " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -401,4 +401,5 @@ let g:vimspector_enable_mappings = 'HUMAN'
 " ============================================================================
 " vim maximizer
 let g:maximizer_set_mapping_with_bang = 1
-let g:maximizer_default_mapping_key = '<leader>m'
+" let g:maximizer_default_mapping_key = '<leader>m'
+noremap <leader>m :MaximizerToggle<CR>
