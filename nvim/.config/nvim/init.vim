@@ -307,10 +307,23 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
     local nvim_lsp = require('lspconfig')
     local servers = {'pyls'}
 
-    for _, lsp in ipairs(servers) do
-        nvim_lsp[lsp].setup {
+    nvim_lsp.pyls.setup {
+        enable = true,
+        settings = {
+            pyls = {
+                configurationSources = {"flake8"},
+                plugins = {
+                    pycodestyle = {enabled = false},
+                    flake8 = {enabled = true},
+                    pyls_mypy = {
+                        enabled = true,
+                        live_mode = false
+                    },
+                    jedi_completion = {fuzzy = true}
+                }
+            }
         }
-    end
+    }
 EOF
 
 set completeopt=menuone,noinsert,noselect
@@ -342,8 +355,7 @@ nmap ,lc :lclose<CR>
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " " Show diagnostic popup on cursor hold
-" autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
-
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 " " Goto previous/next diagnostic warning/error
 " nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
 " nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
