@@ -65,7 +65,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'psf/black', { 'branch': 'stable' }
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 call plug#end()
 
@@ -397,7 +397,7 @@ EOF
 
 " ============================================================================
 " vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
+" let g:vimspector_enable_mappings = 'HUMAN'
 " ============================================================================
 " vim maximizer
 let g:maximizer_set_mapping_with_bang = 1
