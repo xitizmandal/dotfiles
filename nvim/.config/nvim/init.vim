@@ -108,11 +108,6 @@ set scrolloff=4
 
 " nnoremap <silent> // :noh<CR>
 
-" clear empty spaces at the end of lines on save of python files
-autocmd BufWritePre *.py :%s/\s\+$//e
-
-" noremap <ESC> <nop>
-
 " disable mouse
 set mouse=
 
@@ -192,7 +187,7 @@ require('telescope').setup{
       '--column',
       '--smart-case',
       '--glob',
-      '!{.git,__pycache__,node_modules,vendor}/*'
+      '!**/{.git,__pycache__,node_modules,vendor}/*'
     },
     prompt_position = "top",
     prompt_prefix = ">",
@@ -227,7 +222,7 @@ require('telescope').setup{
 }
 
 EOF
-nnoremap ,ff <cmd>lua require'telescope.builtin'.find_files({find_command={'rg' , '--files', '--hidden', '--smart-case', '--glob', '!{.git,__pycache__,node_modules,vendor}/*'}}) <cr>
+nnoremap ,ff <cmd>lua require'telescope.builtin'.find_files{find_command={'rg' , '--files', '--hidden', '--smart-case', '--glob', '!**/{.git,__pycache__,node_modules,vendor}/*'}}<cr>
 nnoremap ,fg <cmd>Telescope live_grep<cr>
 nnoremap ,fb <cmd>Telescope buffers<cr>
 " nnoremap ,fh <cmd>Telescope help_tags<cr>
@@ -283,7 +278,6 @@ let g:startify_session_persistence = 1
 " vista
 nmap <F9> :Vista!!<CR>
 let g:vista_default_executive = 'nvim_lsp'
-let g:vista_fzf_preview = ['right:50%']
 " let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
