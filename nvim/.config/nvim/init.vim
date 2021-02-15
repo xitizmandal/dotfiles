@@ -13,9 +13,10 @@ Plug 'scrooloose/nerdtree'		" Project and file navigation
 Plug 'majutsushi/tagbar'		" Class/module browser
 Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+" FZF
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 "-------------------- Airline -------------------
 Plug 'vim-airline/vim-airline'			
 Plug 'vim-airline/vim-airline-themes'
@@ -40,6 +41,7 @@ Plug 'junegunn/gv.vim'
 
 " Colorscheme
 Plug 'joshdick/onedark.vim'
+Plug 'ryanoasis/vim-devicons'
 
 " Better language support
 Plug 'editorconfig/editorconfig-vim'
@@ -65,14 +67,13 @@ Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
-Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
 
 " ============================================================================
 
-let g:python3_host_prog=expand('$HOME/.venvs/nvim/bin/python')
+let g:python3_host_prog='/home/fm-pc-lt-110/.venvs/nvim/bin/python'
+" let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
 
 " Configurations
 set number
@@ -101,12 +102,17 @@ set cursorline
 
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
-" set wildmode=list:longest
+set wildmode=list:longest
 
 " when scrolling, keep cursor 4 lines away from screen border
 set scrolloff=4
 
 " nnoremap <silent> // :noh<CR>
+
+" clear empty spaces at the end of lines on save of python files
+autocmd BufWritePre *.py :%s/\s\+$//e
+
+" noremap <ESC> <nop>
 
 " disable mouse
 set mouse=
@@ -149,6 +155,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+nnoremap <silent>,bn :bn<CR>
+nnoremap <silent>,bp :bp<CR>
 " ============================================================================
 " Airline settings
 
@@ -166,73 +175,51 @@ let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']			" Ignore files in NERD
 let NERDTreeWinSize=40
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-let g:NERDTreeShowHidden=1
 " autocmd StdinReadPre * let s:std_in=1
-noremap <F3> :NERDTreeToggleVCS<CR>
+noremap <F3> :NERDTreeToggle<CR>
+" autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim is run without arguments
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 map ,t :NERDTreeFind<CR>
 
 " ============================================================================
-" Telescope 
-lua << EOF
-require('telescope').setup{
-  defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--hidden',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '--glob',
-      '!**/{.git,__pycache__,node_modules,vendor}/*'
-    },
-    prompt_position = "top",
-    prompt_prefix = ">",
-    initial_mode = "insert",
-    selection_strategy = "reset",
-    sorting_strategy = "ascending",
-    layout_strategy = "horizontal",
-    layout_defaults = {
-      -- TODO add builtin options.
-    },
-    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-    file_ignore_patterns = {},
-    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    shorten_path = true,
-    winblend = 0,
-    width = 0.75,
-    preview_cutoff = 120,
-    results_height = 1,
-    results_width = 0.8,
-    border = {},
-    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰'},
-    color_devicons = true,
-    use_less = true,
-    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-    file_previewer = require'telescope.previewers'.vim_buffer_cat.new, -- For buffer previewer use `require'telescope.previewers'.vim_buffer_cat.new`
-    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new, -- For buffer previewer use `require'telescope.previewers'.vim_buffer_vimgrep.new`
-    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new, -- For buffer previewer use `require'telescope.previewers'.vim_buffer_qflist.new`
 
-    -- Developer configurations: Not meant for general override
-    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-  }
-}
+" Fzf ------------------------------
+" nmap <leader><tab> <plug>(fzf-maps-n)
+" Windowsize
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
+" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
+let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!**/{.git,__pycache__,node_modules,vendor}/*"'
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=\"OneHalfDark\" --style=header,grid --line-range :300 {}'"
+command! -bang -nargs=? -complete=dir Files
+     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-EOF
-nnoremap ,ff <cmd>lua require'telescope.builtin'.find_files{find_command={'rg' , '--files', '--hidden', '--smart-case', '--glob', '!**/{.git,__pycache__,node_modules,vendor}/*'}}<cr>
-nnoremap ,fg <cmd>Telescope live_grep<cr>
-nnoremap ,fb <cmd>Telescope buffers<cr>
-" nnoremap ,fh <cmd>Telescope help_tags<cr>
-nnoremap ,fc <cmd>Telescope git_bcommits<cr>
-nnoremap ,fC <cmd>Telescope git_commits<cr>
-nnoremap ,fd <cmd>Telescope git_status<cr>
-
-" LSP pickers
-nnoremap ,fl <cmd>Telescope lsp_document_symbols<cr>
-nnoremap ,ft <cmd>Telescope treesitter<cr>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/{.git,__pycache__,node_modules,vendor}/*" '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+" File mappings
+nmap ,ff :Files<CR>  
+nmap ,fb :Buffers<CR>
+nmap ,fg :Rg<CR>
+nmap ,fC :Commits<CR>
+nmap ,fc :BCommits<CR>
+nmap ,fd :GFiles?<CR>
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 " ============================================================================
 " Indent line
 let g:indentLine_setColors = 0
@@ -278,6 +265,7 @@ let g:startify_session_persistence = 1
 " vista
 nmap <F9> :Vista!!<CR>
 let g:vista_default_executive = 'nvim_lsp'
+let g:vista_fzf_preview = ['right:50%']
 " let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
@@ -409,6 +397,5 @@ EOF
 " ============================================================================
 " vim maximizer
 let g:maximizer_set_mapping_with_bang = 1
-let g:maximizer_set_default_mapping=0
 " let g:maximizer_default_mapping_key = '<leader>m'
 noremap <leader>m :MaximizerToggle<CR>
