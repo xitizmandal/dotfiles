@@ -72,7 +72,7 @@ call plug#end()
 
 " ============================================================================
 
-let g:python3_host_prog='/home/fm-pc-lt-110/.venvs/nvim/bin/python'
+let g:python3_host_prog=expand('$HOME/.venvs/nvim/bin/python')
 " let g:python3_host_prog='/home/xitiz/anaconda3/envs/nvim/bin/python'
 
 " Configurations

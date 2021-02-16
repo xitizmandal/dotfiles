@@ -139,7 +139,5 @@ if type rg &> /dev/null; then
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 # export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
 
-export PATH="$HOME/.dotnet:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"
