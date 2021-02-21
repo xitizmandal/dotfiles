@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAME="$(rofi -dmenu -i -p 'Picture Name :')"
-PATH_TO_OBSIDIAN=$HOME/Documents/megasync/Notes/attachments/
+PATH_TO_OBSIDIAN=$HOME/Documents/Megasync/knowledge-base/attachments/
 
 complete_path="${PATH_TO_OBSIDIAN}${NAME}.png"
 
