@@ -110,8 +110,7 @@ set scrolloff=4
 " nnoremap <silent> // :noh<CR>
 
 " clear empty spaces at the end of lines on save of python files
-autocmd BufWritePre *.py :%s/\s\+$//e
-
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " noremap <ESC> <nop>
 
 " disable mouse
