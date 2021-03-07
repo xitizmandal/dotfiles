@@ -319,6 +319,8 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
             }
         }
     }
+
+    nvim_lsp.ccls.setup{}
 EOF
 
 set completeopt=menuone,noinsert,noselect
@@ -396,5 +398,6 @@ EOF
 " ============================================================================
 " vim maximizer
 let g:maximizer_set_mapping_with_bang = 1
+let g:maximizer_set_default_mapping=0
 " let g:maximizer_default_mapping_key = '<leader>m'
 noremap <leader>m :MaximizerToggle<CR>
