@@ -1,32 +1,26 @@
-* {
-  black:      #000000;
-  red:        #eb6e67;
-  green:      #95ee8f;
-  yellow:     #f8c456;
-  blue:       #6eaafb;
-  mangenta:   #d886f3;
-  cyan:       #6cdcf7;
-  orange:     #ffc000;
-  emphasis:   #50536b;
-  text:       #dfdfdf;
-  text-alt:   #b2b2b2;
-  fg:         #abb2bf;
-  bg:         #282c35;
-
-  spacing: 0;
-  background-color: transparent;
-
-  font: "Knack Nerd Font 10";
-  text-color: @text;
+configuration {
+    modi : [window,run,drun,ssh];
+	font:							"mononoki Nerd Font 10";
+    show-icons:                     true;
+	icon-theme: 					"Yaru";
+    display-drun: 					"";
+    drun-display-format:            "{name}";
+    disable-history:                false;
+    fullscreen:                     false;
+	hide-scrollbar: 				true;
+	sidebar-mode: 					false;
 }
 
+
+@import "colors.rasi"
+* {
+    background-color: transparent;
+    text-color: @text;
+    spacing: 0;
+}
 window {
   transparency: "real";
-  /* fullscreen: true; */
-  /* width: 30%; */
-  /* height: 30%; */
-  background-color: argb:cc252939;
-  /* background-color: argb:44282c35; */
+  background-color: @transparent-bg;
   border: 1px;
 }
 
