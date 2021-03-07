@@ -141,4 +141,11 @@ fi
 # export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
 export PATH="$HOME/.poetry/bin:$PATH"
-export MANPAGER="nvim -c 'set ft=man' -"
+# export MANPAGER="nvim -c 'set ft=man' -"
+function _switch_cuda {
+   v=$1
+   export PATH=$PATH:/usr/local/cuda-$v/bin
+   export CUDADIR=/usr/local/cuda-$v
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-$v/lib64
+   nvcc --version
+}
