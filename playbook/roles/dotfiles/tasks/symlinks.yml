@@ -20,4 +20,4 @@
     - { src: "zsh/.alias", dst: ".alias"}
     - { src: "zsh/.zshrc", dst: ".zshrc"}
     - { src: "zsh/.alias", dst: ".alias"}
-    - { src: "zsh/themes/candy.zsh-theme", dst: ".oh-my-zsh/custom/themes/canday.zsh-theme"}
+    - { src: "zsh/themes/candy.zsh-theme", dst: ".oh-my-zsh/custom/themes/candy.zsh-theme"}
