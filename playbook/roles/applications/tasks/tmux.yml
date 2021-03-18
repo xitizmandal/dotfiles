@@ -1,0 +1,9 @@
+- name: Check if tpm existis
+  stat:
+    path: ~/.tmux/plugins/tpm
+  register: has_tpm
+
+- name: Get tpm
+  shell: |
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  when: not has_tpm.stat.exists

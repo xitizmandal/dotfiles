@@ -32,9 +32,7 @@
   become: yes
   become_method: sudo
 
-
-- include_tasks: zsh.yml
-
 - include_tasks: nvim.yml
-
 - include_tasks: poetry.yml
+- include_tasks: tmux.yml
+- include_tasks: zsh.yml

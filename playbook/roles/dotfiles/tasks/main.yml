@@ -41,7 +41,6 @@
     state: absent
   when: bitmap_result.stat.exists == True
   become: yes
-  become_user: root
   become_method: sudo
 
 
@@ -49,5 +48,4 @@
   shell: |
     fc-cache -fv
   become: yes
-  become_user: root
   become_method: sudo

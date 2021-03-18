@@ -1,3 +1,11 @@
+- name: Sets zsh as default shell for my user | command
+  become: yes
+  become_user: root
+  command: chsh -s /bin/zsh {{ lookup('env', 'USER') }}
+  register: zsh_for_user
+  failed_when: zsh_for_user.rc >= 1
+  changed_when: zsh_for_user.rc == 0
+
 - name: Check if oh-my-zsh exists
   stat:
     path: ~/.oh-my-zsh
@@ -9,21 +17,21 @@
 
 - name: Check if zsh-syntax-highlighting exists
   stat:
-    path: ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    path: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
   register: has_zsh_syntax_highlighting
 
 - name: Install zsh-syntax-highlighting
+  when: not has_zsh_syntax_highlighting.stat.exists
   shell: |
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-  when: not has_zsh_syntax_highlighting
 
 - name: Check if zsh-autosuggestions exists
   stat:
-    path: ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    path: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
   register: has_zsh_autosuggestions
 
 - name: Install zsh-autosuggestions
+  when: not has_zsh_autosuggestions.stat.exists
   shell: |
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  when: not has_zsh_autosuggestions
 
