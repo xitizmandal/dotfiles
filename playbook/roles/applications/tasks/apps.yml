@@ -1,0 +1,35 @@
+- name: Check if zoom is installed
+  command: dpkg-query -W zoom
+  register: zoom_deb
+  failed_when: zoom_deb.rc > 1
+  changed_when: zoom_deb.rc == 1
+
+- name: Download zoom_deb
+  get_url:
+    url="https://zoom.us/client/latest/zoom_amd64.deb"
+    dest="/{{ lookup('env','HOME') }}/Downloads/zoom.deb"
+  when: zoom_deb.rc == 1
+
+- name: Install zoom_deb
+  apt: deb="/{{ lookup('env', 'HOME') }}/Downloads/zoom.deb"
+  become: yes
+  become_method: sudo
+  when: zoom_deb.rc == 1
+
+- name: Check if vs-code is installed
+  command: dpkg-query -W code
+  register: vscode_deb
+  failed_when: vscode_deb.rc > 1
+  changed_when: vscode_deb.rc == 1
+
+- name: Download vscode_deb
+  get_url:
+    url="https://code.visualstudio.com/docs/?dv=linux64_deb"
+    dest="/{{ lookup('env','HOME') }}/Downloads/code.deb"
+  when: vscode_deb.rc == 1
+
+- name: Install vscode_deb
+  apt: deb="/{{ lookup('env', 'HOME') }}/Downloads/code.deb"
+  become: yes
+  become_method: sudo
+  when: vscode_deb.rc == 1
