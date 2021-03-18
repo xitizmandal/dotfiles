@@ -36,3 +36,4 @@
 - include_tasks: poetry.yml
 - include_tasks: tmux.yml
 - include_tasks: zsh.yml
+- include_tasks: apps.yml
