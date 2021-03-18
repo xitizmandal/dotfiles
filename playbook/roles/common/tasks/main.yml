@@ -1,0 +1,31 @@
+---
+
+- name: Install general dependencies via package manager
+  package:
+    name: "{{ item }}"
+    state: "latest"
+  with_items:
+    - arandr
+    - cmake
+    - compton
+    - cowsay
+    - dmenu
+    - dunst
+    - feh
+    - git
+    - lxappearance
+    - neofetch
+    - nitrogen
+    - ranger
+    - ripgrep
+    - rofi
+    - scrot
+    - thunar
+    - tldr
+    - tmux
+    - tree
+    - xclip
+    - zsh
+
+- include_tasks: ubuntu.yml
+  when: ansible_distribution == "Ubuntu"

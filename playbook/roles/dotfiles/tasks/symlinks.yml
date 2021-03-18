@@ -1,0 +1,19 @@
+---
+
+- name: Create symlinks for public files
+  file:
+    src: "{{srcBase }}/.dotfiles/{{ item.src }}"
+    dest: "{{ srcBase }}/{{ item.dst }}"
+    state: link
+    force: yes
+  with_items:
+    - { src: "alacritty/.config/alacritty", dst: ".config/alacritty"}
+    - { src: "bat/.config/bat", dst: ".config/bat"}
+    - { src: "compton/.config/compton", dst: ".config/compton"}
+    - { src: "i3/.config/i3", dst: ".config/i3"}
+    - { src: "nvim/.config/nvim", dst: ".config/nvim"}
+    - { src: "polybar/.config/polybar", dst: ".config/polybar"}
+    - { src: "rofi/.config/rofi", dst: ".config/rofi"}
+    - { src: "scripts/.scripts", dst: ".scripts"}
+    - { src: "zsh/.alias", dst: ".alias"}
+    - { src: "zsh/.zshrc", dst: ".zshrc"}
