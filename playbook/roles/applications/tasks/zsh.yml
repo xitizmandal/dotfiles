@@ -35,3 +35,12 @@
   shell: |
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
+- name: Check if zsh-autosuggestions exists
+  stat:
+    path: ~/.oh-my-zsh/custom/plugins/poetry
+  register: has_poety_zsh
+
+- name: auto-completion poetry
+  shell: |
+    poetry completions zsh > ${ZSH_CUSTOM:~/.oh-my-zsh/custom}/plugins/poetry/_poetry
+  when: not has_poety_zsh
