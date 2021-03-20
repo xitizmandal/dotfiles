@@ -150,3 +150,5 @@ function _switch_cuda {
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-$v/lib64
    nvcc --version
 }
+
+export NPM_CONFIG_PREFIX=~/.npm-global
