@@ -10,6 +10,7 @@ Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
 Plug 'scrooloose/nerdtree'		" Project and file navigation
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'majutsushi/tagbar'		" Class/module browser
 Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
@@ -18,9 +19,10 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 "-------------------- Airline -------------------
-Plug 'vim-airline/vim-airline'			
-Plug 'vim-airline/vim-airline-themes'
-
+" Plug 'vim-airline/vim-airline'			
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'akinsho/nvim-bufferline.lua'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " Automatically close parenthesis, etc
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
@@ -42,6 +44,7 @@ Plug 'junegunn/gv.vim'
 " Colorscheme
 Plug 'joshdick/onedark.vim'
 Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
 " Better language support
 Plug 'editorconfig/editorconfig-vim'
@@ -158,29 +161,13 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent>,bn :bn<CR>
 nnoremap <silent>,bp :bp<CR>
 " ============================================================================
-" Airline settings
+" " Airline settings
 
-let g:airline#extensions#whitespace#enabled = 0
+" let g:airline#extensions#whitespace#enabled = 0
 
-let g:airline_theme = 'onedark'
-let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
-" ============================================================================
-
-
-" NERDTree settings
-" autocmd vimenter * NERDTree
-let NERDTreeIgnore=['\.pyc$', '\.pyo$', '__pycache__$']			" Ignore files in NERDTree
-let NERDTreeWinSize=40
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
-" autocmd StdinReadPre * let s:std_in=1
-noremap <F3> :NERDTreeToggle<CR>
-" autocmd VimEnter * if !argc() | NERDTree | endif 			" Load NERDTree only if vim is run without arguments
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-map ,t :NERDTreeFind<CR>
+" let g:airline_theme = 'onedark'
+" let g:airline_powerline_fonts = 0
+" let g:airline#extensions#tabline#enabled = 1
 
 " ============================================================================
 
@@ -401,3 +388,15 @@ let g:maximizer_set_mapping_with_bang = 1
 let g:maximizer_set_default_mapping=0
 " let g:maximizer_default_mapping_key = '<leader>m'
 noremap <leader>m :MaximizerToggle<CR>
+
+source $HOME/.config/nvim/plugins/nvimtree.vim
+source $HOME/.config/nvim/plugins/buffline.vim
+
+function! ConfigStatusLine()
+  lua require('plugins.status_line')
+endfunction
+
+augroup status_line_init
+  autocmd!
+  autocmd VimEnter * call ConfigStatusLine()
+augroup END
