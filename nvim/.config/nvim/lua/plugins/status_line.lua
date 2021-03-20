@@ -1,3 +1,4 @@
+-- https://github.com/disrupted/dotfiles/blob/master/.config/nvim/lua/conf/statusline.lua
 local gl = require('galaxyline')
 local utils = require('utils')
 local condition = require('galaxyline.condition')
