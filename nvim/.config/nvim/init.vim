@@ -9,9 +9,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
-Plug 'scrooloose/nerdtree'		" Project and file navigation
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'majutsushi/tagbar'		" Class/module browser
+Plug 'kyazdani42/nvim-tree.lua' " Project and file navigation
 Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
 " FZF
