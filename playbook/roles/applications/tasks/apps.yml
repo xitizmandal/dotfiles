@@ -33,3 +33,8 @@
   become: yes
   become_method: sudo
   when: vscode_deb.rc == 1
+
+- name: Download postman
+  get_url:
+    url="https://dl.pstmn.io/download/latest/linux64"
+    dest="/{{ lookup('env', 'HOME') }}/Downloads/Postman/

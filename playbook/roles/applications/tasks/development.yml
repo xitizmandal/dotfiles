@@ -1,0 +1,86 @@
+---
+# - hosts: 127.0.0.1
+#   connection: local
+#   become: true
+#   tasks:
+- name: Install docker dependencies
+  become: yes
+  become_method: sudo
+  apt:
+    name: "{{ item }}"
+    state: "latest"
+    update_cache: yes
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg-agent
+    - software-properties-common
+
+- name: add docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+
+- name: get the current ubuntu version
+  shell: lsb_release -cs
+  register: ubuntu_name
+
+- name: add docker apt repository
+  apt_repository:
+    repo: "deb https://download.docker.com/linux/ubuntu {{ ubuntu_name.stdout}} stable" 
+    state: present
+
+- name: install docker, cli and containerd.io
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- name: Non-root docker privelage
+  become: yes
+  become_method: sudo
+  command: usermod -aG docker {{ lookup('env','USER') }}
+
+# - name: Install docker compose
+#   shell: curl -L "https://github.com/docker/compose/releases/download/1.28.6/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+#   become: yes
+#   become_method: sudo
+
+# - name: Changing permission of docker composee
+#   file:
+#     dest: /usr/local/bin/docker-compose
+#     mode: a+x
+
+- name: Check if postman exists
+  stat:
+    path: /usr/local/bin/postman
+  register: has_postman
+
+- name: Download postman
+  get_url:
+    url="https://dl.pstmn.io/download/latest/linux64"
+    dest="/{{ lookup('env','HOME') }}/Downloads/Postman.tar.gz"
+  when: not has_postman.stat.exists 
+
+- name: Extract Postman.tar.gz to opt
+  unarchive:
+    src="/{{ lookup('env','HOME') }}/Downloads/Postman.tar.gz"
+    dest="/opt"
+  become: yes
+  become_method: sudo
+  when: not has_postman.stat.exists
+
+- name: Create symlinks for public files
+  file:
+    src: "/opt/Postman/Postman"
+    dest: "/usr/local/bin/postman"
+    state: link
+    force: yes
+  when: not has_postman.stat.exists
+
