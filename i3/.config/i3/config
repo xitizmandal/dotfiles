@@ -203,7 +203,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym Ctrl+$alt+l exec $HOME/.scripts/lockscreen.sh
 
 bindsym $mod+space exec rofi -show run  
-bindsym $mod+m exec i3-msg move workspace to output left 
+bindsym $mod+m exec --no-startup-id i3-msg move workspace to output left 
+bindsym $mod+Shift+m exec --no-startup-id i3-msg move workspace to output up
 # Pulse Audio Controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master -q 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master -q 5%-
