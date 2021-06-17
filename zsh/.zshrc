@@ -128,7 +128,7 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 export WORKON_HOME=$HOME/.venvs
-export PROJECT_HOME=$HOME/Documents/workspace/projects
+export PROJECT_HOME=$HOME/Documents/projects
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source $HOME/.local/bin/virtualenvwrapper.sh
 
@@ -152,3 +152,4 @@ function _switch_cuda {
 }
 
 export NPM_CONFIG_PREFIX=~/.npm-global
+export PATH="$HOME/.npm-global/bin:$PATH"
