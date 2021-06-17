@@ -121,7 +121,6 @@ set mouse=
 set hidden
 
 "Do not conceal any level of codes, default is 2
-set conceallevel=0
 
 set autoread
 
@@ -209,6 +208,7 @@ let g:fzf_colors =
 let g:indentLine_setColors = 0
 " let g:indentLine_bgcolor_term = 202
 let g:indentLine_char = '┊'
+let g:indentLine_conceallevel = 0
 
 " ============================================================================
 " Markdown
@@ -305,6 +305,10 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
         }
     }
 
+    nvim_lsp.tsserver.setup {
+        enable = true
+    }
+
     nvim_lsp.ccls.setup{}
 EOF
 
@@ -398,3 +402,5 @@ augroup status_line_init
   autocmd!
   autocmd VimEnter * call ConfigStatusLine()
 augroup END
+
+set conceallevel=0
