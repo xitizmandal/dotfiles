@@ -13,9 +13,12 @@ Plug 'kyazdani42/nvim-tree.lua' " Project and file navigation
 Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
 " FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 "-------------------- Airline -------------------
 " Plug 'vim-airline/vim-airline'			
 " Plug 'vim-airline/vim-airline-themes'
@@ -168,41 +171,41 @@ nnoremap <silent>,bp :bp<CR>
 
 " ============================================================================
 
-" Fzf ------------------------------
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" Windowsize
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
-" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
-let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!**/{.git,__pycache__,node_modules,vendor}/*"'
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=\"OneHalfDark\" --style=header,grid --line-range :300 {}'"
-command! -bang -nargs=? -complete=dir Files
-     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" " Fzf ------------------------------
+" " nmap <leader><tab> <plug>(fzf-maps-n)
+" " Windowsize
+" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
+" " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
+" let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!**/{.git,__pycache__,node_modules,vendor}/*"'
+" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=\"OneHalfDark\" --style=header,grid --line-range :300 {}'"
+" command! -bang -nargs=? -complete=dir Files
+"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/{.git,__pycache__,node_modules,vendor}/*" '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-" File mappings
-nmap ,ff :Files<CR>  
-nmap ,fb :Buffers<CR>
-nmap ,fg :Rg<CR>
-nmap ,fC :Commits<CR>
-nmap ,fc :BCommits<CR>
-nmap ,fd :GFiles?<CR>
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/{.git,__pycache__,node_modules,vendor}/*" '.shellescape(<q-args>), 1,
+"   \   fzf#vim#with_preview(), <bang>0)
+" " File mappings
+" nmap ,ff :Files<CR>  
+" nmap ,fb :Buffers<CR>
+" nmap ,fg :Rg<CR>
+" nmap ,fC :Commits<CR>
+" nmap ,fc :BCommits<CR>
+" nmap ,fd :GFiles?<CR>
+" let g:fzf_colors =
+" \ { 'fg':      ['fg', 'Normal'],
+"   \ 'bg':      ['bg', 'Normal'],
+"   \ 'hl':      ['fg', 'Comment'],
+"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+"   \ 'hl+':     ['fg', 'Statement'],
+"   \ 'info':    ['fg', 'PreProc'],
+"   \ 'border':  ['fg', 'Ignore'],
+"   \ 'prompt':  ['fg', 'Conditional'],
+"   \ 'pointer': ['fg', 'Exception'],
+"   \ 'marker':  ['fg', 'Keyword'],
+"   \ 'spinner': ['fg', 'Label'],
+"   \ 'header':  ['fg', 'Comment'] }
 " ============================================================================
 " Indent line
 let g:indentLine_setColors = 0
@@ -393,6 +396,9 @@ noremap <leader>m :MaximizerToggle<CR>
 
 source $HOME/.config/nvim/plugins/nvimtree.vim
 source $HOME/.config/nvim/plugins/buffline.vim
+
+lua require('plugins.telescope')
+autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
 
 function! ConfigStatusLine()
   lua require('plugins.status_line')
