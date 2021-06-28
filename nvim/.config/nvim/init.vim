@@ -32,8 +32,7 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+Plug 'nvim-lua/completion-nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 
@@ -220,10 +219,7 @@ autocmd filetype markdown normal zR
 let g:vim_markdown_conceal=0
 
 " ============================================================================
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
-" ============================================================================
+" Completion nvim
 
 " ============================================================================
 " Colorizer
@@ -315,14 +311,28 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
     nvim_lsp.ccls.setup{}
 EOF
 
+" ============================================================================
+" Completion nvim
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_enable_auto_hover = 0
-let g:completion_enable_auto_signature = 0
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+autocmd BufEnter * lua require'completion'.on_attach()
 
+let g:completion_enable_snippet = 'UltiSnips'
+" let g:completion_enable_auto_hover = 1
+" let g:completion_enable_auto_signature = 0
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_ignore_case = 1
+let g:completion_trigger_keyword_length = 3
+" let g:completion_chain_complete_list = [
+"     \{'complete_items': ['lsp']},
+"     \{'complete_items': ['snippet']},
+"     \{'mode': '<c-p>'},
+"     \{'mode': '<c-n>'}
+" \]
+" imap <c-j> <Plug>(completion_next_source)
+" imap <c-k> <Plug>(completion_prev_source)
+" ============================================================================
 
 " Code navigation shortcuts
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -398,7 +408,7 @@ source $HOME/.config/nvim/plugins/nvimtree.vim
 source $HOME/.config/nvim/plugins/buffline.vim
 
 lua require('plugins.telescope')
-autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
+" autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
 
 function! ConfigStatusLine()
   lua require('plugins.status_line')
