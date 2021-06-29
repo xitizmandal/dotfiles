@@ -11,12 +11,6 @@
     srcBase: "{{ lookup('env', 'HOME') }}"
     dstBase: "{{ lookup('env', 'HOME') }}"
 
-- import_tasks: symlinks.yml
-  become: yes
-  vars:
-    srcBase: "{{ lookup('env', 'HOME') }}"
-    dstBase: "/root"
-
 - name: Copy fonts
   copy:
     src: "~/.dotfiles/fonts/Mononoki"

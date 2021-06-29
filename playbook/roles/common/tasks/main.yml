@@ -28,6 +28,7 @@
     - tree
     - xclip
     - zsh
+    - curl
 
 - include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
