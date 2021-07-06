@@ -5,22 +5,21 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 "-------------------- Code Commenter -------------------
-" Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
 Plug 'kyazdani42/nvim-tree.lua' " Project and file navigation
 Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
-" FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 "-------------------- Airline -------------------
-" Plug 'vim-airline/vim-airline'			
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'			
+Plug 'vim-airline/vim-airline-themes'
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " Automatically close parenthesis, etc
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
@@ -29,8 +28,9 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+Plug 'hrsh7th/nvim-compe'
+" Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 
@@ -125,7 +125,7 @@ set hidden
 set autoread
 
 hi Normal ctermfg=None ctermbg=None
-" hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
+hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=Black
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
@@ -168,41 +168,41 @@ nnoremap <silent>,bp :bp<CR>
 
 " ============================================================================
 
-" Fzf ------------------------------
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" Windowsize
-let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
-" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
-let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!**/{.git,__pycache__,node_modules,vendor}/*"'
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=\"OneHalfDark\" --style=header,grid --line-range :300 {}'"
-command! -bang -nargs=? -complete=dir Files
-     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" " Fzf ------------------------------
+" " nmap <leader><tab> <plug>(fzf-maps-n)
+" " Windowsize
+" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
+" " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
+" let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!**/{.git,__pycache__,node_modules,vendor}/*"'
+" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=\"OneHalfDark\" --style=header,grid --line-range :300 {}'"
+" command! -bang -nargs=? -complete=dir Files
+"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/{.git,__pycache__,node_modules,vendor}/*" '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-" File mappings
-nmap ,ff :Files<CR>  
-nmap ,fb :Buffers<CR>
-nmap ,fg :Rg<CR>
-nmap ,fC :Commits<CR>
-nmap ,fc :BCommits<CR>
-nmap ,fd :GFiles?<CR>
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/{.git,__pycache__,node_modules,vendor}/*" '.shellescape(<q-args>), 1,
+"   \   fzf#vim#with_preview(), <bang>0)
+" " File mappings
+" nmap ,ff :Files<CR>  
+" nmap ,fb :Buffers<CR>
+" nmap ,fg :Rg<CR>
+" nmap ,fC :Commits<CR>
+" nmap ,fc :BCommits<CR>
+" nmap ,fd :GFiles?<CR>
+" let g:fzf_colors =
+" \ { 'fg':      ['fg', 'Normal'],
+"   \ 'bg':      ['bg', 'Normal'],
+"   \ 'hl':      ['fg', 'Comment'],
+"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+"   \ 'hl+':     ['fg', 'Statement'],
+"   \ 'info':    ['fg', 'PreProc'],
+"   \ 'border':  ['fg', 'Ignore'],
+"   \ 'prompt':  ['fg', 'Conditional'],
+"   \ 'pointer': ['fg', 'Exception'],
+"   \ 'marker':  ['fg', 'Keyword'],
+"   \ 'spinner': ['fg', 'Label'],
+"   \ 'header':  ['fg', 'Comment'] }
 " ============================================================================
 " Indent line
 let g:indentLine_setColors = 0
@@ -217,10 +217,7 @@ autocmd filetype markdown normal zR
 let g:vim_markdown_conceal=0
 
 " ============================================================================
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
-" ============================================================================
+" Completion nvim
 
 " ============================================================================
 " Colorizer
@@ -312,14 +309,13 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
     nvim_lsp.ccls.setup{}
 EOF
 
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
+" ============================================================================
+" Compe nvim
+set completeopt=menuone,noselect
+" set shortmess+=c
 
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_enable_auto_hover = 0
-let g:completion_enable_auto_signature = 0
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
+" ============================================================================
 
 " Code navigation shortcuts
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -348,10 +344,6 @@ autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Remove jitterness when errors are poping around
 set signcolumn=yes
-
-" Enable type inlay hints
-" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-" \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
 
 lua << EOF
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -392,15 +384,10 @@ let g:maximizer_set_default_mapping=0
 noremap <leader>m :MaximizerToggle<CR>
 
 source $HOME/.config/nvim/plugins/nvimtree.vim
-source $HOME/.config/nvim/plugins/buffline.vim
 
-function! ConfigStatusLine()
-  lua require('plugins.status_line')
-endfunction
-
-augroup status_line_init
-  autocmd!
-  autocmd VimEnter * call ConfigStatusLine()
-augroup END
+lua require('plugins.telescope')
+lua require('plugins.compe')
+lua require('plugins.buffline')
+lua require('plugins.lsp_signature')
 
 set conceallevel=0

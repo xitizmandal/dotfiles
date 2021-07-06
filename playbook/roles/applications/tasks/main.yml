@@ -4,14 +4,14 @@
   become_method: sudo
   shell: |
     add-apt-repository ppa:neovim-ppa/unstable
-    apt install neovim
+    apt install neovim -y
 
 - name: Install alacritty using ppa
   become: yes
   become_method: sudo
   shell: |
     add-apt-repository ppa:aslatter/ppa
-    apt install alacritty
+    apt install alacritty -y
 
 - name: Install i3-gaps
   become: yes
@@ -34,6 +34,5 @@
 
 - include_tasks: nvim.yml
 - include_tasks: poetry.yml
-- include_tasks: tmux.yml
 - include_tasks: zsh.yml
-- include_tasks: apps.yml
+- include_tasks: tmux.yml

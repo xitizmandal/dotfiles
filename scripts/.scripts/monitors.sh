@@ -1,8 +1,8 @@
 #!/bin/sh
 # monitor setups
-LAPTOP_DISPLAY="eDP-1-1"
-MAIN_DISPLAY="HDMI-0"
-SECONDARY_DISPLAY="DP-1"
+LAPTOP_DISPLAY="DP-2"
+MAIN_DISPLAY="DP-0"
+SECONDARY_DISPLAY="HDMI-0"
 
 
 find_monitors() {
@@ -13,8 +13,8 @@ find_monitors() {
 
 # dual
 dual_setup() {
-    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --pos 0x0 --rotate normal \
-        --output $SECONDARY_DISPLAY --mode 1920x1080 --pos 1920x0 --rotate right \
+    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
+        --output $SECONDARY_DISPLAY --mode 1920x1080 --pos 0x0 --rotate right \
         --output $LAPTOP_DISPLAY --off
 }
 
