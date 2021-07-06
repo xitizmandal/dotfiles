@@ -5,25 +5,21 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 "-------------------- Code Commenter -------------------
-" Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
 Plug 'kyazdani42/nvim-tree.lua' " Project and file navigation
 Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
-" FZF
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 "-------------------- Airline -------------------
-" Plug 'vim-airline/vim-airline'			
-" Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'			
+Plug 'vim-airline/vim-airline-themes'
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " Automatically close parenthesis, etc
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
@@ -32,8 +28,9 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
+Plug 'hrsh7th/nvim-compe'
+" Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 
@@ -128,7 +125,7 @@ set hidden
 set autoread
 
 hi Normal ctermfg=None ctermbg=None
-" hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=None
+hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=Black
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
@@ -220,10 +217,7 @@ autocmd filetype markdown normal zR
 let g:vim_markdown_conceal=0
 
 " ============================================================================
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | silent! pclose | endif
-" ============================================================================
+" Completion nvim
 
 " ============================================================================
 " Colorizer
@@ -315,14 +309,13 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
     nvim_lsp.ccls.setup{}
 EOF
 
-set completeopt=menuone,noinsert,noselect
-set shortmess+=c
+" ============================================================================
+" Compe nvim
+set completeopt=menuone,noselect
+" set shortmess+=c
 
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_enable_auto_hover = 0
-let g:completion_enable_auto_signature = 0
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
+" ============================================================================
 
 " Code navigation shortcuts
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -351,10 +344,6 @@ autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 " Remove jitterness when errors are poping around
 set signcolumn=yes
-
-" Enable type inlay hints
-" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-" \ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
 
 lua << EOF
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -395,18 +384,10 @@ let g:maximizer_set_default_mapping=0
 noremap <leader>m :MaximizerToggle<CR>
 
 source $HOME/.config/nvim/plugins/nvimtree.vim
-source $HOME/.config/nvim/plugins/buffline.vim
 
 lua require('plugins.telescope')
-autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
-
-function! ConfigStatusLine()
-  lua require('plugins.status_line')
-endfunction
-
-augroup status_line_init
-  autocmd!
-  autocmd VimEnter * call ConfigStatusLine()
-augroup END
+lua require('plugins.compe')
+lua require('plugins.buffline')
+lua require('plugins.lsp_signature')
 
 set conceallevel=0

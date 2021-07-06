@@ -206,8 +206,8 @@ bindsym $mod+space exec rofi -show run
 bindsym $mod+m exec --no-startup-id i3-msg move workspace to output left 
 bindsym $mod+Shift+m exec --no-startup-id i3-msg move workspace to output up
 # Pulse Audio Controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master -q 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master -q 5%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master -q 5%+
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master -q 5%-
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
 
 
