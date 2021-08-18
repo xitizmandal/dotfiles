@@ -18,7 +18,6 @@ require('telescope').setup{
             ["jk"] = actions.close
         },
     },
-    prompt_position = "top",
     prompt_prefix = "> ",
     selection_caret = "> ",
     entry_prefix = "  ",
@@ -26,17 +25,18 @@ require('telescope').setup{
     selection_strategy = "reset",
     sorting_strategy = "ascending",
     layout_strategy = "horizontal",
-    layout_defaults = {
+    layout_config = {
+        width = 0.75,
+        preview_cutoff = 120,
+        prompt_position = "top",
     },
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-    shorten_path = true,
+    path_display = {
+        "absolute",
+    },
     winblend = 0,
-    width = 0.75,
-    preview_cutoff = 120,
-    results_height = 1,
-    results_width = 0.8,
     border = {},
     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
     color_devicons = true,
