@@ -49,11 +49,15 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Markdown
-Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+" Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
+" Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'npxbr/glow.nvim'
+"
 
 " Colors
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'sunjon/shade.nvim'
+Plug 'folke/twilight.nvim'
 
 " Project management
 Plug 'mhinz/vim-startify'
@@ -63,8 +67,9 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Python
-Plug 'psf/black', { 'branch': 'stable' }
-Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'psf/black', { 'branch': 'stable' }
+" Plug 'a-vrma/black-nvim', {'do': ':UpdateRemotePlugins'}
+" Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
@@ -208,7 +213,7 @@ nnoremap <silent>,bp :bp<CR>
 let g:indentLine_setColors = 0
 " let g:indentLine_bgcolor_term = 202
 let g:indentLine_char = '┊'
-let g:indentLine_conceallevel = 0
+let g:indentLine_conceallevel = 1
 
 " ============================================================================
 " Markdown
@@ -282,17 +287,16 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 :lua << EOF
     local nvim_lsp = require('lspconfig')
-    local servers = {'pyls'}
 
-    nvim_lsp.pyls.setup {
+    nvim_lsp.pylsp.setup {
         enable = true,
         settings = {
-            pyls = {
+            pylsp = {
                 configurationSources = {"flake8"},
                 plugins = {
                     pycodestyle = {enabled = false},
                     flake8 = {enabled = true},
-                    pyls_mypy = {
+                    pylsp_mypy = {
                         enabled = true,
                         live_mode = false
                     },
@@ -358,7 +362,7 @@ EOF
 
 " ============================================================================
 " Black
-nnoremap <F6> :Black<CR>
+" nnoremap <F6> :Black<CR>
 
 " ============================================================================
 " Editorconfig
@@ -391,3 +395,14 @@ lua require('plugins.buffline')
 lua require('plugins.lsp_signature')
 
 set conceallevel=0
+
+lua <<EOF
+require'shade'.setup({
+    overlay_opacity = 60,
+    opacity_step = 0,
+    keys =  {
+        toggle = '<Leader>o',
+    }
+})
+EOF
+nnoremap <leader>l :Twilight<CR>
