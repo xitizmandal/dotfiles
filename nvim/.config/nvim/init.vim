@@ -28,11 +28,12 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-" Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'onsails/lspkind-nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 
@@ -285,35 +286,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " ============================================================================
 " Lsp Config
-
-:lua << EOF
-    local nvim_lsp = require('lspconfig')
-
-    nvim_lsp.pylsp.setup {
-        enable = true,
-        settings = {
-            pylsp = {
-                configurationSources = {"flake8"},
-                plugins = {
-                    pycodestyle = {enabled = false},
-                    flake8 = {enabled = true},
-                    pylsp_mypy = {
-                        enabled = true,
-                        live_mode = false
-                    },
-                    jedi_completion = {fuzzy = true}
-                }
-            }
-        }
-    }
-
-    nvim_lsp.tsserver.setup {
-        enable = true
-    }
-
-    nvim_lsp.ccls.setup{}
-EOF
-
 " ============================================================================
 " Compe nvim
 set completeopt=menuone,noselect
@@ -323,25 +295,11 @@ set completeopt=menuone,noselect
 " ============================================================================
 
 " Code navigation shortcuts
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gh     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gH <cmd>lua vim.lsp.buf.code_action<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.declaration()<CR>
-
-nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-nnoremap <silent> ,ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nmap ,lc :lclose<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
-set updatetime=300
+" set updatetime=300
 " " Show diagnostic popup on cursor hold
 " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 " " Goto previous/next diagnostic warning/error
@@ -350,17 +308,6 @@ set updatetime=300
 
 " Remove jitterness when errors are poping around
 set signcolumn=yes
-
-lua << EOF
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    signs = true,
-    update_in_insert = false,
-  }
-)
-EOF
-
 
 " ============================================================================
 " Black
@@ -391,11 +338,12 @@ noremap <leader>m :MaximizerToggle<CR>
 
 source $HOME/.config/nvim/plugins/nvimtree.vim
 
+lua require('plugins.lsp')
 lua require('plugins.telescope')
-" lua require('plugins.compe')
-lua require('plugins.buffline')
-lua require('plugins.lsp_signature')
 lua require('plugins.nvim_cmp')
+lua require('plugins.buffline')
+" lua require('plugins.lsp_signature')
+lua require('plugins.dap')
 
 set conceallevel=0
 
@@ -409,49 +357,3 @@ set conceallevel=0
 " })
 " EOF
 nnoremap <leader>l :Twilight<CR>
-
-
-lua << EOF
-local dap = require('dap')
-dap.adapters.python = {
-    type =  'executable';
-    command ='/home/fm-pc-lt-171/.venvs/debugpy/bin/python';
-    args = { '-m', 'debugpy.adapter' };
-}
-
-dap.configurations.python = {
-    {
-    -- the first three options are for nvim-dap
-    type = 'python';
-    request = 'launch';
-    name = 'Launch file';
-
-    -- options below are for debugpy
-    program = "${file}";
-    pythonPath = function()
-          -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-          -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-          -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-          local python_path = os.getenv('VIRTUAL_ENV')
-
-          if python_path then
-            return python_path .. '/bin/python'
-            end
-
-          local cwd = vim.fn.getcwd()
-          if vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-            return cwd .. '/venv/bin/python'
-          elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-            return cwd .. '/.venv/bin/python'
-          else
-            return '/usr/bin/python'
-          end
-        end;
-    },
-}
-vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
-EOF
-
-lua << EOF
-require('dapui').setup()
-EOF
