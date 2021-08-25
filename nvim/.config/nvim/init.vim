@@ -28,8 +28,10 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
-" Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+" Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
@@ -65,11 +67,6 @@ Plug 'mhinz/vim-startify'
 " Navigation
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
-
-" Python
-" Plug 'psf/black', { 'branch': 'stable' }
-" Plug 'a-vrma/black-nvim', {'do': ':UpdateRemotePlugins'}
-" Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
@@ -339,13 +336,14 @@ nnoremap <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
 " nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.declaration()<CR>
 
 nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent> ,ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nmap ,lc :lclose<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " " Show diagnostic popup on cursor hold
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 " " Goto previous/next diagnostic warning/error
 " nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
 " nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
@@ -394,9 +392,10 @@ noremap <leader>m :MaximizerToggle<CR>
 source $HOME/.config/nvim/plugins/nvimtree.vim
 
 lua require('plugins.telescope')
-lua require('plugins.compe')
+" lua require('plugins.compe')
 lua require('plugins.buffline')
 lua require('plugins.lsp_signature')
+lua require('plugins.nvim_cmp')
 
 set conceallevel=0
 
