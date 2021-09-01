@@ -205,7 +205,14 @@ bindsym Ctrl+$alt+l exec $HOME/.scripts/lockscreen.sh
 bindsym $mod+space exec rofi -show run  
 bindsym $mod+m exec --no-startup-id i3-msg move workspace to output left 
 bindsym $mod+Shift+m exec --no-startup-id i3-msg move workspace to output up
-# Pulse Audio Controls
+
+bindsym $mod+i move scratchpad
+bindsym $mod+Shift+i [instance="*"] scratchpad show
+# File manager
+bindsym $mod+n [title="ranger-session"] scratchpad show
+bindsym $mod+Shift+n exec --no-startup-id alacritty -t "ranger-session" -e zsh -c "ranger"
+for_window [title="ranger-session"] floating enabled, move to scratchpad
+
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master -q 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master -q 5%-
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
@@ -237,3 +244,6 @@ bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_
 # bindsym --release $mod+Shift+Print exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
+for_window [class="ClickUp"] floating enable, resize set 1400 720, move position center, move scratchpad, scratchpad show
+for_window [class="Spotify"] floating enable, move scratchpad, scratchpad show
+bindsym $mod+t [class="ClickUp"] scratchpad show
