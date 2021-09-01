@@ -15,6 +15,7 @@ Plug 'liuchengxu/vista.vim'     " Class/module browser
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-media-files.nvim'
 "-------------------- Airline -------------------
 Plug 'vim-airline/vim-airline'			
 Plug 'vim-airline/vim-airline-themes'
@@ -28,9 +29,12 @@ Plug 'Yggdroot/indentLine'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
-" Plug 'tzachar/compe-tabnine', { 'do': './install.sh' }
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 Plug 'ray-x/lsp_signature.nvim'
+Plug 'onsails/lspkind-nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
 
@@ -66,13 +70,12 @@ Plug 'mhinz/vim-startify'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 
-" Python
-" Plug 'psf/black', { 'branch': 'stable' }
-" Plug 'a-vrma/black-nvim', {'do': ':UpdateRemotePlugins'}
-" Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
-
 " Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
+
+" Debug Adapter Protocol
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 call plug#end()
 
 
@@ -284,35 +287,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 " ============================================================================
 " Lsp Config
-
-:lua << EOF
-    local nvim_lsp = require('lspconfig')
-
-    nvim_lsp.pylsp.setup {
-        enable = true,
-        settings = {
-            pylsp = {
-                configurationSources = {"flake8"},
-                plugins = {
-                    pycodestyle = {enabled = false},
-                    flake8 = {enabled = true},
-                    pylsp_mypy = {
-                        enabled = true,
-                        live_mode = false
-                    },
-                    jedi_completion = {fuzzy = true}
-                }
-            }
-        }
-    }
-
-    nvim_lsp.tsserver.setup {
-        enable = true
-    }
-
-    nvim_lsp.ccls.setup{}
-EOF
-
 " ============================================================================
 " Compe nvim
 set completeopt=menuone,noselect
@@ -322,43 +296,19 @@ set completeopt=menuone,noselect
 " ============================================================================
 
 " Code navigation shortcuts
-nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gh     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gH <cmd>lua vim.lsp.buf.code_action<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> gs <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> gR <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-" nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.declaration()<CR>
-
-nnoremap <silent> ,lo <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nmap ,lc :lclose<CR>
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
-set updatetime=300
+" set updatetime=300
 " " Show diagnostic popup on cursor hold
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 " " Goto previous/next diagnostic warning/error
 " nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
 " nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
 
 " Remove jitterness when errors are poping around
 set signcolumn=yes
-
-lua << EOF
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false,
-    signs = true,
-    update_in_insert = false,
-  }
-)
-EOF
-
 
 " ============================================================================
 " Black
@@ -389,20 +339,22 @@ noremap <leader>m :MaximizerToggle<CR>
 
 source $HOME/.config/nvim/plugins/nvimtree.vim
 
+lua require('plugins.lsp')
 lua require('plugins.telescope')
-lua require('plugins.compe')
+lua require('plugins.nvim_cmp')
 lua require('plugins.buffline')
-lua require('plugins.lsp_signature')
+" lua require('plugins.lsp_signature')
+lua require('plugins.dap')
 
 set conceallevel=0
 
-lua <<EOF
-require'shade'.setup({
-    overlay_opacity = 60,
-    opacity_step = 0,
-    keys =  {
-        toggle = '<Leader>o',
-    }
-})
-EOF
+" lua <<EOF
+" require'shade'.setup({
+"     overlay_opacity = 60,
+"     opacity_step = 0,
+"     keys =  {
+"         toggle = '<Leader>o',
+"     }
+" })
+" EOF
 nnoremap <leader>l :Twilight<CR>
