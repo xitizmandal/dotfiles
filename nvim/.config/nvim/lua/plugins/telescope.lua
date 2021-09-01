@@ -48,7 +48,13 @@ require('telescope').setup{
 
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-  }
+  },
+  extensions  = {
+      media_files = {
+          filetypes = {"png", "jpg", "pdf", "jpeg"},
+          find_cmd = "rg"
+      }
+  },
 }
 -- nnoremap ,ff <cmd>lua require'telescope.builtin'.find_files{find_command={'rg' , '--files', '--hidden', '--smart-case', '--glob', '!**/{.git,__pycache__,node_modules,vendor}/*'}}<cr>
 -- nnoremap ,fg <cmd>Telescope live_grep<cr>
@@ -62,6 +68,7 @@ require('telescope').setup{
 -- nnoremap ,fl <cmd>Telescope lsp_document_symbols<cr>
 -- nnoremap ,ft <cmd>Telescope treesitter<cr>
 
+require('telescope').load_extension('media_files')
 
 vim.api.nvim_set_keymap('n', ',ff', "<cmd> lua require('telescope.builtin').find_files{find_command={'rg', '--files', '--hidden', '--smart-case', '--glob', '!**/{.git,__pycache__,node_modules,vendor}/*'}}<cr>", {noremap = true})
 vim.api.nvim_set_keymap('n', ',fF', "<cmd> lua require('telescope.builtin').find_files()<cr>", {noremap = true})
