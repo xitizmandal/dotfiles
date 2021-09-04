@@ -9,18 +9,13 @@ Plug 'tpope/vim-commentary'
 
 "-------------------- Code/Project Navigation -------------------
 Plug 'kyazdani42/nvim-tree.lua' " Project and file navigation
-Plug 'liuchengxu/vista.vim'     " Class/module browser
 "-------------------- File traversing -------------------
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
-"-------------------- Airline -------------------
-Plug 'vim-airline/vim-airline'			
-Plug 'vim-airline/vim-airline-themes'
-Plug 'akinsho/nvim-bufferline.lua'
-" Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+"
 " Automatically close parenthesis, etc
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
@@ -39,12 +34,14 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Plug 'airblade/vim-gitgutter'
-Plug 'mhinz/vim-signify'
+Plug 'lewis6991/gitsigns.nvim'
+" Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
 " Colorscheme
-Plug 'joshdick/onedark.vim'
+Plug 'navarasu/onedark.nvim'
+" Plug 'tanvirtin/monokai.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 
@@ -52,11 +49,19 @@ Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'editorconfig/editorconfig-vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+" Debug Adapter Protocol
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 " Markdown
 " Plug 'godlygeek/tabular' | Plug 'plasticboy/vim-markdown'
 " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'npxbr/glow.nvim'
 "
+"-------------------- UI Elements -------------------
+" Plug 'vim-airline/vim-airline'			
+" Plug 'vim-airline/vim-airline-themes'
+Plug 'akinsho/bufferline.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 " Colors
 Plug 'norcalli/nvim-colorizer.lua'
@@ -65,7 +70,7 @@ Plug 'folke/twilight.nvim'
 
 " Project management
 Plug 'mhinz/vim-startify'
-
+Plug 'liuchengxu/vista.vim'
 " Navigation
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
@@ -73,9 +78,6 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
-" Debug Adapter Protocol
-Plug 'mfussenegger/nvim-dap'
-Plug 'rcarriga/nvim-dap-ui'
 call plug#end()
 
 
@@ -101,6 +103,9 @@ set clipboard+=unnamedplus
 set termguicolors
 set t_Co=256
 syntax on
+
+let g:onedark_style = "deep" 
+let g:onedark_italic_comment = 1
 colorscheme onedark
 " set background=dark
 
@@ -111,8 +116,7 @@ set cursorline
 
 " autocompletion of files and commands behaves like shell
 " (complete only the common part, list the options that match)
-set wildmode=list:longest
-
+set wildmenu
 " when scrolling, keep cursor 4 lines away from screen border
 set scrolloff=4
 
@@ -166,52 +170,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent>,bn :bn<CR>
 nnoremap <silent>,bp :bp<CR>
 " ============================================================================
-" " Airline settings
-
-" let g:airline#extensions#whitespace#enabled = 0
-
-" let g:airline_theme = 'onedark'
-" let g:airline_powerline_fonts = 0
-" let g:airline#extensions#tabline#enabled = 1
-
-" ============================================================================
-
-" " Fzf ------------------------------
-" " nmap <leader><tab> <plug>(fzf-maps-n)
-" " Windowsize
-" let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', } }
-" " let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
-" let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!**/{.git,__pycache__,node_modules,vendor}/*"'
-" let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --theme=\"OneHalfDark\" --style=header,grid --line-range :300 {}'"
-" command! -bang -nargs=? -complete=dir Files
-"      \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" command! -bang -nargs=* Rg
-"   \ call fzf#vim#grep(
-"   \   'rg --column --line-number --no-heading --color=always --smart-case --hidden --glob "!**/{.git,__pycache__,node_modules,vendor}/*" '.shellescape(<q-args>), 1,
-"   \   fzf#vim#with_preview(), <bang>0)
-" " File mappings
-" nmap ,ff :Files<CR>  
-" nmap ,fb :Buffers<CR>
-" nmap ,fg :Rg<CR>
-" nmap ,fC :Commits<CR>
-" nmap ,fc :BCommits<CR>
-" nmap ,fd :GFiles?<CR>
-" let g:fzf_colors =
-" \ { 'fg':      ['fg', 'Normal'],
-"   \ 'bg':      ['bg', 'Normal'],
-"   \ 'hl':      ['fg', 'Comment'],
-"   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"   \ 'hl+':     ['fg', 'Statement'],
-"   \ 'info':    ['fg', 'PreProc'],
-"   \ 'border':  ['fg', 'Ignore'],
-"   \ 'prompt':  ['fg', 'Conditional'],
-"   \ 'pointer': ['fg', 'Exception'],
-"   \ 'marker':  ['fg', 'Keyword'],
-"   \ 'spinner': ['fg', 'Label'],
-"   \ 'header':  ['fg', 'Comment'] }
-" ============================================================================
 " Indent line
 let g:indentLine_setColors = 0
 " let g:indentLine_bgcolor_term = 202
@@ -257,19 +215,7 @@ let g:vista_default_executive = 'nvim_lsp'
 let g:vista_fzf_preview = ['right:50%']
 " let g:vista_echo_cursor_strategy = 'scroll'
 let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
-" let g:vista_icon_indent = ["▸ ", ""]
-":vista_echo_cursor_strategy = 'both'
 
-" function! NearestMethodOrFunction() abort
-"     return get(b:, 'vista_nearest_method_or_function', '')
-" endfunction
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" set statusline+=%{NearestMethodOrFunction()}
 " ============================================================================
 " ultisnips
 let g:UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/UltiSnips/'
@@ -309,16 +255,6 @@ nmap ,lc :lclose<CR>
 
 " Remove jitterness when errors are poping around
 set signcolumn=yes
-
-" ============================================================================
-" Black
-" nnoremap <F6> :Black<CR>
-
-" ============================================================================
-" Editorconfig
-" let g:EditorConfig_core_mode = 'external_command'
-
-" ============================================================================
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -327,9 +263,6 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" ============================================================================
-" vimspector
-" let g:vimspector_enable_mappings = 'HUMAN'
 " ============================================================================
 " vim maximizer
 let g:maximizer_set_mapping_with_bang = 1
@@ -345,7 +278,9 @@ lua require('plugins.nvim_cmp')
 lua require('plugins.buffline')
 " lua require('plugins.lsp_signature')
 lua require('plugins.dap')
-
+" lua require('plugins.galaxyline')
+lua require('plugins.status_line')
+lua require('gitsigns').setup()
 set conceallevel=0
 
 " lua <<EOF
