@@ -20,7 +20,8 @@ Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'tpope/vim-surround'		" Parentheses, brackets
 
 " Indented lines
-Plug 'Yggdroot/indentLine'
+" Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Auto completion
 Plug 'neovim/nvim-lspconfig'
@@ -171,10 +172,10 @@ nnoremap <silent>,bn :bn<CR>
 nnoremap <silent>,bp :bp<CR>
 " ============================================================================
 " Indent line
-let g:indentLine_setColors = 0
-" let g:indentLine_bgcolor_term = 202
-let g:indentLine_char = '┊'
-let g:indentLine_conceallevel = 1
+" let g:indentLine_setColors = 0
+" " let g:indentLine_bgcolor_term = 202
+" let g:indentLine_char = '┊'
+" let g:indentLine_conceallevel = 1
 
 " ============================================================================
 " Markdown
@@ -281,7 +282,8 @@ lua require('plugins.dap')
 " lua require('plugins.galaxyline')
 lua require('plugins.status_line')
 lua require('gitsigns').setup()
-set conceallevel=0
+lua require('plugins.indentline')
+" set conceallevel=0
 
 " lua <<EOF
 " require'shade'.setup({
