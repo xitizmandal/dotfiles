@@ -1,7 +1,10 @@
 local dap = require('dap')
+
+local home = vim.fn.getenv("HOME")
+
 dap.adapters.python = {
     type =  'executable';
-    command ='/home/fm-pc-lt-171/.venvs/debugpy/bin/python';
+    command = home .. '/.venvs/debugpy/bin/python';
     args = { '-m', 'debugpy.adapter' };
 }
 

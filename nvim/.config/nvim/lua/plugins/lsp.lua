@@ -1,40 +1,34 @@
 local nvim_lsp = require('lspconfig')
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.documentationFormat = { 'markdown', 'plaintext' }
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    'documentation',
-    'detail',
-    'additionalTextEdits',
-  },
-}
+local  on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr,  'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
---- Code navigation shortcuts
-vim.api.nvim_set_keymap('n','gd'," <cmd>lua vim.lsp.buf.definition()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n','gh',"<cmd>lua vim.lsp.buf.hover()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n','gH',"<cmd>lua vim.lsp.buf.code_action<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n','gD',"<cmd>lua vim.lsp.buf.implementation()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n','gs',"<cmd>lua vim.lsp.buf.signature_help()<cr>", {noremap = true})
---- vim.api.nvim_set_keymap('n','1gD',"<cmd>lua vim.lsp.buf.type_definition()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n','gr',"<cmd>lua vim.lsp.buf.references()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n','gR',"<cmd>lua vim.lsp.buf.rename()<cr>", {noremap = true})
--- vim.api.nvim_set_keymap('n','g0',"<cmd>lua vim.lsp.buf.document_symbol()<cr>", {noremap = true})
--- vim.api.nvim_set_keymap('n','gW',"<cmd>lua vim.lsp.buf.workspace_symbol()<cr>", {noremap = true})
--- vim.api.nvim_set_keymap('n','<c-]>', "<cmd>lua vim.lsp.buf.declaration()<cr>", {noremap = true})
+    local opts = { noremap = true, silent = true }
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    -- vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+    vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+end
 
-vim.api.nvim_set_keymap('n',',lo', "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", {noremap = true})
-vim.api.nvim_set_keymap('n', ',ld', "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>", {noremap = true})
 
-vim.o.updatetime = 250
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
+
+-- vim.o.updatetime = 250
+-- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 --   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -46,12 +40,12 @@ vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diag
 
 
 --- diagnostic signs
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+-- local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
 
-for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
+-- for type, icon in pairs(signs) do
+--   local hl = "LspDiagnosticsSign" .. type
+--   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+-- end
 
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = 
@@ -89,29 +83,52 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     end
 
 
+-- local servers = {'pylsp'}
+-- for _, lsp in ipairs(servers) do
+--     nvim_lsp[lsp].setup {
+--         on_attach =on_attach,
+--         capabilities = capabilities,
+--     }
+-- end
+
+-- nvim-cmp supports addditional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+local home = vim.fn.getenv("HOME")
+
 nvim_lsp.pylsp.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
     enable = true,
+    cmd = { home .. "/.venvs/nvim/bin/pylsp"},
     settings = {
+        -- formatCommand = {"black"},
         pylsp = {
             configurationSources = {"flake8"},
             plugins = {
                 pycodestyle = {enabled = false},
+                pyflakes = {enabled = false},
                 flake8 = {enabled = true},
+                pydocstyle = {enabled = false},
+                mccabe = {enabled = false},
+                autopep8 = {enabled = false},
+                yapf = {enabled = false},
                 pylsp_mypy = {
                     enabled = true,
                     live_mode = true
                 },
-                jedi_completion = {fuzzy = true}
-            }
-        }
+                jedi_completion = {fuzzy = true},
+                pylsp_black = { enabled = true},
+                pyls_isort = { enabled = true},
+            },
+        },
     },
-    capabilities = capabilities,
 }
 
---- JS/Typescript server
+-- --- JS/Typescript server
 nvim_lsp.tsserver.setup {
 }
 
---- C Server
+-- --- C Server
 nvim_lsp.ccls.setup{}
-

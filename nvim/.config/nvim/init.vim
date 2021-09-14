@@ -138,7 +138,7 @@ set hidden
 set autoread
 
 hi Normal ctermfg=None ctermbg=None
-hi CursorLine term=underline cterm=underline ctermfg=None guifg=None ctermbg=None guibg=Black
+hi CursorLine ctermfg=None guifg=None ctermbg=None guibg=Black
 
 " highlight 'long' lines (>= 80 symbols) in python files
 augroup vimrc_autocmds
@@ -200,7 +200,7 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [
             \ { 'p': '~/Documents/workspace/python' },
-            \ { 'd': '~/dotfiles' },
+            \ { 'd': '~/.dotfiles' },
             \ { 'i': '~/.config/nvim/init.vim' },
             \ { 'c': '~/.config/i3/config' },
             \ ]
@@ -273,7 +273,6 @@ noremap <leader>m :MaximizerToggle<CR>
 
 source $HOME/.config/nvim/plugins/nvimtree.vim
 
-lua require('plugins.lsp')
 lua require('plugins.telescope')
 lua require('plugins.nvim_cmp')
 lua require('plugins.buffline')
@@ -283,6 +282,7 @@ lua require('plugins.dap')
 lua require('plugins.status_line')
 lua require('gitsigns').setup()
 lua require('plugins.indentline')
+lua require('plugins.lsp')
 " set conceallevel=0
 
 " lua <<EOF
