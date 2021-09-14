@@ -1,12 +1,9 @@
-" ============================================================================
-
 "-------------------- Active Plugins -------------------
 
 call plug#begin('~/.local/share/nvim/plugged')
 
 "-------------------- Code Commenter -------------------
 Plug 'tpope/vim-commentary'
-
 "-------------------- Code/Project Navigation -------------------
 Plug 'kyazdani42/nvim-tree.lua' " Project and file navigation
 "-------------------- File traversing -------------------
@@ -29,6 +26,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'SirVer/ultisnips' 
@@ -144,7 +143,7 @@ hi CursorLine ctermfg=None guifg=None ctermbg=None guibg=Black
 augroup vimrc_autocmds
     autocmd!
     autocmd FileType python highlight Excess ctermbg=Gray guibg=Gray
-    autocmd FileType python match Excess /\%81v.*/
+    " autocmd FileType python match Excess /\%81v.*/
     autocmd FileType python set nowrap
     autocmd FileType python set colorcolumn=75,80
 augroup END
@@ -236,7 +235,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " Lsp Config
 " ============================================================================
 " Compe nvim
-set completeopt=menuone,noselect
 " set shortmess+=c
 
 
@@ -256,13 +254,6 @@ nmap ,lc :lclose<CR>
 
 " Remove jitterness when errors are poping around
 set signcolumn=yes
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true
-  },
-}
-EOF
 
 " ============================================================================
 " vim maximizer
@@ -295,3 +286,8 @@ lua require('plugins.lsp')
 " })
 " EOF
 nnoremap <leader>l :Twilight<CR>
+
+set completeopt=menuone,noselect
+" nnoremap <C-q> :copen
+
+lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }
