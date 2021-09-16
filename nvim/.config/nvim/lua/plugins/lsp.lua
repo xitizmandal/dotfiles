@@ -115,8 +115,8 @@ nvim_lsp.pylsp.setup {
                 autopep8 = {enabled = false},
                 yapf = {enabled = false},
                 pylsp_mypy = {
-                    enabled = true,
-                    live_mode = true
+                    enabled = false,
+                    live_mode = false,
                 },
                 jedi_completion = {fuzzy = true},
                 pylsp_black = { enabled = true},
@@ -128,6 +128,8 @@ nvim_lsp.pylsp.setup {
 
 -- --- JS/Typescript server
 nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
 
 -- --- C Server
