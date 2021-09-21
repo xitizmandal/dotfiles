@@ -30,13 +30,17 @@ end
 -- vim.o.updatetime = 250
 -- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
---   vim.lsp.diagnostic.on_publish_diagnostics, {
---     virtual_text = true,
---     signs = true,
---     update_in_insert = false,
---   }
--- )
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        -- virtual_text = true,
+        -- signs = true,
+        -- update_in_insert = false,
+        underline = true,
+        virtual_text = false,
+        signs = true,
+        update_in_insert = false,
+  }
+)
 
 
 --- diagnostic signs
@@ -48,40 +52,44 @@ end
 -- end
 
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = 
-    function(_, _, params, client_id, _)
-        local config = {
-            underline = true,
-            virtual_text = false,
-            -- virtual_text = {
-            --     prefix = "> ",
-            --     spacing = 4,
-            -- },
-            signs = true,
-            update_in_insert = false,
-        }
-        local uri = params.uri
-        local bufnr = vim.uri_to_bufnr(uri)
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = 
+--     function(_, params, ctx, config)
+--         -- local config = {
+--         --     underline = true,
+--         --     virtual_text = false,
+--         --     virtual_text = {
+--         --         prefix = "> ",
+--         --         spacing = 4,
+--         --     },
+--         --     signs = true,
+--         --     update_in_insert = false,
+--         --     severity_sort = false,
+--         -- }
+--         local uri = params.uri
+--         local client_id = ctx.client_id
+--         local bufnr = vim.uri_to_bufnr(uri)
 
-        if not bufnr then
-            return
-        end
+--         if not bufnr then
+--             return
+--         end
 
-        local diagnostics = params.diagnostics
+--         local diagnostics = params.diagnostics
+--         vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
 
-        for i, v in ipairs(diagnostics) do
-            diagnostics[i].message = string.format("%s: %s", v.source, v.message)
-        end
+--         if not vim.api.nvim_buf_is_loaded(bufnr) then
+--             return
+--         end
 
-        vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
-        
-        if not vim.api.nvim_buf_is_loaded(bufnr) then
-            return
-        end
+--         -- don't mutate the original diagnostic
+--         local prefixed_diagnostics = vim.deepcopy(diagnostics)
+--         for i, v in ipairs(diagnostics) do
+--             prefixed_diagnostics[i].message = string.format("%s: %s", v.source, v.message)
+--         end
 
-        vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
-    end
-
+--         -- vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
+--         local namespace = vim.diagnostic.get_namespace(client_id)
+--         vim.diagnostic.set(namespace, bufnr, client_id, config)
+--     end
 
 -- local servers = {'pylsp'}
 -- for _, lsp in ipairs(servers) do
