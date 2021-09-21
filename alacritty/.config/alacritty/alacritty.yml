@@ -18,9 +18,9 @@ font:
 scrolling:
   history: 10000
   multiplier: 3
-background_opacity: 0.95
 windows:
   dynamic_title: true
+  opacity: 0.95
 cursor:
   style: Block
 colors:
