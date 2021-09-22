@@ -196,6 +196,8 @@ set $urgent_bg_color 		#e53935
  client.focused_inactive     $inactive_bg_color	$inactive_bg_color	$inactive_text_color	#00ff00     #222222
  client.urgent 		        $urgent_bg_color	$urget_bg_color		$text_color	        	#00ff00     $urgent_bg_color
 
+# use autorandr for monitor detection
+exec_always --no-startup-id autorandr --change
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
