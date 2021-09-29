@@ -1,8 +1,8 @@
 #!/bin/sh
 # monitor setups
 LAPTOP_DISPLAY="DP-2"
-MAIN_DISPLAY="DP-0"
-SECONDARY_DISPLAY="HDMI-0"
+MAIN_DISPLAY="HDMI-0"
+SECONDARY_DISPLAY="DP-0"
 
 
 find_monitors() {
@@ -13,9 +13,9 @@ find_monitors() {
 
 # dual
 dual_setup() {
-    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --pos 0x0 --rotate normal \
-        --output $SECONDARY_DISPLAY --mode 1920x1080 --pos 1920x0 --rotate normal \
-        --output $LAPTOP_DISPLAY --off
+    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --ppos 0x0 --rotate normal \
+        --output $LAPTOP_DISPLAY --mode 1920x1080 --pos 0x1080 --rotate normal \
+        --output $SECONDARY_DISPLAY --off
 }
 
 #primary
@@ -95,4 +95,4 @@ options_menu() {
 
 options_menu
 
-bash ~/.config/polybar/launch.sh
+bash ~/.config/polybar/launch.sh > /dev/null 2>&1
