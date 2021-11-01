@@ -197,7 +197,7 @@ set $urgent_bg_color 		#e53935
  client.urgent 		        $urgent_bg_color	$urget_bg_color		$text_color	        	#00ff00     $urgent_bg_color
 
 # use autorandr for monitor detection
-exec_always --no-startup-id autorandr --change
+# exec_always --no-startup-id autorandr --change
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -218,7 +218,10 @@ for_window [title="ranger-session"] floating enabled, move to scratchpad
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master -q 5%+
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master -q 5%-
 bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
-
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext exec playerctl next
 
 bindsym XF86MonBrightnessUp exec  --no-startup-id $HOME/.scripts/brightness.sh inc
 bindsym XF86MonBrightnessDown exec --no-startup-id $HOME/.scripts/brightness.sh dec
@@ -247,5 +250,5 @@ bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_
 bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
 for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
-for_window [class="obsidian"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
-bindsym $mod+o [class="obsidian"] scratchpad show
+# for_window [class="obsidian"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
+# bindsym $mod+o [class="obsidian"] scratchpad show
