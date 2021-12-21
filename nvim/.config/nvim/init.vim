@@ -28,7 +28,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 
-Plug 'ray-x/lsp_signature.nvim'
+" Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'SirVer/ultisnips' 
 Plug 'honza/vim-snippets'
@@ -41,6 +41,7 @@ Plug 'junegunn/gv.vim'
 
 " Colorscheme
 Plug 'navarasu/onedark.nvim'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'tanvirtin/monokai.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -58,11 +59,7 @@ Plug 'rcarriga/nvim-dap-ui'
 Plug 'npxbr/glow.nvim'
 "
 "-------------------- UI Elements -------------------
-" Plug 'vim-airline/vim-airline'			
-" Plug 'vim-airline/vim-airline-themes'
-Plug 'akinsho/bufferline.nvim'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-
+Plug 'nvim-lualine/lualine.nvim'
 " Colors
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'sunjon/shade.nvim'
@@ -78,6 +75,8 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
 
+"IPYNB
+Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
 call plug#end()
 
 
@@ -262,15 +261,13 @@ let g:maximizer_set_default_mapping=0
 " let g:maximizer_default_mapping_key = '<leader>m'
 noremap <leader>m :MaximizerToggle<CR>
 
-source $HOME/.config/nvim/plugins/nvimtree.vim
+" source $HOME/.config/nvim/plugins/nvimtree.vim
 
 lua require('plugins.telescope')
 lua require('plugins.nvim_cmp')
-lua require('plugins.buffline')
 " lua require('plugins.lsp_signature')
 lua require('plugins.dap')
-" lua require('plugins.galaxyline')
-lua require('plugins.status_line')
+lua require('plugins.lualine')
 lua require('gitsigns').setup()
 lua require('plugins.indentline')
 lua require('plugins.lsp')
