@@ -117,7 +117,7 @@ cmp.setup{
         { name = 'path' },
         { 
             name = 'buffer',
-            opts = {
+            options = {
                 get_bufnrs = function()
                     local bufs = {}
                     for _, win in ipairs(vim.api.nvim_list_wins()) do
