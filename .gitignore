@@ -7,4 +7,5 @@ __pycache__/
 # C extensions
 *.so
 
-
+scripts/.scripts/firefox-pn.sh
+autorandr/
