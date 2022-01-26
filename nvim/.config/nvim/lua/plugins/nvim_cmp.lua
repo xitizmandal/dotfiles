@@ -115,15 +115,17 @@ cmp.setup{
         { name = 'nvim_lsp' },
         { name = 'ultisnips' },
         { name = 'path' },
+        { name = 'rg' },
         { 
             name = 'buffer',
-            options = {
+            option = {
                 get_bufnrs = function()
-                    local bufs = {}
-                    for _, win in ipairs(vim.api.nvim_list_wins()) do
-                        bufs[vim.api.nvim_win_get_buf(win)] = true
-                    end
-                    return vim.tbl_keys(bufs)
+                    return vim.api.nvim_list_bufs()
+                    -- local bufs = {}
+                    -- for _, win in ipairs(vim.api.nvim_list_wins()) do
+                    --     bufs[vim.api.nvim_win_get_buf(win)] = true
+                    -- end
+                    -- return vim.tbl_keys(bufs)
                 end
             }
         },
@@ -135,6 +137,7 @@ cmp.setup{
                 nvim_lsp = '[L]',
                 buffer = '[B]',
                 ultisnips = '[U]',
+                rg = '[R]',
             })[entry.source.name]
           return vim_item
         end

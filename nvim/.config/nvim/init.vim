@@ -27,6 +27,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+Plug 'lukas-reineke/cmp-rg'
 
 " Plug 'ray-x/lsp_signature.nvim'
 Plug 'onsails/lspkind-nvim'
@@ -41,7 +42,6 @@ Plug 'junegunn/gv.vim'
 
 " Colorscheme
 Plug 'navarasu/onedark.nvim'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
 " Plug 'tanvirtin/monokai.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
@@ -103,9 +103,15 @@ set termguicolors
 set t_Co=256
 syntax on
 
-let g:onedark_style = "deep" 
-let g:onedark_italic_comment = 1
-colorscheme onedark
+" let g:onedark_style = "deep" 
+" let g:onedark_italic_comment = 1
+" let g:onedark_config = {
+"     \ 'style': 'deep',
+"     \ 'code_style': {
+"         \ 'comments': 'italic',
+"         \ }
+"     \ }
+" colorscheme onedark
 " set background=dark
 
 " leader
@@ -263,6 +269,8 @@ noremap <leader>m :MaximizerToggle<CR>
 
 " source $HOME/.config/nvim/plugins/nvimtree.vim
 
+lua require('plugins.onedark')
+lua require('plugins.nvim_tree')
 lua require('plugins.telescope')
 lua require('plugins.nvim_cmp')
 " lua require('plugins.lsp_signature')
@@ -283,8 +291,7 @@ lua require('plugins.lsp')
 " })
 " EOF
 nnoremap <leader>l :Twilight<CR>
-
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 " nnoremap <C-q> :copen
 
 lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }

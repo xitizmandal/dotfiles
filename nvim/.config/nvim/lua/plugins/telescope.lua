@@ -55,6 +55,16 @@ require('telescope').setup{
           find_cmd = "rg"
       }
   },
+  -- pickers = {
+  --     buffers = {
+
+  --         mappings = {
+  --             i = {
+  --                 ["<c-d>"] = actions.delete_buffer 
+  --             }
+  --         }
+  --     }
+  -- }
 }
 -- nnoremap ,ff <cmd>lua require'telescope.builtin'.find_files{find_command={'rg' , '--files', '--hidden', '--smart-case', '--glob', '!**/{.git,__pycache__,node_modules,vendor}/*'}}<cr>
 -- nnoremap ,fg <cmd>Telescope live_grep<cr>
