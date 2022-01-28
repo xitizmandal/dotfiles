@@ -9,7 +9,7 @@ font:
     family: mononoki Nerd Font Mono
     style: Italic
   bold_italic:
-    family: monoki Nerd Font Mono
+    family: mononoki Nerd Font Mono
     style: BoldItalic
   size: 9.5
   offset:
