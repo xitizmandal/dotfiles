@@ -226,6 +226,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86MonBrightnessUp exec  --no-startup-id $HOME/.scripts/brightness.sh inc
 bindsym XF86MonBrightnessDown exec --no-startup-id $HOME/.scripts/brightness.sh dec
 
+exec_always --no-startup-id $HOME/.config/polybar/scripts/spotify/launchlistener.sh
 bindsym $mod+x exec $HOME/.scripts/monitors.sh
 
 
@@ -249,6 +250,6 @@ bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_
 # bindsym --release $mod+Shift+Print exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
-for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
+# for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # for_window [class="obsidian"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # bindsym $mod+o [class="obsidian"] scratchpad show
