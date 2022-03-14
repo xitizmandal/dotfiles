@@ -7,7 +7,7 @@
   with_items:
     - arandr
     - cmake
-    - compton
+    - picom
     - cowsay
     - dmenu
     - dunst

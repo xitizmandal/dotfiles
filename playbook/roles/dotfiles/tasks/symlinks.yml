@@ -10,7 +10,7 @@
     - { src: "alacritty/.config/alacritty", dst: ".config/alacritty"}
     - { src: "autorandr/.config/autorandr", dst: ".config/autorandr"}
     - { src: "bat/.config/bat", dst: ".config/bat"}
-    - { src: "compton/.config/compton", dst: ".config/compton"}
+    - { src: "picom/.config/picom", dst: ".config/picom"}
     - { src: "dunst/.config/dunst", dst: ".config/dunst" }
     - { src: "i3/.config/i3", dst: ".config/i3"}
     - { src: "nvim/.config/nvim", dst: ".config/nvim"}

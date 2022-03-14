@@ -243,7 +243,7 @@ bindsym $mod+Shift+e mode "$logout"
 # Set wallpaper
 exec_always --no-startup-id nitrogen --restore &
 
-exec_always compton
+exec_always picom
 
 bindsym --release Print exec scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
