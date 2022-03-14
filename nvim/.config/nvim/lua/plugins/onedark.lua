@@ -6,7 +6,7 @@ require('onedark').setup  {
     ending_tildes = true, -- Show the end-of-buffer tildes. By default they are hidden
     -- toggle theme style ---
     toggle_style_key = '<leader>ts', -- Default keybinding to toggle
-    toggle_style_list = {'deep', 'light'}, -- List of styles to toggle between
+    toggle_style_list = {'light', 'deep'}, -- List of styles to toggle between
 
     -- Change code style ---
     -- Options are italic, bold, underline, none
