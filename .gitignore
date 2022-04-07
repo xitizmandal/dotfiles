@@ -9,3 +9,4 @@ __pycache__/
 
 scripts/.scripts/firefox-pn.sh
 autorandr/
+nvim/.config/nvim/plugin

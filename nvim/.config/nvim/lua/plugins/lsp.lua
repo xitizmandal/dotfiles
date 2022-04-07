@@ -105,40 +105,116 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local home = vim.fn.getenv("HOME")
 
-nvim_lsp.pylsp.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    enable = true,
-    cmd = { home .. "/.venvs/nvim/bin/pylsp"},
-    settings = {
-        -- formatCommand = {"black"},
-        pylsp = {
-            configurationSources = {"flake8"},
-            plugins = {
-                pycodestyle = {enabled = false},
-                pyflakes = {enabled = false},
-                flake8 = {enabled = true},
-                pydocstyle = {enabled = false},
-                mccabe = {enabled = false},
-                autopep8 = {enabled = false},
-                yapf = {enabled = false},
-                pylsp_mypy = {
-                    enabled = false,
-                    live_mode = false,
-                },
-                jedi_completion = {fuzzy = true},
-                pylsp_black = { enabled = true},
-                pyls_isort = { enabled = true},
-            },
-        },
-    },
-}
+-- nvim_lsp.pylsp.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     enable = true,
+--     cmd = { home .. "/.venvs/nvim/bin/pylsp"},
+--     settings = {
+--         -- formatCommand = {"black"},
+--         pylsp = {
+--             configurationSources = {"flake8"},
+--             plugins = {
+--                 pycodestyle = {enabled = false},
+--                 pyflakes = {enabled = false},
+--                 flake8 = {enabled = true},
+--                 pydocstyle = {enabled = false},
+--                 mccabe = {enabled = false},
+--                 autopep8 = {enabled = false},
+--                 yapf = {enabled = false},
+--                 pylsp_mypy = {
+--                     enabled = false,
+--                     live_mode = false,
+--                 },
+--                 jedi_completion = {fuzzy = true},
+--                 pylsp_black = { enabled = true},
+--                 pyls_isort = { enabled = true},
+--             },
+--         },
+--     },
+-- }
 
 -- --- JS/Typescript server
-nvim_lsp.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
+-- nvim_lsp.tsserver.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+-- }
 
 -- --- C Server
-nvim_lsp.ccls.setup{}
+-- nvim_lsp.ccls.setup{}
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.settings({
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
+
+
+-- -- Include the servers you want to have installed by default below
+local servers = {
+  "bashls",
+  -- "pylsp",
+  -- "vuels",
+  "yamlls",
+}
+
+for _, name in pairs(servers) do
+  local server_is_found, server = lsp_installer.get_server(name)
+  if server_is_found and not server:is_installed() then
+    print("Installing " .. name)
+    server:install()
+  end
+end
+
+
+local enhance_server_opts = {
+    ["pylsp"] = function(opts)
+        opts.settings = {
+            pylsp = {
+                configurationSources = {"flake8"},
+                plugins = {
+                    pycodestyle = {enabled = false},
+                    pyflakes = {enabled = false},
+                    flake8 = {enabled = true},
+                    pydocstyle = {enabled = false},
+                    mccabe = {enabled = false},
+                    autopep8 = {enabled = false},
+                    yapf = {enabled = false},
+                    pylsp_mypy = {
+                        enabled = false,
+                        live_mode = false,
+                    },
+                    jedi_completion = {fuzzy = true},
+                    pylsp_black = { enabled = true},
+                    pyls_isort = { enabled = true},
+                },
+            },
+        }
+    end,
+}
+
+
+lsp_installer.on_server_ready(function(server)
+    local opts = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    }
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+    if enhance_server_opts[server.name] then
+        -- Enhance the default opts with the server-specific ones
+        enhance_server_opts[server.name](opts)
+    end
+    -- This setup() function will take the provided server configuration and decorate it with the necessary properties
+    -- before passing it onwards to lspconfig.
+    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    server:setup(opts)
+end)
