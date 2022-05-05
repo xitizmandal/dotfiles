@@ -50,3 +50,23 @@
 #   shell: |
 #     poetry completions zsh > ~/.oh-my-zsh/custom/plugins/poetry/_poetry
 #   when: not has_poetry_zsh.stat.exists
+- name: Check if zsh-vim-mode exists
+  stat:
+    path: ~/.oh-my-zsh/custom/plugins/zsh-vim-mode
+  register: has_zsh_vim_mode
+
+- name: Install zsh-vim-mode
+  when: not has_zsh_vim_mode.stat.exists
+  shell: |
+    git clone https://github.com/softmoth/zsh-vim-mode.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-vim-mode
+
+- name: Check if zsh-nvm exists
+  stat:
+    path: ~/.oh-my-zsh/custom/plugins/zsh-nvm
+  register: has_zsh_nvm
+
+- name: Install zsh-nvm
+  when: not has_zsh_nvm.stat.exists
+  shell: |
+    git clone https://github.com/lukechilds/zsh-nvm.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
+
