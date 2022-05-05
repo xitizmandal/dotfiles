@@ -14,32 +14,4 @@
 # - name: Copy fonts
 #   copy:
 #     src: "~/.dotfiles/fonts/Mononoki"
-#     dest: "~/.fonts/"
-
-# - name: Copy polybar fonts
-#   copy:
-#     src: "~/.dotfiles/polybar/.config/polybar/fonts/{{ item.src }}"
-#     dest: "~/.fonts/"
-#   with_items:
-#     -  { src: "icomoon-feather.ttf"}
-#     -  { src: "waffle-10.bdf"}
-
-# - name: Check if bitmap fonts need to be enabled manually
-#   stat:
-#     path: /etc/fonts/conf.d/70-no-bitmaps.conf
-#   register: bitmap_result
-
-# - name: Enable bitmap fonts
-#   file:
-#     path: /etc/fonts/conf.d/70-no-bitmaps.conf
-#     state: absent
-#   when: bitmap_result.stat.exists == True
-#   become: yes
-#   become_method: sudo
-
-
-# - name: Recreate fonts cache
-#   shell: |
-#     fc-cache -fv
-#   become: yes
-#   become_method: sudo
+#     dest: "/Library/Fonts/"

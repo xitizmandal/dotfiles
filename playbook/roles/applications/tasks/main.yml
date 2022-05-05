@@ -1,38 +1,6 @@
 ---
-# - name: Insall neovim (0.5)
-#   become: yes
-#   become_method: sudo
-#   shell: |
-#     add-apt-repository ppa:neovim-ppa/unstable
-#     apt install neovim -y
-
-# - name: Install alacritty using ppa
-#   become: yes
-#   become_method: sudo
-#   shell: |
-#     add-apt-repository ppa:aslatter/ppa
-#     apt install alacritty -y
-
-# - name: Install i3-gaps
-#   become: yes
-#   become_method: sudo
-#   shell: |
-#     add-apt-repository ppa:regolith-linux/stable
-#     apt install i3-gaps -y
-
-# - name: Install fzf
-#   shell: |
-#     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-#     ~/.fzf/install
-
-# - name: Installing polybar from speedricer
-#   shell: |
-#     add-apt-repository ppa:kgilmer/speed-ricer
-#     apt install polybar -y
-#   become: yes
-#   become_method: sudo
-
 # - include_tasks: nvim.yml
-# - include_tasks: poetry.yml
+- include_tasks: poetry.yml
 - include_tasks: zsh.yml
-# - include_tasks: tmux.yml
+- include_tasks: tmux.yml
+- include_tasks: fzf.yml
