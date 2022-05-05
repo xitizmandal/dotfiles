@@ -1,25 +1,27 @@
 font:
-  normal:
-    family: mononoki Nerd Font Mono
-    style: Regular
-  bold:
-    family: mononoki Nerd Font Mono
-    style: Bold
-  italic:
-    family: mononoki Nerd Font Mono
-    style: Italic
-  bold_italic:
-    family: mononoki Nerd Font Mono
-    style: BoldItalic
-  size: 9.5
-  offset:
-    x: 0
-    y: 0
+    normal:
+        family: mononoki Nerd Font Mono
+        style: Regular
+    bold:
+        family: mononoki Nerd Font Mono
+        style: Bold
+    italic:
+        family: mononoki Nerd Font Mono
+        style: Italic
+    bold_italic:
+        family: mononoki Nerd Font Mono
+        style: BoldItalic
+    size: 13
+    offset:
+        x: 0
+        y: 0
+
 scrolling:
-  history: 10000
-  multiplier: 3
-windows:
-  dynamic_title: true
+    history: 10000
+    multiplier: 3
+
+window:
+  dynamic_title: false
   opacity: 0.95
 cursor:
   style: Block

@@ -7,19 +7,18 @@
     state: link
     force: yes
   with_items:
-    - { src: "alacritty/.config/alacritty", dst: ".config/alacritty"}
-    - { src: "autorandr/.config/autorandr", dst: ".config/autorandr"}
-    - { src: "bat/.config/bat", dst: ".config/bat"}
-    - { src: "picom/.config/picom", dst: ".config/picom"}
-    - { src: "dunst/.config/dunst", dst: ".config/dunst" }
-    - { src: "i3/.config/i3", dst: ".config/i3"}
+    # - { src: "alacritty/.config/alacritty", dst: ".config/alacritty"}
+    # - { src: "bat/.config/bat", dst: ".config/bat"}
+    # - { src: "compton/.config/compton", dst: ".config/compton"}
+    # - { src: "dunst/.config/dunst", dst: ".config/dunst" }
+    # - { src: "i3/.config/i3", dst: ".config/i3"}
     - { src: "nvim/.config/nvim", dst: ".config/nvim"}
-    - { src: "polybar/.config/polybar", dst: ".config/polybar"}
-    - { src: "ranger/.config/ranger", dst: ".config/ranger"}
-    - { src: "rofi/.config/rofi", dst: ".config/rofi"}
-    - { src: "scripts/.scripts", dst: ".scripts"}
+    # - { src: "polybar/.config/polybar", dst: ".config/polybar"}
+    # - { src: "rofi/.config/rofi", dst: ".config/rofi"}
+    # - { src: "scripts/.scripts", dst: ".scripts"}
     - { src: "tmux/.tmux.conf", dst: ".tmux.conf"}
+    # - { src: ".Xresources", dst: ".Xresources"}
+    # - { src: "zsh/.alias", dst: ".alias"}
     - { src: "zsh/.zshrc", dst: ".zshrc"}
     - { src: "zsh/.alias", dst: ".alias"}
     - { src: "zsh/themes/candy.zsh-theme", dst: ".oh-my-zsh/custom/themes/candy.zsh-theme"}
-    - { src: ".Xresources", dst: ".Xresources"}

@@ -73,7 +73,7 @@ end)
 
 local HOME = os.getenv('HOME')
 
-vim.g.python3_host_prog = HOME .. '/.venvs/nvim/bin/python'
+vim.g.python3_host_prog = HOME .. '/.pyenv/versions/nvim/bin/python'
 vim.g.mapleader = ' '
 -- window-local options
 vim.wo.number = true

@@ -40,13 +40,13 @@
     path: ~/.oh-my-zsh/custom/plugins/poetry
   register: has_poetry_zsh
 
-- name: create oh-my-zsh poetry plugin folder
-  file:
-    path: ~/.oh-my-zsh/custom/plugins/poetry/
-    state: directory
-  when: not has_poetry_zsh.stat.exists
+# - name: create oh-my-zsh poetry plugin folder
+#   file:
+#     path: ~/.oh-my-zsh/custom/plugins/poetry/
+#     state: directory
+#   when: not has_poetry_zsh.stat.exists
 
-- name: Poetry zsh autocompletion
-  shell: |
-    poetry completions zsh > ~/.oh-my-zsh/custom/plugins/poetry/_poetry
-  when: not has_poetry_zsh.stat.exists
+# - name: Poetry zsh autocompletion
+#   shell: |
+#     poetry completions zsh > ~/.oh-my-zsh/custom/plugins/poetry/_poetry
+#   when: not has_poetry_zsh.stat.exists

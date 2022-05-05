@@ -5,24 +5,24 @@
     name: "{{ item }}"
     state: "latest"
   with_items:
-    - arandr
+    # - arandr
     - cmake
-    - picom
+    # - compton
     - cowsay
-    - dmenu
-    - dunst
-    - feh
+    # - dmenu
+    # - dunst
+    # - feh
     - git
-    - imagemagick
-    - lxappearance
-    - pavucontrol
+    # - imagemagick
+    # - lxappearance
+    # - pavucontrol
     - neofetch
-    - nitrogen
+    # - nitrogen
     - ranger
     - ripgrep
-    - rofi
-    - scrot
-    - thunar
+    # - rofi
+    # - scrot
+    # - thunar
     - tldr
     - tmux
     - tree

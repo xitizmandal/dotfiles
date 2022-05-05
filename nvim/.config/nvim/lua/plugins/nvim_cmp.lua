@@ -52,8 +52,10 @@ cmp.setup{
             vim.fn["UltiSnips#Anon"](args.body)
         end,
     },
-    documentation = {
-        -- border = 'rounded'
+    window = {
+        documentation = {
+            -- border = 'rounded'
+        },    
     },
     mapping = {
         ['<C-p>'] = cmp.mapping.select_prev_item(),

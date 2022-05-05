@@ -157,10 +157,10 @@ lsp_installer.settings({
 
 -- -- Include the servers you want to have installed by default below
 local servers = {
-  "bashls",
+  -- "bashls",
   -- "pylsp",
   -- "vuels",
-  "yamlls",
+  -- "yamlls",
 }
 
 for _, name in pairs(servers) do

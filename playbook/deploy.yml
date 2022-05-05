@@ -3,6 +3,6 @@
   connection: local
 
   roles:
-   - { role: common, become: yes}
+   - { role: common}
    - { role: applications}
    - { role: dotfiles}
