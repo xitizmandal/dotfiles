@@ -58,12 +58,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-export WORKON_HOME=$HOME/.venvs
-export PROJECT_HOME=$HOME/Documents/projects
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source $HOME/.local/bin/virtualenvwrapper.sh
-
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
