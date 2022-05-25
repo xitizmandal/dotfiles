@@ -1,32 +1,31 @@
 local lspkind = require('lspkind')
-
 lspkind.init({
- symbol_map = {
-      Text = "",
-      Method = "",
-      Function = "",
-      Constructor = "",
-      Field = "ﰠ",
-      Variable = "",
-      Class = "ﴯ",
-      Interface = "",
-      Module = "",
-      Property = "ﰠ",
-      Unit = "塞",
-      Value = "",
-      Enum = "",
-      Keyword = "",
-      Snippet = "",
-      Color = "",
-      File = "",
-      Reference = "",
-      Folder = "",
-      EnumMember = "",
-      Constant = "",
-      Struct = "פּ",
-      Event = "",
-      Operator = "",
-      TypeParameter = ""
+    symbol_map = {
+        Text = "",
+        Method = "",
+        Function = "",
+        Constructor = "",
+        Field = "ﰠ",
+        Variable = "",
+        Class = "ﴯ",
+        Interface = "",
+        Module = "",
+        Property = "ﰠ",
+        Unit = "塞",
+        Value = "",
+        Enum = "",
+        Keyword = "",
+        Snippet = "",
+        Color = "",
+        File = "",
+        Reference = "",
+        Folder = "",
+        EnumMember = "",
+        Constant = "",
+        Struct = "פּ",
+        Event = "",
+        Operator = "",
+        TypeParameter = ""
     },
 })
 
@@ -42,7 +41,7 @@ end
 
 vim.g.UltiSnipsRemoveSelectModeMappings = 0
 
-cmp.setup{
+cmp.setup {
     completion = {
         keyword_length = 2
     },
@@ -55,7 +54,7 @@ cmp.setup{
     window = {
         documentation = {
             -- border = 'rounded'
-        },    
+        },
     },
     mapping = {
         ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -118,7 +117,7 @@ cmp.setup{
         { name = 'ultisnips' },
         { name = 'path' },
         { name = 'rg' },
-        { 
+        {
             name = 'buffer',
             option = {
                 get_bufnrs = function()
@@ -141,7 +140,7 @@ cmp.setup{
                 ultisnips = '[U]',
                 rg = '[R]',
             })[entry.source.name]
-          return vim_item
+            return vim_item
         end
     },
 }

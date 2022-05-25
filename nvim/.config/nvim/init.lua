@@ -1,7 +1,7 @@
 -- Install packer
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
 require('packer').startup(function(use)
@@ -12,14 +12,15 @@ require('packer').startup(function(use)
 
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/plenary.nvim'} }
-    use { 'nvim-telescope/telescope-media-files.nvim', requires = {'nvim-telescope/telescope.nvim'} }
+    use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+    use { 'nvim-telescope/telescope-media-files.nvim', requires = { 'nvim-telescope/telescope.nvim' } }
 
     use { 'szw/vim-maximizer' }
     -- autocompletion
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
-    use'SirVer/ultisnips' 
+    use 'SirVer/ultisnips'
+    use 'honza/vim-snippets'
     use 'onsails/lspkind-nvim'
 
     use 'hrsh7th/nvim-cmp'
@@ -28,17 +29,17 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-path'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
     use 'lukas-reineke/cmp-rg'
-
     --
     -- GIT
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'tpope/vim-fugitive'
-    use { 'junegunn/gv.vim', requires = {'tpope/vim-fugitive'}}
+    use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive' } }
 
     -- colorscheme
     use 'navarasu/onedark.nvim'
     use 'ryanoasis/vim-devicons'
     use 'kyazdani42/nvim-web-devicons'
+    use 'xiyaowong/nvim-transparent'
 
     -- IDE
     use 'liuchengxu/vista.vim'
@@ -46,7 +47,7 @@ require('packer').startup(function(use)
     -- Better language support
 
     use 'editorconfig/editorconfig-vim'
-    use {'nvim-treesitter/nvim-treesitter', run=':TSUpdate'}
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
     -- Debug Adapter Protocol
     use 'mfussenegger/nvim-dap'
@@ -95,13 +96,13 @@ vim.o.hidden = true
 vim.o.autoread = true
 vim.o.signcolumn = 'yes'
 vim.opt.undofile = true
-vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.completeopt = 'menuone,noselect'
 
 vim.cmd [[set mouse= ]]
 vim.cmd [[syntax on]]
-
+-- vim.api.nvim_set_hl(0, "Normal", {ctermfg=None, ctermbg=None})
 -- keymap(mode, mapping, operation, {opts})
-local opts = {noremap = true}
+local opts = { noremap = true }
 vim.api.nvim_set_keymap('i', 'jk', '<esc>', opts)
 vim.api.nvim_set_keymap('n', '<up>', '<Nop>', opts)
 vim.api.nvim_set_keymap('n', '<down>', '<Nop>', opts)
@@ -119,19 +120,19 @@ require('plugins.telescope')
 require('plugins.nvim_cmp')
 require('plugins.dap')
 require('plugins.lualine')
-require('gitsigns').setup()
+require('plugins.gitsigns')
 require('plugins.lsp')
 require('plugins.indentline')
 require('colorizer').setup()
-
+require('plugins.transparent')
 -- ultisnips
 vim.g.UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/UltiSnips/'
 vim.g.UltiSnipsSnippetDirectories = { "UltiSnips" }
-vim.g.UltiSnipsExpandTrigger="<tab>"
-vim.g.UltiSnipsJumpForwardTrigger="<C-j>"
-vim.g.UltiSnipsJumpBackwardTrigger="<C-k>"
-vim.g.UltiSnipsEditSplit="vertical"
-vim.g.ultisnips_python_style="numpy"
+vim.g.UltiSnipsExpandTrigger = "<tab>"
+vim.g.UltiSnipsJumpForwardTrigger = "<C-j>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
+vim.g.UltiSnipsEditSplit = "vertical"
+vim.g.ultisnips_python_style = "numpy"
 
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
@@ -143,11 +144,9 @@ vim.api.nvim_set_keymap('n', '<leader>m', ':MaximizerToggle<CR>', opts)
 
 vim.api.nvim_set_keymap('n', '<F9>', ':Vista!!<CR>', opts)
 vim.g.vista_default_executive = 'nvim_lsp'
-vim.g.vista_fzf_preview = {'right:50%'}
+vim.g.vista_fzf_preview = { 'right:50%' }
 vim.g['vista#renderer#enable_icon'] = 1
 
 vim.api.nvim_set_keymap('n', '<leader>l', ':Twilight<CR>', opts)
-
-
 -- TODO
 -- autocmds, colorcolumn cursorline, stratify
