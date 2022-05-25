@@ -21,8 +21,10 @@ plugins=(
     zsh-vim-mode
     colored-man-pages
     zsh-nvm
+    tmux
 )
 
+ZSH_TMUX_AUTOSTART=true
 VIM_MODE_VICMD_KEY='jk'
 # export ZVM_VI_ESCAPE_BINDKEY=jk
 source $ZSH/oh-my-zsh.sh
@@ -35,11 +37,11 @@ MODE_INDICATOR_VISUAL='%F{12}<%F{4}VISUAL>%f'
 MODE_INDICATOR_VLINE='%F{12}<%F{4}V-LINE>%f'
 #
 # Example aliases
-if [[ $DISPLAY ]]; then
-    # If not running interactively, do not do anything
-    [[ $- != *i* ]] && return
-    [[ -z "$TMUX" ]] && exec tmux
-fi
+# if [[ $DISPLAY ]]; then
+#     # If not running interactively, do not do anything
+#     [[ $- != *i* ]] && return
+#     [[ -z "$TMUX" ]] && exec tmux
+# fi
 
 setopt transientrprompt
 source ~/.alias
@@ -63,6 +65,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 if type rg &> /dev/null; then
