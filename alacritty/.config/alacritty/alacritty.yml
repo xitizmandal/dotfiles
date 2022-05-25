@@ -21,8 +21,12 @@ scrolling:
     multiplier: 3
 
 window:
-  dynamic_title: false
   opacity: 0.95
+  dynamic_title: false
+  decorations: "buttonless"
+  padding:
+    x: 4
+    y: 4
 cursor:
   style: Block
 colors:
