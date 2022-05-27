@@ -19,15 +19,17 @@ require('packer').startup(function(use)
     -- autocompletion
     use 'neovim/nvim-lspconfig'
     use 'williamboman/nvim-lsp-installer'
-    use 'SirVer/ultisnips'
-    use 'honza/vim-snippets'
+    use { 'L3MON4D3/LuaSnip' }
+    use 'rafamadriz/friendly-snippets'
     use 'onsails/lspkind-nvim'
 
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use 'quangnguyen30192/cmp-nvim-ultisnips'
+    use { 'saadparwaiz1/cmp_luasnip' }
     use 'lukas-reineke/cmp-rg'
     --
     -- GIT
@@ -118,6 +120,7 @@ require('plugins.onedark')
 require('plugins.nvim_tree')
 require('plugins.telescope')
 require('plugins.nvim_cmp')
+require('plugins.luasnip')
 require('plugins.dap')
 require('plugins.lualine')
 require('plugins.gitsigns')
@@ -125,14 +128,6 @@ require('plugins.lsp')
 require('plugins.indentline')
 require('colorizer').setup()
 require('plugins.transparent')
--- ultisnips
-vim.g.UltiSnipsSnippetsDir = '~/.local/share/nvim/plugged/vim-snippets/UltiSnips/'
-vim.g.UltiSnipsSnippetDirectories = { "UltiSnips" }
-vim.g.UltiSnipsExpandTrigger = "<tab>"
-vim.g.UltiSnipsJumpForwardTrigger = "<C-j>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
-vim.g.UltiSnipsEditSplit = "vertical"
-vim.g.ultisnips_python_style = "numpy"
 
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
