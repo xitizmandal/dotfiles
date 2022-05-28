@@ -22,82 +22,28 @@ local  on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-    vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', [[<cmd>lua vim.lsp.buf.formatting()<CR>]], opts)
 end
-
-
 
 -- vim.o.updatetime = 250
 -- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- virtual_text = true,
-        -- signs = true,
-        -- update_in_insert = false,
+vim.diagnostic.config({
         underline = true,
         virtual_text = false,
         signs = true,
         update_in_insert = false,
-  }
-)
+        severity_sort=true,
+})
 
 
 --- diagnostic signs
--- local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
 
--- for type, icon in pairs(signs) do
---   local hl = "LspDiagnosticsSign" .. type
---   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
--- end
-
-
--- vim.lsp.handlers["textDocument/publishDiagnostics"] = 
---     function(_, params, ctx, config)
---         -- local config = {
---         --     underline = true,
---         --     virtual_text = false,
---         --     virtual_text = {
---         --         prefix = "> ",
---         --         spacing = 4,
---         --     },
---         --     signs = true,
---         --     update_in_insert = false,
---         --     severity_sort = false,
---         -- }
---         local uri = params.uri
---         local client_id = ctx.client_id
---         local bufnr = vim.uri_to_bufnr(uri)
-
---         if not bufnr then
---             return
---         end
-
---         local diagnostics = params.diagnostics
---         vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
-
---         if not vim.api.nvim_buf_is_loaded(bufnr) then
---             return
---         end
-
---         -- don't mutate the original diagnostic
---         local prefixed_diagnostics = vim.deepcopy(diagnostics)
---         for i, v in ipairs(diagnostics) do
---             prefixed_diagnostics[i].message = string.format("%s: %s", v.source, v.message)
---         end
-
---         -- vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
---         local namespace = vim.diagnostic.get_namespace(client_id)
---         vim.diagnostic.set(namespace, bufnr, client_id, config)
---     end
-
--- local servers = {'pylsp'}
--- for _, lsp in ipairs(servers) do
---     nvim_lsp[lsp].setup {
---         on_attach =on_attach,
---         capabilities = capabilities,
---     }
--- end
 
 -- nvim-cmp supports addditional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
