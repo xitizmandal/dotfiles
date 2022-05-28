@@ -14,6 +14,7 @@ require('packer').startup(function(use)
     use 'nvim-lua/plenary.nvim'
     use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use { 'nvim-telescope/telescope-media-files.nvim', requires = { 'nvim-telescope/telescope.nvim' } }
+    use { "nvim-telescope/telescope-file-browser.nvim" }
 
     use { 'szw/vim-maximizer' }
     -- autocompletion
@@ -41,7 +42,6 @@ require('packer').startup(function(use)
     use 'navarasu/onedark.nvim'
     use 'ryanoasis/vim-devicons'
     use 'kyazdani42/nvim-web-devicons'
-    use 'xiyaowong/nvim-transparent'
 
     -- IDE
     use 'liuchengxu/vista.vim'
@@ -50,7 +50,10 @@ require('packer').startup(function(use)
 
     use 'editorconfig/editorconfig-vim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
+    use 'windwp/nvim-autopairs'
+    use 'windwp/nvim-ts-autotag'
+    use 'tpope/vim-surround'
+    use 'p00f/nvim-ts-rainbow'
     -- Debug Adapter Protocol
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
@@ -66,7 +69,6 @@ require('packer').startup(function(use)
     use 'folke/twilight.nvim'
 
     -- Project management
-    use 'mhinz/vim-startify'
 
     -- Navigation
     use 'tmux-plugins/vim-tmux-focus-events'
@@ -127,8 +129,29 @@ require('plugins.gitsigns')
 require('plugins.lsp')
 require('plugins.indentline')
 require('colorizer').setup()
-require('plugins.transparent')
-
+require('nvim-autopairs').setup {}
+require 'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,
+    },
+    indent = {
+        enable = true,
+    },
+    autotag = {
+        enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+    },
+    rainbow = {
+        enable = true,
+        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = nil, -- Do not enable for files with more than n lines, int
+        -- colors = {}, -- table of hex strings
+        -- termcolors = {} -- table of colour name strings
+    }
+}
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
