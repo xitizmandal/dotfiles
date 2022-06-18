@@ -21,7 +21,7 @@ plugins=(
     zsh-vim-mode
     colored-man-pages
     zsh-nvm
-    tmux
+    # tmux
 )
 
 ZSH_TMUX_AUTOSTART=true

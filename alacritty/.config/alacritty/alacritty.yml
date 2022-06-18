@@ -51,3 +51,10 @@ colors:
     magenta: "#c678dd"
     cyan: "#56b6c2"
     white: "#ffffff"
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
