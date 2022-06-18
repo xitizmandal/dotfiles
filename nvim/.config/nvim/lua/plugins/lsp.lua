@@ -1,7 +1,7 @@
 local nvim_lsp = require('lspconfig')
 
-local  on_attach = function(_, bufnr)
-    vim.api.nvim_buf_set_option(bufnr,  'omnifunc', 'v:lua.vim.lsp.omnifunc')
+local on_attach = function(_, bufnr)
+    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local opts = { noremap = true, silent = true }
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -29,21 +29,44 @@ end
 -- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 
 vim.diagnostic.config({
-        underline = true,
-        virtual_text = false,
-        signs = true,
-        update_in_insert = false,
-        severity_sort=true,
+    underline = {
+        severity = vim.diagnostic.severity.ERROR,
+        enable = true,
+    },
+    virtual_text = false,
+    float = {
+        enable = true,
+        -- source = "always",
+        format = function(diagnostic)
+            return string.format("[%s]: %s", diagnostic.source, diagnostic.message)
+        end,
+    },
+    signs = true,
+    update_in_insert = false,
+    severity_sort = true,
 })
 
 
 --- diagnostic signs
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+--- diagnostic underline
+local underlines = {
+    Error = "",
+    Warn = "",
+    Hint = "",
+    Info = "",
+}
+for type, icon in pairs(signs) do
+    local hl_underline = "DiagnosticUnderline" .. type
+    local hl = "Diagnostic" .. type
+    -- vim.api.nvim_command(string.format("hi %s cterm=undercurl gui=undercurl guisp=#00ff00", hl_underline))
+    vim.cmd [[hi! DiagnosticUnderlineError guisp=red    gui=undercurl guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE term=underline cterm=underline]]
+end
 
 -- nvim-cmp supports addditional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -103,18 +126,18 @@ lsp_installer.settings({
 
 -- -- Include the servers you want to have installed by default below
 local servers = {
-  -- "bashls",
-  -- "pylsp",
-  -- "vuels",
-  -- "yamlls",
+    -- "bashls",
+    -- "pylsp",
+    -- "vuels",
+    -- "yamlls",
 }
 
 for _, name in pairs(servers) do
-  local server_is_found, server = lsp_installer.get_server(name)
-  if server_is_found and not server:is_installed() then
-    print("Installing " .. name)
-    server:install()
-  end
+    local server_is_found, server = lsp_installer.get_server(name)
+    if server_is_found and not server:is_installed() then
+        print("Installing " .. name)
+        server:install()
+    end
 end
 
 
@@ -122,22 +145,22 @@ local enhance_server_opts = {
     ["pylsp"] = function(opts)
         opts.settings = {
             pylsp = {
-                configurationSources = {"flake8"},
+                configurationSources = { "flake8" },
                 plugins = {
-                    pycodestyle = {enabled = false},
-                    pyflakes = {enabled = false},
-                    flake8 = {enabled = true},
-                    pydocstyle = {enabled = false},
-                    mccabe = {enabled = false},
-                    autopep8 = {enabled = false},
-                    yapf = {enabled = false},
+                    pycodestyle = { enabled = false },
+                    pyflakes = { enabled = false },
+                    flake8 = { enabled = true },
+                    pydocstyle = { enabled = false },
+                    mccabe = { enabled = false },
+                    autopep8 = { enabled = false },
+                    yapf = { enabled = false },
                     pylsp_mypy = {
                         enabled = false,
                         live_mode = false,
                     },
-                    jedi_completion = {fuzzy = true},
-                    pylsp_black = { enabled = true},
-                    pyls_isort = { enabled = true},
+                    jedi_completion = { fuzzy = true },
+                    pylsp_black = { enabled = true },
+                    pyls_isort = { enabled = true },
                 },
             },
         }

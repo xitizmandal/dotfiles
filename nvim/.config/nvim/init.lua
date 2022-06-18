@@ -24,12 +24,12 @@ require('packer').startup(function(use)
     use 'rafamadriz/friendly-snippets'
     use 'onsails/lspkind-nvim'
 
+    use { 'jose-elias-alvarez/null-ls.nvim', requires = { "nvim-lua/plenary.nvim" } }
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-nvim-lsp-signature-help'
-    use 'quangnguyen30192/cmp-nvim-ultisnips'
     use { 'saadparwaiz1/cmp_luasnip' }
     use 'lukas-reineke/cmp-rg'
     --
@@ -40,11 +40,10 @@ require('packer').startup(function(use)
 
     -- colorscheme
     use 'navarasu/onedark.nvim'
-    use 'ryanoasis/vim-devicons'
     use 'kyazdani42/nvim-web-devicons'
 
     -- IDE
-    use 'liuchengxu/vista.vim'
+    use 'simrat39/symbols-outline.nvim'
     use "lukas-reineke/indent-blankline.nvim"
     -- Better language support
 
@@ -99,7 +98,7 @@ vim.o.scrolloff = 4
 vim.o.hidden = true
 vim.o.autoread = true
 vim.o.signcolumn = 'yes'
-vim.opt.undofile = true
+vim.opt.undofile = false
 vim.o.completeopt = 'menuone,noselect'
 
 vim.cmd [[set mouse= ]]
@@ -128,6 +127,7 @@ require('plugins.lualine')
 require('plugins.gitsigns')
 require('plugins.lsp')
 require('plugins.indentline')
+require('plugins.symbol_outline')
 require('colorizer').setup()
 require('nvim-autopairs').setup {}
 require 'nvim-treesitter.configs'.setup {
@@ -136,6 +136,7 @@ require 'nvim-treesitter.configs'.setup {
     },
     indent = {
         enable = true,
+        disable = { "python" }
     },
     autotag = {
         enable = true,
@@ -152,6 +153,12 @@ require 'nvim-treesitter.configs'.setup {
         -- termcolors = {} -- table of colour name strings
     }
 }
+require("null-ls").setup({
+    sources = {
+        require("null-ls").builtins.diagnostics.eslint,
+        -- require("null-ls").builtins.completion.spell,
+    }
+})
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
@@ -159,11 +166,6 @@ vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 vim.g.maximizer_set_mapping_with_bang = 1
 vim.g.maximizer_set_default_mapping = 0
 vim.api.nvim_set_keymap('n', '<leader>m', ':MaximizerToggle<CR>', opts)
-
-vim.api.nvim_set_keymap('n', '<F9>', ':Vista!!<CR>', opts)
-vim.g.vista_default_executive = 'nvim_lsp'
-vim.g.vista_fzf_preview = { 'right:50%' }
-vim.g['vista#renderer#enable_icon'] = 1
 
 vim.api.nvim_set_keymap('n', '<leader>l', ':Twilight<CR>', opts)
 -- TODO

@@ -114,6 +114,7 @@ cmp.setup {
                 nvim_lsp = "[L]",
                 path = "[P]",
                 luasnip = "[S]",
+                nvim_lsp_signature_help = "SH"
             },
         }),
     },
