@@ -80,6 +80,7 @@ require('telescope').setup{
 
 require('telescope').load_extension('media_files')
 require('telescope').load_extension('file_browser')
+require('telescope').load_extension('dap')
 
 vim.api.nvim_set_keymap('n', ',ff', "<cmd> lua require('telescope.builtin').find_files{find_command={'rg', '--files', '--hidden', '--smart-case', '--glob', '!**/{.git,__pycache__,node_modules,vendor}/*'}}<cr>", {noremap = true})
 vim.api.nvim_set_keymap('n', ',fF', "<cmd> lua require('telescope.builtin').find_files()<cr>", {noremap = true})

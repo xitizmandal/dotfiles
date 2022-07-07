@@ -32,6 +32,7 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use { 'saadparwaiz1/cmp_luasnip' }
     use 'lukas-reineke/cmp-rg'
+    use 'rcarriga/cmp-dap'
     --
     -- GIT
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -56,6 +57,7 @@ require('packer').startup(function(use)
     -- Debug Adapter Protocol
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
+    use 'nvim-telescope/telescope-dap.nvim'
 
     -- Markdown
     use 'npxbr/glow.nvim'
@@ -123,6 +125,7 @@ require('plugins.telescope')
 require('plugins.nvim_cmp')
 require('plugins.luasnip')
 require('plugins.dap')
+require('plugins.dapui')
 require('plugins.lualine')
 require('plugins.gitsigns')
 require('plugins.lsp')
@@ -155,7 +158,7 @@ require 'nvim-treesitter.configs'.setup {
 }
 require("null-ls").setup({
     sources = {
-        require("null-ls").builtins.diagnostics.eslint,
+        -- require("null-ls").builtins.diagnostics.eslint,
         -- require("null-ls").builtins.completion.spell,
     }
 })

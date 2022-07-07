@@ -38,6 +38,10 @@ local has_words_before = function()
 end
 
 cmp.setup {
+    -- enabled = function()
+    --     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+    --         or require("cmp_dap").is_dap_buffer()
+    -- end,
     completion = {
         keyword_length = 2
     },
@@ -103,7 +107,7 @@ cmp.setup {
                 end
             }
         },
-        { name = 'nvim_lsp_signature_help' }
+        { name = 'nvim_lsp_signature_help' },
     },
     formatting = {
         format = lspkind.cmp_format({
@@ -120,6 +124,13 @@ cmp.setup {
     },
 }
 
+require("cmp").setup.filetype("dap-repl", {
+    sources = {
+        { name = "dap" }
+    }
+})
+
 for index, value in ipairs(vim.lsp.protocol.CompletionItemKind) do
     cmp.lsp.CompletionItemKind[index] = value
 end
+
