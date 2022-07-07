@@ -18,7 +18,15 @@ require('onedark').setup  {
 
     -- Custom Highlights --
     colors = {}, -- Override default colors
-    highlights = {}, -- Override highlight groups
+    highlights = {
+        rainbowcol1 = {fg = '$blue', },
+        rainbowcol2 = {fg = '$yellow', },
+        rainbowcol3 = {fg = '$orange', },
+        rainbowcol4 = {fg = '$purple', },
+        rainbowcol5 = {fg = '$green', },
+        rainbowcol6 = {fg = '$red', },
+        rainbowcol7 = {fg = '$grey', },
+    }, -- Override highlight groups
 
     -- Plugins Config --
     diagnostics = {
