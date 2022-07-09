@@ -37,6 +37,12 @@ require('packer').startup(function(use)
     -- GIT
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'tpope/vim-fugitive'
+    use { 'TimUntersberger/neogit',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'sindrets/diffview.nvim'
+        }
+    }
     use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive' } }
 
     -- colorscheme
@@ -168,6 +174,7 @@ require("null-ls").setup({
 })
 require('plugins.neogen')
 require("todo-comments").setup {}
+require('plugins.neogit')
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
