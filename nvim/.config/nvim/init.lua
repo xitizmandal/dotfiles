@@ -41,11 +41,27 @@ require('packer').startup(function(use)
 
     -- colorscheme
     use 'navarasu/onedark.nvim'
+    use 'folke/tokyonight.nvim'
     use 'kyazdani42/nvim-web-devicons'
 
     -- IDE
     use 'simrat39/symbols-outline.nvim'
     use "lukas-reineke/indent-blankline.nvim"
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+    }
     -- Better language support
 
     use 'editorconfig/editorconfig-vim'
@@ -59,6 +75,13 @@ require('packer').startup(function(use)
     use 'rcarriga/nvim-dap-ui'
     use 'nvim-telescope/telescope-dap.nvim'
 
+    --- Documentation
+    use {
+        "danymat/neogen",
+        requires = "nvim-treesitter/nvim-treesitter",
+        -- Uncomment next line if you want to follow only stable versions
+        -- tag = "*"
+    }
     -- Markdown
     use 'npxbr/glow.nvim'
     -- UI Elements
@@ -101,8 +124,10 @@ vim.o.hidden = true
 vim.o.autoread = true
 vim.o.signcolumn = 'yes'
 vim.opt.undofile = false
-vim.o.completeopt = 'menuone,noselect'
-
+vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.grepprg = "rg --vimgrep"
+vim.o.grepformat = "%f:%l:%c:%m"
+vim.o.pumheight = 10
 vim.cmd [[set mouse= ]]
 vim.cmd [[syntax on]]
 -- vim.api.nvim_set_hl(0, "Normal", {ctermfg=None, ctermbg=None})
@@ -119,7 +144,8 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', opts)
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', opts)
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', opts)
 
-require('plugins.onedark')
+-- require('plugins.onedark')
+require('plugins.tokyonight')
 require('plugins.nvim_tree')
 require('plugins.telescope')
 require('plugins.nvim_cmp')
@@ -133,35 +159,15 @@ require('plugins.indentline')
 require('plugins.symbol_outline')
 require('colorizer').setup()
 require('nvim-autopairs').setup {}
-require 'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true,
-    },
-    indent = {
-        enable = true,
-        disable = { "python" }
-    },
-    autotag = {
-        enable = true,
-    },
-    incremental_selection = {
-        enable = true,
-    },
-    rainbow = {
-        enable = true,
-        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        -- colors = {}, -- table of hex strings
-        -- termcolors = {} -- table of colour name strings
-    }
-}
+require('plugins.treesitter')
 require("null-ls").setup({
     sources = {
         -- require("null-ls").builtins.diagnostics.eslint,
         -- require("null-ls").builtins.completion.spell,
     }
 })
+require('plugins.neogen')
+require("todo-comments").setup {}
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
