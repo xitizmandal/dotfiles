@@ -67,10 +67,10 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
+        ['<C-j>'] = cmp.mapping(function(fallback)
+            -- if cmp.visible() then
+            --     cmp.select_next_item()
+            if luasnip.jumpable() then
                 luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
@@ -79,10 +79,10 @@ cmp.setup {
             end
         end, { "i", "s" }),
 
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
+        ['<C-k>'] = cmp.mapping(function(fallback)
+            -- if cmp.visible() then
+            --     cmp.select_prev_item()
+            if luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
                 fallback()
