@@ -31,6 +31,7 @@ lspkind.init({
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
+local cmp_buffer = require('cmp_buffer')
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -45,7 +46,17 @@ cmp.setup {
     completion = {
         keyword_length = 2
     },
-    -- sorting = {},
+    sorting = {
+        comparators = {
+            function(...) return cmp_buffer:compare_locality(...) end,
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        }
+    },
     snippet = {
         expand = function(args)
             require 'luasnip'.lsp_expand(args.body)
@@ -99,11 +110,6 @@ cmp.setup {
             option = {
                 get_bufnrs = function()
                     return vim.api.nvim_list_bufs()
-                    -- local bufs = {}
-                    -- for _, win in ipairs(vim.api.nvim_list_wins()) do
-                    --     bufs[vim.api.nvim_win_get_buf(win)] = true
-                    -- end
-                    -- return vim.tbl_keys(bufs)
                 end
             }
         },
