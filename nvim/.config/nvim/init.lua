@@ -150,6 +150,7 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', opts)
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', opts)
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', opts)
 
+vim.lsp.set_log_level("debug")
 -- require('plugins.onedark')
 require('plugins.tokyonight')
 require('plugins.nvim_tree')
@@ -166,12 +167,7 @@ require('plugins.symbol_outline')
 require('colorizer').setup()
 require('nvim-autopairs').setup {}
 require('plugins.treesitter')
-require("null-ls").setup({
-    sources = {
-        -- require("null-ls").builtins.diagnostics.eslint,
-        -- require("null-ls").builtins.completion.spell,
-    }
-})
+require('plugins.null_ls')
 require('plugins.neogen')
 require("todo-comments").setup {}
 require('plugins.neogit')

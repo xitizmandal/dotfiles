@@ -1,6 +1,6 @@
 local nvim_lsp = require('lspconfig')
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local opts = { noremap = true, silent = true }
@@ -11,7 +11,8 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',
+        '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
@@ -21,8 +22,27 @@ local on_attach = function(_, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so',
+        [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', [[<cmd>lua vim.lsp.buf.formatting()<CR>]], opts)
+
+    -- local jedi_capabilities = {
+    --     hoverProvider = true,
+    --     completionProvider = true,
+
+    -- }
+    -- if client.name == 'pyright' then
+    --     for jedi_capability, _ in pairs(jedi_capabilities) do
+    --         client.server_capabilities[jedi_capability] = false
+    --     end
+    -- end
+    -- if client.name == 'jedi_language_server' then
+    --     for capability, _ in pairs(client.server_capabilities) do
+    --         if not jedi_capabilities[capability] then
+    --             client.server_capabilities[capability] = false
+    --         end
+    --     end
+    -- end
 end
 
 -- vim.o.updatetime = 250
@@ -54,25 +74,12 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
---- diagnostic underline
-local underlines = {
-    Error = "",
-    Warn = "",
-    Hint = "",
-    Info = "",
-}
-for type, icon in pairs(signs) do
-    local hl_underline = "DiagnosticUnderline" .. type
-    local hl = "Diagnostic" .. type
-    -- vim.api.nvim_command(string.format("hi %s cterm=undercurl gui=undercurl guisp=#00ff00", hl_underline))
-    vim.cmd [[hi! DiagnosticUnderlineError guisp=red    gui=undercurl guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE term=underline cterm=underline]]
-end
-
 -- nvim-cmp supports addditional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-local home = vim.fn.getenv("HOME")
+
+-- local home = vim.fn.getenv("HOME")
 
 local lsp_installer = require("nvim-lsp-installer")
 
@@ -87,37 +94,35 @@ lsp_installer.setup({
 })
 
 
-nvim_lsp.pylsp.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    -- enable = true,
-    -- -- cmd = { home .. "/.venvs/nvim/bin/pylsp"},
-    settings = {
-        -- formatCommand = {"black"},
-        pylsp = {
-            configurationSources = "flake8",
-            plugins = {
-                pycodestyle = {enabled = false},
-                pyflakes = {enabled = false},
-                flake8 = {enabled = true},
-                pydocstyle = {enabled = false},
-                mccabe = {enabled = false},
-                autopep8 = {enabled = false},
-                yapf = {enabled = false},
-                pylsp_mypy = {
-                    enabled = false,
-                    live_mode = false,
+local servers = {
+    pyright = {},
+    -- jedi_language_server = {},
+    tsserver = {},
+    dockerls = {},
+    bashls = {},
+    yamlls = {},
+    jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+    sumneko_lua = {
+        cmd = { "lua-language-server" },
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { "vim" },
                 },
-                jedi_completion = {fuzzy = true},
-                pylsp_black = { enabled = true},
-                pyls_isort = { enabled = true},
+                workspace = {
+                    library = {
+                        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                    },
+                    maxPreload = 10000,
+                },
             },
         },
     },
 }
 
--- --- JS/Typescript server
-nvim_lsp.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-}
+for server, config in pairs(servers) do
+    config.on_attach = on_attach
+    config.capabilities = capabilities
+    nvim_lsp[server].setup(config)
+end
