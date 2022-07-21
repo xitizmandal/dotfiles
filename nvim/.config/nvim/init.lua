@@ -37,12 +37,6 @@ require('packer').startup(function(use)
     -- GIT
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'tpope/vim-fugitive'
-    use { 'TimUntersberger/neogit',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'sindrets/diffview.nvim'
-        }
-    }
     use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive' } }
 
     -- colorscheme
@@ -150,7 +144,7 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', opts)
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', opts)
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', opts)
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 -- require('plugins.onedark')
 require('plugins.tokyonight')
 require('plugins.nvim_tree')
@@ -170,7 +164,6 @@ require('plugins.treesitter')
 require('plugins.null_ls')
 require('plugins.neogen')
 require("todo-comments").setup {}
-require('plugins.neogit')
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
@@ -182,3 +175,8 @@ vim.api.nvim_set_keymap('n', '<leader>m', ':MaximizerToggle<CR>', opts)
 vim.api.nvim_set_keymap('n', '<leader>l', ':Twilight<CR>', opts)
 -- TODO
 -- autocmds, colorcolumn cursorline, stratify
+-- FIXME remove this when fix in telescope is there
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+    pattern = { "*" },
+    command = "normal zx",
+})
