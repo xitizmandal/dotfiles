@@ -68,7 +68,7 @@ vim.diagnostic.config({
 
 
 --- diagnostic signs
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -101,7 +101,9 @@ local servers = {
     dockerls = {},
     bashls = {},
     yamlls = {},
-    jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+    -- jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+    jsonls = {},
+    cssls = {},
     sumneko_lua = {
         cmd = { "lua-language-server" },
         settings = {
