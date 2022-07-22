@@ -176,7 +176,12 @@ vim.api.nvim_set_keymap('n', '<leader>l', ':Twilight<CR>', opts)
 -- TODO
 -- autocmds, colorcolumn cursorline, stratify
 -- FIXME remove this when fix in telescope is there
+
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
     pattern = { "*" },
     command = "normal zx",
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "javascript" },
+    command = "setl sw=2"
 })

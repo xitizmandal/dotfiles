@@ -2,6 +2,7 @@ local null_ls = require("null-ls")
 
 -- register any number of sources simultaneously
 local sources = {
+    autostart = true,
     null_ls.builtins.formatting.black.with {
         prefer_local = true,
         command = vim.fn.expand('~/.pyenv/versions/nvim/bin/black'),
@@ -22,6 +23,33 @@ local sources = {
             end
         end
     },
+    -- null_ls.builtins.code_actions.eslint
+    null_ls.builtins.formatting.eslint.with {
+        prefer_local = 'node_modules/.bin',
+    },
+    null_ls.builtins.diagnostics.eslint.with {
+        prefer_local = 'node_modules/.bin',
+    },
+    null_ls.builtins.code_actions.eslint.with {
+        prefer_local = 'node_modules/.bin',
+    },
+    -- null_ls.builtins.formatting.prettier.with {
+    --     prefer_local = 'node_modules/.bin',
+    --     filetypes = {
+    --         'typescriptreact',
+    --         'typescript',
+    --         'javascriptreact',
+    --         'javascript',
+    --         'svelte',
+    --         'json',
+    --         'jsonc',
+    --         'css',
+    --         'less',
+    --         'scss',
+    --         'html',
+    --         'yaml',
+    --     },
+    -- },
 }
 
 null_ls.setup({ sources = sources })
