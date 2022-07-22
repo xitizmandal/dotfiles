@@ -1,7 +1,8 @@
 -- Install packer
 local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+    packer_bootstrap = vim.fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+        install_path })
 end
 
 require('packer').startup(function(use)
@@ -47,21 +48,22 @@ require('packer').startup(function(use)
     -- IDE
     use 'simrat39/symbols-outline.nvim'
     use "lukas-reineke/indent-blankline.nvim"
-    use {
-        "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("trouble").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
-    }
-    use {
-        "folke/todo-comments.nvim",
-        requires = "nvim-lua/plenary.nvim",
-    }
+    -- use {
+    --     "folke/trouble.nvim",
+    --     requires = "kyazdani42/nvim-web-devicons",
+    --     config = function()
+    --         require("trouble").setup {
+    --             -- your configuration comes here
+    --             -- or leave it empty to use the default settings
+    --             -- refer to the configuration section below
+    --         }
+    --     end
+    -- }
+    use 'phaazon/hop.nvim'
+    -- use {
+    --     "folke/todo-comments.nvim",
+    --     requires = "nvim-lua/plenary.nvim",
+    -- }
     -- Better language support
 
     use 'editorconfig/editorconfig-vim'
@@ -163,7 +165,8 @@ require('nvim-autopairs').setup {}
 require('plugins.treesitter')
 require('plugins.null_ls')
 require('plugins.neogen')
-require("todo-comments").setup {}
+-- require("todo-comments").setup {}
+require('plugins.hop')
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
