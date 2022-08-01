@@ -91,7 +91,6 @@ require('packer').startup(function(use)
     --
     -- Colors
     use 'norcalli/nvim-colorizer.lua'
-    use 'sunjon/shade.nvim'
     use 'folke/twilight.nvim'
 
     -- Project management
@@ -175,7 +174,7 @@ vim.g.maximizer_set_mapping_with_bang = 1
 vim.g.maximizer_set_default_mapping = 0
 vim.api.nvim_set_keymap('n', '<leader>m', ':MaximizerToggle<CR>', opts)
 
-vim.api.nvim_set_keymap('n', '<leader>l', ':Twilight<CR>', opts)
+-- vim.api.nvim_set_keymap('n', '<leader>l', ':Twilight<CR>', opts)
 -- TODO
 -- autocmds, colorcolumn cursorline, stratify
 -- FIXME remove this when fix in telescope is there
@@ -185,6 +184,6 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     command = "normal zx",
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "javascript" },
+    pattern = { "javascript", "javascriptreact" },
     command = "setl sw=2"
 })

@@ -8,45 +8,30 @@ local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',
         '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ls',
+        [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
+
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lh', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    -- vim.api.nvim_buf_set_keymap(bufnr, 'v', '<leader>ca', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>le', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so',
-        [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', [[<cmd>lua vim.lsp.buf.formatting()<CR>]], opts)
 
-    -- local jedi_capabilities = {
-    --     hoverProvider = true,
-    --     completionProvider = true,
-
-    -- }
-    -- if client.name == 'pyright' then
-    --     for jedi_capability, _ in pairs(jedi_capabilities) do
-    --         client.server_capabilities[jedi_capability] = false
-    --     end
-    -- end
-    -- if client.name == 'jedi_language_server' then
-    --     for capability, _ in pairs(client.server_capabilities) do
-    --         if not jedi_capabilities[capability] then
-    --             client.server_capabilities[capability] = false
-    --         end
-    --     end
-    -- end
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
 -- vim.o.updatetime = 250
--- vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({focusable=false})]]
 
 vim.diagnostic.config({
     underline = {
@@ -93,15 +78,21 @@ lsp_installer.setup({
     }
 })
 
+local on_attach_disable_formatting = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+    return on_attach(client, bufnr)
+end
+
 
 local servers = {
     pyright = {},
     -- jedi_language_server = {},
-    tsserver = {},
     dockerls = {},
     bashls = {},
     yamlls = {},
     -- jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+    tsserver = {},
     jsonls = {},
     cssls = {},
     sumneko_lua = {
@@ -124,7 +115,11 @@ local servers = {
 }
 
 for server, config in pairs(servers) do
-    config.on_attach = on_attach
+    if server == 'tsserver' then
+        config.on_attach = on_attach_disable_formatting
+    else
+        config.on_attach = on_attach
+    end
     config.capabilities = capabilities
     nvim_lsp[server].setup(config)
 end
