@@ -48,7 +48,7 @@ cmp.setup {
     },
     sorting = {
         comparators = {
-            function(...) return cmp_buffer:compare_locality(...) end,
+            -- function(...) return cmp_buffer:compare_locality(...) end,
             cmp.config.compare.offset,
             cmp.config.compare.exact,
             cmp.config.compare.kind,
@@ -75,8 +75,8 @@ cmp.setup {
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            -- behavior = cmp.ConfirmBehavior.Replace,
+            select = false,
         },
         ['<Tab>'] = cmp.mapping(function(fallback)
             -- if cmp.visible() then
