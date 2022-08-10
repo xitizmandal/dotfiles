@@ -98,6 +98,13 @@ require('packer').startup(function(use)
     -- Navigation
     use 'tmux-plugins/vim-tmux-focus-events'
     use 'christoomey/vim-tmux-navigator'
+
+
+    -- Rest client
+    use {
+        "NTBBloodbath/rest.nvim",
+        requires = { "nvim-lua/plenary.nvim" },
+    }
 end)
 --
 
@@ -167,6 +174,7 @@ require('plugins.neogen')
 -- require("todo-comments").setup {}
 require('plugins.hop')
 require('diffview').setup {}
+require('plugins.rest_nvim')
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
