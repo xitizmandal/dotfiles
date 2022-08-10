@@ -39,9 +39,9 @@ require('packer').startup(function(use)
     use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
     use 'tpope/vim-fugitive'
     use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive' } }
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
     -- colorscheme
-    use 'navarasu/onedark.nvim'
     use 'folke/tokyonight.nvim'
     use 'kyazdani42/nvim-web-devicons'
 
@@ -66,7 +66,7 @@ require('packer').startup(function(use)
     -- }
     -- Better language support
 
-    use 'editorconfig/editorconfig-vim'
+    use 'gpanders/editorconfig.nvim'
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use 'windwp/nvim-autopairs'
     use 'windwp/nvim-ts-autotag'
@@ -166,6 +166,7 @@ require('plugins.null_ls')
 require('plugins.neogen')
 -- require("todo-comments").setup {}
 require('plugins.hop')
+require('diffview').setup {}
 -- Editor config
 vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*', 'scp://.*' }
 
