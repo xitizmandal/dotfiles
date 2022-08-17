@@ -33,3 +33,5 @@ require("rest-nvim").setup({
 
 
 vim.api.nvim_set_keymap('n', '<leader>nr', "<cmd> lua require('rest-nvim').run()<cr>", {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>nl', "<cmd> lua require('rest-nvim').last()<cr>", {noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>nd', "<cmd> lua require('rest-nvim').run(true)<cr>", {noremap = true})
