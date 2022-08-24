@@ -105,6 +105,10 @@ require('packer').startup(function(use)
         "NTBBloodbath/rest.nvim",
         requires = { "nvim-lua/plenary.nvim" },
     }
+
+    -- Database
+    use 'tpope/vim-dadbod'
+    use 'kristijanhusak/vim-dadbod-ui'
 end)
 --
 
@@ -112,6 +116,8 @@ local HOME = os.getenv('HOME')
 
 vim.g.python3_host_prog = HOME .. '/.pyenv/versions/nvim/bin/python'
 vim.g.mapleader = ' '
+vim.g.do_filetype_lua = 1
+
 -- window-local options
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -193,6 +199,17 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     command = "normal zx",
 })
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "javascript", "javascriptreact" },
+    pattern = { "javascript", "javascriptreact", "json" },
     command = "setl sw=2"
+})
+
+vim.filetype.add({
+    extension = {
+        robot = "robot",
+        resource = "robot"
+    },
+    filename = {
+        [".robot"] = "robot",
+        [".resource"] = "robot"
+    }
 })

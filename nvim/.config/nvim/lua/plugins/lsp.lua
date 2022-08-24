@@ -95,6 +95,7 @@ local servers = {
     tsserver = {},
     jsonls = {},
     cssls = {},
+    robotframework_ls = {},
     sumneko_lua = {
         cmd = { "lua-language-server" },
         settings = {
