@@ -47,15 +47,15 @@ cmp.setup {
         keyword_length = 2
     },
     sorting = {
-        comparators = {
-            -- function(...) return cmp_buffer:compare_locality(...) end,
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
-        }
+        -- comparators = {
+        --     -- function(...) return cmp_buffer:compare_locality(...) end,
+        --     cmp.config.compare.offset,
+        --     cmp.config.compare.exact,
+        --     cmp.config.compare.kind,
+        --     cmp.config.compare.sort_text,
+        --     cmp.config.compare.length,
+        --     cmp.config.compare.order,
+        -- }
     },
     snippet = {
         expand = function(args)
