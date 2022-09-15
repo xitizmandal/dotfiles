@@ -1,6 +1,6 @@
-alias wkpy='cd ~/Documents/workspace/python'
-alias wkv='bash ~/.scripts/dev-tmux.sh'
-alias wkp='cd ~/Documents/workspace/projects'
+alias wkpy='cd ~/Documents/projects/learning/python-projects/'
+# alias wkv='bash ~/.scripts/dev-tmux.sh'
+alias wkp='cd ~/Documents/projects'
 
 alias python=python3
 alias v=nvim
@@ -9,3 +9,5 @@ alias vim=nvim
 alias delpyc='
 find . -name "*.py[co]" -delete
 find . -type d -name "__pycache__" -delete'
+
+alias lg=lazygit
