@@ -31,4 +31,4 @@ vim.g.symbols_outline = {
         Method = { icon = "", hl = "TSMethod" },
     }
 }
--- vim.api.nvim_set_keymap('n', '<F9>', ':SymbolsOutline<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<F9>', ':SymbolsOutline<CR>', { noremap = true })
