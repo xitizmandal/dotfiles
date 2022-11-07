@@ -16,10 +16,10 @@ local sources = {
         prefer_local = true,
         command = vim.fn.expand('~/.pyenv/versions/nvim/bin/isort')
     },
-    diagnostics.mypy.with {
+    -- diagnostics.mypy.with {
         -- prefer_local = true,
         -- command = vim.fn.expand('~/.pyenv/versions/nvim/bin/mypy')
-    },
+    -- },
     diagnostics.flake8.with {
         prefer_local = true,
         -- command = vim.fn.expand('~/.pyenv/versions/nvim/bin/pylint'),

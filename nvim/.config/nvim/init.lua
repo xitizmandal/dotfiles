@@ -43,6 +43,7 @@ require('packer').startup(function(use)
 
     -- colorscheme
     use 'folke/tokyonight.nvim'
+    -- use 'navarasu/onedark.nvim'
     use 'kyazdani42/nvim-web-devicons'
 
     -- IDE
@@ -53,6 +54,16 @@ require('packer').startup(function(use)
     --     requires = "kyazdani42/nvim-web-devicons",
     --     config = function()
     --         require("trouble").setup {
+    --             -- your configuration comes here
+    --             -- or leave it empty to use the default settings
+    --             -- refer to the configuration section below
+    --         }
+    --     end
+    -- }
+    -- use {
+    --     "folke/which-key.nvim",
+    --     config = function()
+    --         require("which-key").setup {
     --             -- your configuration comes here
     --             -- or leave it empty to use the default settings
     --             -- refer to the configuration section below
@@ -116,7 +127,7 @@ local HOME = os.getenv('HOME')
 
 vim.g.python3_host_prog = HOME .. '/.pyenv/versions/nvim/bin/python'
 vim.g.mapleader = ' '
-vim.g.do_filetype_lua = 1
+-- vim.g.do_filetype_lua = 1
 
 -- window-local options
 vim.wo.number = true
@@ -203,13 +214,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     command = "setl sw=2"
 })
 
-vim.filetype.add({
-    extension = {
-        robot = "robot",
-        resource = "robot"
-    },
-    filename = {
-        [".robot"] = "robot",
-        [".resource"] = "robot"
-    }
-})
+-- vim.filetype.add({
+--     extension = {
+--         robot = "robot",
+--         resource = "robot"
+--     },
+--     filename = {
+--         [".robot"] = "robot",
+--         [".resource"] = "robot"
+--     }
+-- })
