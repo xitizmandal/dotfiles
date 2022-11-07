@@ -1,61 +1,37 @@
 local lspkind = require('lspkind')
-lspkind.init({
-    symbol_map = {
-        Text = "",
-        Method = "",
-        Function = "",
-        Constructor = "",
-        Field = "ﰠ",
-        Variable = "",
-        Class = "ﴯ",
-        Interface = "",
-        Module = "",
-        Property = "ﰠ",
-        Unit = "塞",
-        Value = "",
-        Enum = "",
-        Keyword = "",
-        Snippet = "",
-        Color = "",
-        File = "",
-        Reference = "",
-        Folder = "",
-        EnumMember = "",
-        Constant = "",
-        Struct = "פּ",
-        Event = "",
-        Operator = "",
-        TypeParameter = ""
-    },
-})
-
 local cmp = require('cmp')
 local luasnip = require('luasnip')
-local cmp_buffer = require('cmp_buffer')
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local function border(hl_name)
+    return {
+        { "╭", hl_name },
+        { "─", hl_name },
+        { "╮", hl_name },
+        { "│", hl_name },
+        { "╯", hl_name },
+        { "─", hl_name },
+        { "╰", hl_name },
+        { "│", hl_name },
+    }
+end
+
+local cmp_window = require "cmp.utils.window"
+
+cmp_window.info_ = cmp_window.info
+cmp_window.info = function(self)
+  local info = self:info_()
+  info.scrollable = false
+  return info
+end
+
 cmp.setup {
-    -- enabled = function()
-    --     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-    --         or require("cmp_dap").is_dap_buffer()
-    -- end,
     completion = {
         keyword_length = 2
-    },
-    sorting = {
-        -- comparators = {
-        --     -- function(...) return cmp_buffer:compare_locality(...) end,
-        --     cmp.config.compare.offset,
-        --     cmp.config.compare.exact,
-        --     cmp.config.compare.kind,
-        --     cmp.config.compare.sort_text,
-        --     cmp.config.compare.length,
-        --     cmp.config.compare.order,
-        -- }
     },
     snippet = {
         expand = function(args)
@@ -63,8 +39,12 @@ cmp.setup {
         end,
     },
     window = {
+        completion = {
+            border = border "CmpBorder",
+            winhighlight = "Normal:CmpPmenu,CursorLine:PmenuSel,Search:None",
+        },
         documentation = {
-            border = 'rounded'
+            border = border "CmpDocBorder"
         },
     },
     mapping = {
@@ -79,9 +59,9 @@ cmp.setup {
             select = false,
         },
         ['<Tab>'] = cmp.mapping(function(fallback)
-            -- if cmp.visible() then
-            --     cmp.select_next_item()
-            if luasnip.jumpable() then
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.jumpable() then
                 luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
@@ -91,9 +71,9 @@ cmp.setup {
         end, { "i", "s" }),
 
         ['<S-Tab>'] = cmp.mapping(function(fallback)
-            -- if cmp.visible() then
-            --     cmp.select_prev_item()
-            if luasnip.jumpable(-1) then
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.jumpable(-1) then
                 luasnip.jump(-1)
             else
                 fallback()
