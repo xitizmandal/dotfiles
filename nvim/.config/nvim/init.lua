@@ -17,10 +17,13 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope-media-files.nvim', requires = { 'nvim-telescope/telescope.nvim' } }
     use { "nvim-telescope/telescope-file-browser.nvim" }
 
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
     use { 'szw/vim-maximizer' }
     -- autocompletion
     use 'neovim/nvim-lspconfig'
-    use 'williamboman/nvim-lsp-installer'
+    use 'williamboman/mason-lspconfig.nvim'
+    use { "williamboman/mason.nvim" }
     use { 'L3MON4D3/LuaSnip' }
     use 'rafamadriz/friendly-snippets'
     use 'onsails/lspkind-nvim'
@@ -154,7 +157,7 @@ vim.o.grepprg = "rg --vimgrep"
 vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.pumheight = 10
 vim.cmd [[set mouse= ]]
-vim.cmd [[syntax on]]
+-- vim.cmd [[syntax on]]
 -- vim.api.nvim_set_hl(0, "Normal", {ctermfg=None, ctermbg=None})
 -- keymap(mode, mapping, operation, {opts})
 local opts = { noremap = true }
@@ -180,6 +183,8 @@ require('plugins.dap')
 require('plugins.dapui')
 require('plugins.lualine')
 require('plugins.gitsigns')
+require('plugins.mason')
+require('plugins.mason_lspconfig')
 require('plugins.lsp')
 require('plugins.indentline')
 require('plugins.symbol_outline')

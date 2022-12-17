@@ -66,18 +66,6 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- local home = vim.fn.getenv("HOME")
 
-local lsp_installer = require("nvim-lsp-installer")
-
-lsp_installer.setup({
-    ui = {
-        icons = {
-            server_installed = "✓",
-            server_pending = "➜",
-            server_uninstalled = "✗"
-        }
-    }
-})
-
 local on_attach_disable_formatting = function(client, bufnr)
     client.server_capabilities.document_formatting = false
     client.server_capabilities.document_range_formatting = false
