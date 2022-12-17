@@ -110,7 +110,7 @@ alt - f : yabai -m window --toggle zoom-fullscreen
 # shift + cmd - h : yabai -m window --warp east
 
 # balance size of windows
-shift + alt - 0 : yabai -m space --balance
+# shift + alt - 0 : yabai -m space --balance
 
 # make floating window fill screen
 # shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
@@ -119,10 +119,10 @@ shift + alt - 0 : yabai -m space --balance
 # shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
-# shift + cmd - n : yabai -m space --create && \
-#                   index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
-#                   yabai -m window --space "${index}" && \
-#                   yabai -m space --focus "${index}"
+shift + alt - 0 : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  # yabai -m window --space "${index}" && \
+                  yabai -m space --focus "${index}"
 
 # fast focus desktop
 # cmd + alt - x : yabai -m space --focus recent
@@ -132,12 +132,12 @@ alt - e : yabai -m space --layout bsp
 alt - s : yabai -m space --layout stack
 
 # focus not working right now
-# alt - 1 : yabai -m space --focus 1
-# alt - 2 : yabai -m space --focus 2
-# alt - 3 : yabai -m space --focus 3
-# alt - 4 : yabai -m space --focus 4
-# alt - 5 : yabai -m space --focus 5
-# alt - 6 : yabai -m space --focus 6
+alt - 1 : yabai -m space --focus 1
+alt - 2 : yabai -m space --focus 2
+alt - 3 : yabai -m space --focus 3
+alt - 4 : yabai -m space --focus 4
+alt - 5 : yabai -m space --focus 5
+alt - 6 : yabai -m space --focus 6
 
 # throwing works though
 alt + shift - 1 : yabai -m window --space 1
