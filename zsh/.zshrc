@@ -88,3 +88,4 @@ function _switch_cuda {
    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-$v/lib64
    nvcc --version
 }
+function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
