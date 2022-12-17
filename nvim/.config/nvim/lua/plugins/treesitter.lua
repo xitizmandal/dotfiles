@@ -1,10 +1,11 @@
 require 'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
+        -- additional_vim_regex_highlighting = true,
     },
     indent = {
         enable = true,
-        disable = { "python" }
+        -- disable = { "python" }
     },
     autotag = {
         enable = true,
