@@ -1,19 +1,20 @@
 local actions = require("telescope.actions")
 require("telescope").setup({
-    defaults = {
+    defaults = require('telescope.themes').get_ivy({
         mappings = {
             n = {
                 ["jk"] = actions.close
             },
         },
-        layout_strategy = "horizontal",
-        layout_config = {
-            width = 0.75,
-            preview_cutoff = 120,
-            prompt_position = "top",
-        },
+        -- layout_strategy = "horizontal",
+        -- layout_config = {
+        --     width = 0.75,
+        --     preview_cutoff = 120,
+        --     prompt_position = "bottom",
+        -- },
+
         color_devicons = true,
-    }
+    })
 })
 
 local builtin = require('telescope.builtin')
