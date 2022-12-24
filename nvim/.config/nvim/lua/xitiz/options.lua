@@ -1,3 +1,7 @@
+local HOME = os.getenv('HOME')
+
+vim.g.python3_host_prog = HOME .. '/.pyenv/versions/nvim/bin/python'
+
 vim.o.hlsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
