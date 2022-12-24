@@ -9,41 +9,48 @@
 require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+    use 'nvim-lua/popup.nvim'
+
+    -- Navigation
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
+    use 'kyazdani42/nvim-tree.lua'
 
+    -- colorscheme
     use 'folke/tokyonight.nvim'
+
     use { 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } }
-    use 'mbbill/undotree'
+
+    -- Git
     use 'tpope/vim-fugitive'
-    use {
-        'VonHeikemen/lsp-zero.nvim',
-        requires = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' },
-            { 'williamboman/mason.nvim' },
-            { 'williamboman/mason-lspconfig.nvim' },
+    use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+    use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive' } }
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },
-            { 'hrsh7th/cmp-buffer' },
-            { 'hrsh7th/cmp-path' },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { 'hrsh7th/cmp-nvim-lsp' },
-            { 'hrsh7th/cmp-nvim-lua' },
+    -- LSP
+    use { 'neovim/nvim-lspconfig' }
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim' }
 
-            -- Snippets
-            { 'L3MON4D3/LuaSnip' },
-            { 'rafamadriz/friendly-snippets' },
+    -- Autocompletion
+    use { 'hrsh7th/nvim-cmp' }
+    use { 'hrsh7th/cmp-buffer' }
+    use { 'hrsh7th/cmp-path' }
+    use { 'saadparwaiz1/cmp_luasnip' }
+    use { 'hrsh7th/cmp-nvim-lsp' }
+    use { 'hrsh7th/cmp-nvim-lua' }
+    use { 'hrsh7th/cmp-nvim-lsp-signature-help' }
 
-            { 'hrsh7th/cmp-nvim-lsp-signature-help' },
-        },
+    -- Snippets
+    use { 'L3MON4D3/LuaSnip' }
+    use { 'rafamadriz/friendly-snippets' }
 
-    }
-    -- use 'tpope/vim-commentary'
+    -- Movements and quality of life
+    use 'mbbill/undotree'
+    use 'phaazon/hop.nvim'
     use {
         'numToStr/Comment.nvim',
         config = function()
@@ -59,10 +66,12 @@ require('packer').startup(function(use)
             })
         end
     })
-
-
-    use 'nvim-lualine/lualine.nvim' -- Fancier statusline
-    use 'arkav/lualine-lsp-progress'
-    use 'lukas-reineke/indent-blankline.nvim' -- Add in
+    use 'gpanders/editorconfig.nvim'
+    use 'lukas-reineke/indent-blankline.nvim'
+    use 'nvim-lualine/lualine.nvim'
     use 'kyazdani42/nvim-web-devicons'
+
+    -- tmux
+    use 'tmux-plugins/vim-tmux-focus-events'
+    use 'christoomey/vim-tmux-navigator'
 end)
