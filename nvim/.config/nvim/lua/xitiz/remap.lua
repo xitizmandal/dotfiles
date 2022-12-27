@@ -27,3 +27,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+
+vim.keymap.set('n', ']q', ':cnext<CR>', opts)
+vim.keymap.set('n', '[q', ':cprev<CR>', opts)
