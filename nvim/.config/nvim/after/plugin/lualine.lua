@@ -24,7 +24,7 @@ require 'lualine'.setup {
             {
                 'filetype',
                 colored = true,
-            }
+            },
         },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }
@@ -38,7 +38,7 @@ require 'lualine'.setup {
         lualine_z = {}
     },
     tabline = {
-        lualine_a = { 'buffers' },
+        lualine_a = { { 'buffers', mode = 4 } },
         lualine_b = {},
         lualine_c = {},
         lualine_x = {},
