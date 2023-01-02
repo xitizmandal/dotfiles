@@ -131,7 +131,7 @@ cmd + alt - 1 : yabai -m space --focus 1
 alt - e : yabai -m space --layout bsp
 alt - s : yabai -m space --layout stack
 
-# focus not working right now
+# focus 
 alt - 1 : yabai -m space --focus 1
 alt - 2 : yabai -m space --focus 2
 alt - 3 : yabai -m space --focus 3
@@ -152,3 +152,7 @@ alt + shift - space : yabai -m window --toggle float
 
 # split
 alt - v: yabai -m window --toggle split
+
+# move to different screens
+alt + shift - m : "${HOME}"/.config/skhd/monitor.sh
+alt - m : "${HOME}"/.config/skhd/toggle_visible.sh
