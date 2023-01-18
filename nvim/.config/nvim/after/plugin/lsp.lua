@@ -76,7 +76,7 @@ local lspconfig = require("lspconfig")
 
 
 mason.setup({
-    automatic_installation = true,
+    automatic_installation = false,
     ui = {
         icons = {
             server_installed = "✓",
