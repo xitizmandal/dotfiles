@@ -73,8 +73,12 @@ require('packer').startup(function(use)
     use 'lukas-reineke/indent-blankline.nvim'
     use 'nvim-lualine/lualine.nvim'
     use 'kyazdani42/nvim-web-devicons'
-
     -- tmux
     use 'tmux-plugins/vim-tmux-focus-events'
     use 'christoomey/vim-tmux-navigator'
+
+    -- Debug Adapter Protocol
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/nvim-dap-ui'
+    use 'nvim-telescope/telescope-dap.nvim'
 end)
