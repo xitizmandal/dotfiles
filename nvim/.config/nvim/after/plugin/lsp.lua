@@ -100,7 +100,7 @@ mason_lspconfig.setup({
         "tsserver",
         "cssls",
         "sumneko_lua",
-        "eslint",
+        -- "eslint",
 
     }
 })
