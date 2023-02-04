@@ -41,7 +41,7 @@ dap.configurations.python = {
     },
 }
 
-vim.cmd [[hi! DapBreakpointIcon guisp='#f65866' guifg='#f65866' ctermfg=red]]
+vim.cmd.highlight("DapBreakpointIcon guisp='#f65866' guifg='#f65866' ctermfg=red")
 vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpointIcon', linehl = '', numhl = '' })
 vim.keymap.set('n', '<F5>', ":DapContinue<CR>", { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>bp', ":DapToggleBreakpoint<CR>", { noremap = true, silent = true, desc = '[B]reak [P]oint' })
