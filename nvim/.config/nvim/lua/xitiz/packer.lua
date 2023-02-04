@@ -26,6 +26,17 @@ require('packer').startup(function(use)
     use 'folke/tokyonight.nvim'
 
     use { 'nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' } }
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+    require 'nvim-treesitter.configs'.setup {
+        context_commentstring = {
+            enable = true
+        }
+    }
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+    use 'windwp/nvim-ts-autotag'
 
     -- Git
     use 'tpope/vim-fugitive'
@@ -37,6 +48,7 @@ require('packer').startup(function(use)
     use { 'neovim/nvim-lspconfig' }
     use { 'williamboman/mason.nvim' }
     use { 'williamboman/mason-lspconfig.nvim' }
+    use { 'jose-elias-alvarez/null-ls.nvim', requires = { "mason.nvim" } }
 
     -- Autocompletion
     use { 'hrsh7th/nvim-cmp' }
@@ -81,4 +93,16 @@ require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
     use 'nvim-telescope/telescope-dap.nvim'
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+    -- Lua
 end)
