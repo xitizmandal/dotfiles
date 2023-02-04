@@ -20,6 +20,10 @@ require('nvim-tree').setup({
         },
         -- special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md", ".gitignore" },
     },
+
+    filters = {
+        custom = { "__pycache__/*" },
+    }
 })
 
 vim.api.nvim_set_keymap('n', '<leader>nt', ":NvimTreeToggle<CR>", { desc = "[N]erd [T]ree", noremap = true })

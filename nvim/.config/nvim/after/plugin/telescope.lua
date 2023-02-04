@@ -2,6 +2,18 @@ local actions = require("telescope.actions")
 require("telescope").setup({
     -- defaults = require('telescope.themes').get_ivy({
     defaults = {
+        vimgrep_arguments = {
+            'rg',
+            '--hidden',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+            '--glob',
+            '!**/{.git,__pycache__,node_modules,vendor}/*'
+        },
         mappings = {
             n = {
                 ["jk"] = actions.close
@@ -12,7 +24,7 @@ require("telescope").setup({
             width = 0.75,
             preview_cutoff = 120,
             prompt_position = "top",
-            preview_width = 0.5,
+            -- preview_width = 0.5,
         },
         -- borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
         color_devicons = true,
@@ -40,7 +52,7 @@ require("telescope").setup({
             -- },
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
-            preview = false,
+            -- preview = false,
             -- mappings = {
             --     ["i"] = {
             --         -- your custom insert mode mappings
@@ -51,10 +63,15 @@ require("telescope").setup({
             -- },
         },
     },
+    pickers = {
+        find_files = {
+            file_ignore_patterns = {"__pycache__", "node_modules"},
+        }
+    }
 })
 require('telescope').load_extension('fzf')
 require('telescope').load_extension('file_browser')
-require('telescope').load_extension('dap')
+-- require('telescope').load_extension('dap')
 
 local builtin = require('telescope.builtin')
 
