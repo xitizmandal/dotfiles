@@ -1,17 +1,17 @@
 font:
   normal:
-    family: mononoki Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: Regular
   bold:
-    family: mononoki Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: Bold
   italic:
-    family: mononoki Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: Italic
   bold_italic:
-    family: mononoki Nerd Font Mono
+    family: JetBrainsMono Nerd Font Mono
     style: BoldItalic
-  size: 13
+  size: 12
   offset:
     x: 0
     y: 0
