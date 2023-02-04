@@ -84,7 +84,17 @@ require('packer').startup(function(use)
     use 'gpanders/editorconfig.nvim'
     use 'lukas-reineke/indent-blankline.nvim'
     use 'nvim-lualine/lualine.nvim'
-    use 'kyazdani42/nvim-web-devicons'
+    use 'nvim-tree/nvim-web-devicons'
+
+    use({
+        "utilyre/barbecue.nvim",
+        tag = "*",
+        requires = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        after = "nvim-web-devicons",
+    })
     -- tmux
     use 'tmux-plugins/vim-tmux-focus-events'
     use 'christoomey/vim-tmux-navigator'
@@ -93,16 +103,18 @@ require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'
     use 'rcarriga/nvim-dap-ui'
     use 'nvim-telescope/telescope-dap.nvim'
-    use {
+    use({
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function()
-            require("todo-comments").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
+            require("todo-comments").setup()
         end
-    }
-    -- Lua
+    })
+
+    use({
+        'simrat39/symbols-outline.nvim',
+        -- config = function()
+        --     require("symbols-outline").setup()
+        -- end
+    })
 end)
