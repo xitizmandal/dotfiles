@@ -5,7 +5,7 @@ vim.g.python3_host_prog = HOME .. '/.pyenv/versions/nvim/bin/python'
 vim.o.hlsearch = true
 vim.wo.number = true
 vim.wo.relativenumber = true
-vim.o.mouse = ""
+-- vim.o.mouse = ""
 vim.o.breakindent = true
 vim.o.undofile = true
 -- vim.o.smartcase = true
@@ -28,3 +28,8 @@ vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.grepprg = "rg --vimgrep"
 vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.updatetime = 25
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "javascript", "javascriptreact", "json" },
+    command = "setl sw=2"
+})
