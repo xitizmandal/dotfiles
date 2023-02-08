@@ -29,12 +29,8 @@ require("lazy").setup(
         { 'nvim-telescope/telescope-fzf-native.nvim',   build = 'make',                         after = 'nvim-telescope/telescope.nvim' },
         { "nvim-telescope/telescope-file-browser.nvim", after = 'nvim-telescope/telescope.nvim' },
 
-        {
-            'kyazdani42/nvim-tree.lua',
-
-        },
         -- colorscheme
-        { 'folke/tokyonight.nvim' },
+        { 'folke/tokyonight.nvim',                      lazy = false },
         {
             'nvim-treesitter/nvim-treesitter',
             build = ':TSUpdate',
@@ -136,8 +132,41 @@ require("lazy").setup(
 
             config = function()
                 require("symbols-outline").setup()
-            end
+            end,
+            keys = {
+                { "<leader>so", "<cmd>SymbolsOutline<cr>", desc = "[S]ymbols [O]utline" }
+            }
         },
 
         -- TODO: neogen package
+        { "nvim-neo-tree/neo-tree.nvim",
+            tag = "v2.x",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+                "MunifTanjim/nui.nvim",
+                {
+                    -- only needed if you want to use the commands with "_with_window_picker" suffix
+                    's1n7ax/nvim-window-picker',
+                    tag = "v1.*",
+                    config = function()
+                        require 'window-picker'.setup({
+                            autoselect_one = true,
+                            include_current = false,
+                            filter_rules = {
+                                -- filter using buffer options
+                                bo = {
+                                    -- if the file type is one of following, the window will be ignored
+                                    filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+
+                                    -- if the buffer type is one of following, the window will be ignored
+                                    buftype = { 'terminal', "quickfix" },
+                                },
+                            },
+                            other_win_hl_color = '#e35e4f',
+                        })
+                    end,
+                }
+            },
+        },
     })
