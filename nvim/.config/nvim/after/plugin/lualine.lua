@@ -20,7 +20,12 @@ require 'lualine'.setup {
             }
         },
         lualine_c = { 'branch', 'diff', 'diagnostics' },
-        lualine_x = { 'encoding', 'filetype' },
+        lualine_x = { 'encoding',
+            {
+                'filetype',
+                colored = true,
+            },
+        },
         lualine_y = { 'progress' },
         lualine_z = { 'location' }
     },
@@ -33,7 +38,7 @@ require 'lualine'.setup {
         lualine_z = {}
     },
     tabline = {
-        lualine_a = { 'buffers' },
+        lualine_a = { { 'buffers', mode = 4 } },
         lualine_b = {},
         lualine_c = {},
         lualine_x = {},
