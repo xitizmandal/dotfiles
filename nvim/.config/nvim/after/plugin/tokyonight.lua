@@ -7,7 +7,7 @@ require("tokyonight").setup({
         sidebars = "transparent",
         floats = "transparent",
     },
-    sidebars = { "telescope", "nvim-tree" },
+    sidebars = { "telescope", "nvim-tree", "outline" },
     dim_inactive = true,
     hide_inactive_statusline = false,
 
