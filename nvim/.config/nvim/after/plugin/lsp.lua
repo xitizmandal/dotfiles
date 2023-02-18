@@ -94,12 +94,13 @@ mason.setup({
 mason_lspconfig.setup({
     ensure_installed = {
         "pyright",
+        -- "python-lsp-server",
         "dockerls",
         "bashls",
         "yamlls",
         "tsserver",
         "cssls",
-        "sumneko_lua",
+        "lua_ls",
         -- "eslint",
 
     }
@@ -113,8 +114,8 @@ require("mason-lspconfig").setup_handlers({
             capabilities = capabilities,
         })
     end,
-    ["sumneko_lua"] = function()
-        require('lspconfig')["sumneko_lua"].setup {
+    ["lua_ls"] = function()
+        require('lspconfig')["lua_ls"].setup {
             settings = {
                 Lua = {
                     diagnostics = {

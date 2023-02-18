@@ -138,9 +138,15 @@ require("lazy").setup(
             }
         },
 
-        -- TODO: neogen package
+        {
+            "danymat/neogen",
+            dependencies = "nvim-treesitter/nvim-treesitter",
+            config = true,
+            -- Uncomment next line if you want to follow only stable versions
+            -- version = "*"
+        },
         { "nvim-neo-tree/neo-tree.nvim",
-            tag = "v2.x",
+            -- tag = "v2.x",
             dependencies = {
                 "nvim-lua/plenary.nvim",
                 "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -148,7 +154,7 @@ require("lazy").setup(
                 {
                     -- only needed if you want to use the commands with "_with_window_picker" suffix
                     's1n7ax/nvim-window-picker',
-                    tag = "v1.*",
+                    -- tag = "v1.*",
                     config = function()
                         require 'window-picker'.setup({
                             autoselect_one = true,
