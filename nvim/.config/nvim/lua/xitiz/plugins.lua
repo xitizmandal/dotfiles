@@ -98,6 +98,7 @@ require("lazy").setup(
         },
         { 'gpanders/editorconfig.nvim', },
         { 'lukas-reineke/indent-blankline.nvim', },
+        { "lukas-reineke/virt-column.nvim" },
         { 'nvim-lualine/lualine.nvim', },
         { 'nvim-tree/nvim-web-devicons', },
 
@@ -174,5 +175,12 @@ require("lazy").setup(
                     end,
                 }
             },
+        },
+
+        {
+            'NvChad/nvim-colorizer.lua',
+            config = function()
+                require 'colorizer'.setup()
+            end
         },
     })
