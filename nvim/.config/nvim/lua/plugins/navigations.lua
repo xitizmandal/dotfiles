@@ -16,13 +16,37 @@ return {
             { "F", "<cmd>lua require'hop'.hint_char1()<cr>", noremap = true, silent = true, desc = "Hop" }
         }
     },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
+
+    { "nvim-neo-tree/neo-tree.nvim",
+        version = "v2.x",
         dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
-            "nvim-tree/nvim-web-devicons",
-            "nvim-lua/plenary.nvim"
+            {
+                -- only needed if you want to use the commands with "_with_window_picker" suffix
+                's1n7ax/nvim-window-picker',
+                version = "v1.*",
+                config = function()
+                    require 'window-picker'.setup({
+                        autoselect_one = true,
+                        include_current = false,
+                        filter_rules = {
+                            -- filter using buffer options
+                            bo = {
+                                -- if the file type is one of following, the window will be ignored
+                                filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+
+                                -- if the buffer type is one of following, the window will be ignored
+                                buftype = { 'terminal', "quickfix" },
+                            },
+                        },
+                        -- other_win_hl_color = '#e35e4f',
+                    })
+                end,
+            }
         },
+
         config = function()
             require("neo-tree").setup({
                 close_if_last_window = true,
@@ -54,7 +78,12 @@ return {
             })
             -- vim.api.nvim_set_keymap('n', '<leader>nt', ":NeoTreeRevealToggle<CR>",
             --    { desc = "[N]eo [T]ree", noremap = true })
-        end
+        end,
+        keys = {
+            { '<leader>nt', ":Neotree toggle<cr>", desc = "[N]eotree [T]oggle" },
+            { '<leader>nf', ":Neotree focus<cr>",  silent = true,            desc = "[N]eotree [F]ocus" }
+        }
+
     },
     {
         'nvim-telescope/telescope.nvim', version = false,

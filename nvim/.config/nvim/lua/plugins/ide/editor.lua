@@ -78,7 +78,7 @@ return {
     {
         'simrat39/symbols-outline.nvim',
         config = function()
-            local kinds = require("xitiz.symbols")
+            local kinds = require("symbols")
             local opts = {
                 highlight_hovered_item = false,
                 show_guides = true,
