@@ -1,1 +1,3 @@
-require("xitiz")
+require("remap")
+require("options")
+require("addons")
