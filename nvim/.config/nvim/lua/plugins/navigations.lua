@@ -70,6 +70,10 @@ return {
                         }
                     },
                 },
+                window = {
+                    position = "left",
+                    -- width = 40,
+                },
                 filesystem = {
                     filtered_items = {
                         never_show = { "__pycache__" },
@@ -80,8 +84,8 @@ return {
             --    { desc = "[N]eo [T]ree", noremap = true })
         end,
         keys = {
-            { '<leader>nt', ":Neotree toggle<cr>", desc = "[N]eotree [T]oggle" },
-            { '<leader>nf', ":Neotree focus<cr>",  silent = true,            desc = "[N]eotree [F]ocus" }
+            { '<leader>nt', ":Neotree toggle<cr>", silent = true, desc = "[N]eotree [T]oggle" },
+            { '<leader>nf', ":Neotree focus<cr>",  silent = true, desc = "[N]eotree [F]ocus" }
         }
 
     },

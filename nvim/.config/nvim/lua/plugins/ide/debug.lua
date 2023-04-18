@@ -3,7 +3,12 @@ return {
         'mfussenegger/nvim-dap',
         config = function()
             local dap = require("dap")
+            local homebrew_prefix = vim.fn.getenv("HOMEBREW_PREFIX")
 
+            dap.defaults.fallback.external_terminal = {
+                command = homebrew_prefix .. '/bin/alacritty',
+                args = { '-e' },
+            }
             local home = vim.fn.getenv("HOME")
 
             dap.adapters.python = {
@@ -47,9 +52,23 @@ return {
 
             vim.cmd.highlight("DapBreakpointIcon guisp='#f65866' guifg='#f65866' ctermfg=red")
             vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpointIcon', linehl = '', numhl = '' })
-            vim.keymap.set('n', '<F5>', ":DapContinue<CR>", { noremap = true, silent = true })
+            -- vim.keymap.set('n', '<F5>', ":DapContinue<CR>", { noremap = true, silent = true })
+
             vim.keymap.set('n', '<leader>bp', ":DapToggleBreakpoint<CR>",
                 { noremap = true, silent = true, desc = '[B]reak [P]oint' })
+
+            vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+            vim.keymap.set('n', '<F6>', function() require('dap').step_over() end)
+            vim.keymap.set('n', '<F7>', function() require('dap').step_into() end)
+            vim.keymap.set('n', '<F8>', function() require('dap').step_out() end)
+            vim.keymap.set('n', '<Leader>bp', function() require('dap').toggle_breakpoint() end)
+            vim.keymap.set('n', '<Leader>bs', function() require('dap').set_breakpoint() end)
+            vim.keymap.set('n', '<Leader>bc', function()
+                require('dap').set_breakpoint(vim.fn.input('Condition: '), nil, nil)
+            end)
+            vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+            vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+            vim.keymap.set('n', '<Leader>dq', function() require('dap').list_breakpoints() end)
         end
     },
     { 'rcarriga/nvim-dap-ui',
@@ -59,38 +78,6 @@ return {
             local dapui = require('dapui')
 
             dapui.setup({
-                layouts = {
-                    {
-                        elements = {
-                            -- Elements can be strings or table with id and size keys.
-                            { id = "breakpoints", size = 0.25 },
-                            { id = "stacks",      size = 0.25 },
-                            { id = "watches",     size = 0.25 },
-                            { id = "scopes",      size = 0.25 },
-                        },
-                        size = 0.3, -- 40 columns
-                        position = "left",
-                    },
-                    {
-                        elements = {
-                            "repl",
-                            "console",
-                        },
-                        size = 0.25, -- 25% of total lines
-                        position = "bottom",
-                    },
-                },
-                floating = {
-                    max_height = nil, -- These can be integers or a float between 0 and 1. max_width = nil, -- Floats will be treated as percentage of your screen.
-                    border = "single", -- Border style. Can be "single", "double" or "rounded"
-                    mappings = {
-                        close = { "q", "<Esc>" },
-                    },
-                },
-                windows = { indent = 1 },
-                render = {
-                    max_type_length = nil, -- Can be integer or nil.
-                }
             })
 
             dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -102,5 +89,12 @@ return {
             dap.listeners.before.event_exited["dapui_config"] = function()
                 dapui.close()
             end
-        end },
+        end
+    },
+    {
+        "theHamsta/nvim-dap-virtual-text",
+        config = function()
+            require("nvim-dap-virtual-text").setup()
+        end
+    },
 }

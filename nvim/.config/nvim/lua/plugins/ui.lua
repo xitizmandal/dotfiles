@@ -1,4 +1,4 @@
---- 
+---
 -- Tokyonight
 -- nvim-web-devicons
 --
@@ -41,13 +41,13 @@ return {
             }
         end
     },
-    { "lukas-reineke/virt-column.nvim",
-        config = function()
-            require("virt-column").setup({
-
-            })
-        end
-    },
+    -- { "lukas-reineke/virt-column.nvim",
+    --     config = function()
+    --         require("virt-column").setup({
+    --
+    --         })
+    --     end
+    -- },
     { 'nvim-lualine/lualine.nvim',
         config = function()
             require 'lualine'.setup {

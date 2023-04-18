@@ -36,11 +36,12 @@ return {
 
                 -- diagnostics
                 vim.keymap.set('n', '<leader>le', function() vim.diagnostic.open_float() end, opts)
-                vim.keymap.set('n', '<leader>lq', function() vim.diagnostic.setloclist() end, opts)
+                vim.keymap.set('n', '<leader>lq', function() vim.diagnostic.setqflist() end, opts)
+                vim.keymap.set('n', '<leader>ll', function() vim.diagnostic.setloclist() end, opts)
                 vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
                 vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
 
-                vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, opts)
+                vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ bufnr = bufnr }) end, opts)
             end
 
 
@@ -58,11 +59,14 @@ return {
                     "cssls",
                     "lua_ls",
                     -- "eslint",
+                    "rust_analyzer",
+                    "html",
 
                 }
             })
 
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
                     lspconfig[server_name].setup({
@@ -71,7 +75,7 @@ return {
                     })
                 end,
                 ["lua_ls"] = function()
-                    require('lspconfig')["lua_ls"].setup {
+                    lspconfig["lua_ls"].setup {
                         settings = {
                             Lua = {
                                 diagnostics = {
@@ -90,6 +94,51 @@ return {
                         capabilites = capabilities,
                     }
                 end,
+                ["rust_analyzer"] = function()
+                    lspconfig["rust_analyzer"].setup({
+                        on_attach = on_attach,
+                        settings = {
+                            ["rust-analyzer"] = {
+                                imports = {
+                                    granularity = {
+                                        group = "module",
+                                    },
+                                    prefix = "self",
+                                },
+                                cargo = {
+                                    buildScripts = {
+                                        enable = true,
+                                    },
+                                },
+                                procMacro = {
+                                    enable = true
+                                },
+                            }
+                        }
+                    })
+                end,
+                ['html'] = function()
+                    lspconfig["html"].setup({
+                        on_attach = on_attach,
+                        filetypes = { "html", "htmldjango" }
+                    })
+                end,
+                ["tsserver"] = function()
+                    lspconfig["tsserver"].setup({
+                        on_attach = function(client, bufnr)
+                            client.server_capabilities.documentFromattingProvider = false
+                            return on_attach(client, bufnr)
+                        end
+                    })
+                end,
+                ["pyright"] = function()
+                    lspconfig["pyright"].setup({
+                        on_attach = function(client, bufnr)
+                            client.server_capabilities.documentFromattingProvider = false
+                            return on_attach(client, bufnr)
+                        end
+                    })
+                end
             })
 
             -- local util = require('lspconfig.util')
@@ -117,18 +166,35 @@ return {
             local sources = {
                 formatting.black,
                 formatting.isort,
-                diagnostics.flake8.with {
-                    prefer_local = true,
-                },
-                formatting.eslint_d,
-                diagnostics.eslint_d,
-                code_actions.eslint_d,
-                formatting.prettier
+                -- diagnostics.flake8.with {
+                --     prefer_local = true,
+                -- },
+                diagnostics.flake8,
+                -- formatting.eslint,
+                diagnostics.eslint,
+                code_actions.eslint,
+                formatting.prettier.with {
+                    prefer_local = true
+                }
             }
 
+            local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
             null_ls.setup({
                 sources = sources,
                 fallback_severity = vim.diagnostic.severity.HINT,
+                on_attach = function(client, bufnr)
+                    if client.supports_method("textDocument/formatting") then
+                        vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ bufnr = bufnr }) end)
+                        -- vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                        -- vim.api.nvim_create_autocmd("BufWritePre", {
+                        --     group = augroup,
+                        --     buffer = bufnr,
+                        --     callback = function()
+                        --         vim.lsp.buf.format()
+                        --     end,
+                        -- })
+                    end
+                end
             })
         end
     },
