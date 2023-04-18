@@ -6,7 +6,7 @@ vim.keymap.set('n', '<up>', '<Nop>', opts)
 vim.keymap.set('n', '<down>', '<Nop>', opts)
 vim.keymap.set('n', '<left>', '<Nop>', opts)
 vim.keymap.set('n', '<right>', '<Nop>', opts)
-vim.keymap.set('n', '<Space>', '<Nop>', {silent = true})
+vim.keymap.set('n', '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set('n', '<C-h>', '<C-w>h', opts)
 vim.keymap.set('n', '<C-j>', '<C-w>j', opts)
@@ -19,13 +19,20 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = '*',
 })
 
 
 vim.keymap.set('n', ']q', ':cnext<CR>', opts)
 vim.keymap.set('n', '[q', ':cprev<CR>', opts)
+vim.keymap.set('n', '<leader>co', ':copen<cr>', { desc = "qui[c]kfix [o]pen", silent = true })
+vim.keymap.set('n', '<leader>cc', ':cclose<cr>', { desc = "qui[c]kfix [c]lose ", silent = true })
+
+vim.keymap.set('n', ']l', ':lnext<CR>', opts)
+vim.keymap.set('n', '[l', ':lprev<CR>', opts)
+vim.keymap.set('n', '<leader>lo', ':lopen<cr>', { desc = "location[l]ist [o]pen", silent = true })
+vim.keymap.set('n', '<leader>lc', ':lclose<cr>', { desc = "location[l]ist [c]lose ", silent = true })
