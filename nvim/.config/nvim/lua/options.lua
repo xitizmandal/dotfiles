@@ -30,14 +30,14 @@ vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.updatetime = 25
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "javascript", "javascriptreact", "json" },
+    pattern = { "javascript", "javascriptreact", "json", "typescript", "typescriptreact" },
     command = "setl sw=2"
 })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-    pattern = { "python" },
-    command = "set colorcolumn=88"
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--     pattern = { "python" },
+--     command = "set colorcolumn=88"
+-- })
 
 -- vim.api.nvim_create_autocmd({ "WinEnter", "WinLeave" }, {
 --     pattern = { "*" },
@@ -56,11 +56,13 @@ vim.diagnostic.config({
     virtual_text = {
         enable = true,
         prefix = "",
+        source = "if_many"
     },
     float = {
+        severity_sort = true,
         enable = true,
         style = 'minimal',
-        focusable = false,
+        -- focusable = false,
         border = border_style,
         header = '',
         -- prefix = '',
@@ -87,4 +89,3 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
         -- Use a sharp border with `FloatBorder` highlights
         border = border_style
     })
-
