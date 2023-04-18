@@ -38,7 +38,6 @@ return {
         end
 
     },
-    { 'gpanders/editorconfig.nvim', },
     {
         'numToStr/Comment.nvim',
 
