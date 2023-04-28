@@ -75,7 +75,7 @@ if type rg &> /dev/null; then
 fi
 # export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
 export VISUAL="nvim"

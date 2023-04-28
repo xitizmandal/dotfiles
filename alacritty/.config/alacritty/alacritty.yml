@@ -27,8 +27,8 @@ window:
   padding:
     x: 4
     y: 4
-cursor:
-  style: Block
+Cursor:
+  Style: Beam
 colors:
   name: TokyoNight Night
   author: Folke
@@ -63,10 +63,10 @@ colors:
     - { index: 16, color: '0xff9e64' }
     - { index: 17, color: '0xdb4b4b' }
 
-shell:
-  program: /bin/zsh
-  args:
-    - -l
-    - -c
-    - "tmux attach || tmux"
+# shell:
+#   program: /bin/zsh
+#   args:
+#     - -l
+#     - -c
+#     - "tmux attach || tmux"
 theme: Tokyonight_Night
