@@ -90,6 +90,12 @@ return {
 
     },
     {
+        'ibhagwan/fzf-lua',
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        }
+    },
+    {
         'nvim-telescope/telescope.nvim', version = false,
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
@@ -156,7 +162,16 @@ return {
                 },
                 pickers = {
                     find_files = {
-                        file_ignore_patterns = { "__pycache__", "node_modules" },
+
+                        -- hidden = true,
+                        find_command = { 'rg',
+                            '--hidden',
+                            '--ignore',
+                            '--files',
+                            '--glob',
+                            '!**/{.git,__pycache__,node_modules,vendor}/*'
+                        },
+                        -- file_ignore_patterns = { "__pycache__", "node_modules" },
                     }
                 }
             })
