@@ -5,25 +5,30 @@
 ---
 return {
     {
-        'folke/tokyonight.nvim',
-        lazy = false,
-        priority = 1000,
+        "catppuccin/nvim",
+        name = "catppuccin",
         config = function()
-            require("tokyonight").setup({
-                style = "night",
-                transparent = true,
-                terminal_colors = true,
-                styles = {
-                    functions = "italic",
-                    sidebars = "transparent",
-                    floats = "transparent",
+            require("catppuccin").setup({
+                flavor = "mocha",
+                transparent = "false",
+                term_colors = true,
+                dim_inactive = {
+                    enabled = true,
+                    shade = "dark",
+                    percentage = 0.2,
                 },
-                sidebars = { "telescope", "nvim-tree", "outline" },
-                dim_inactive = true,
-                hide_inactive_statusline = false,
-            })
+                integrations = {
+                    neotree = true,
+                    symbols_outline = true,
+                    dap = {
+                        enabled = true,
+                        enable_ui = true,
+                    },
+                    which_key = true,
 
-            vim.cmd.colorscheme("tokyonight")
+                }
+            })
+            vim.cmd.colorscheme("catppuccin")
         end
     },
     -- nvim-web-devicons
@@ -115,7 +120,7 @@ return {
         "folke/which-key.nvim",
         config = function()
             vim.o.timeout = true
-            vim.o.timeoutlen = 300
+            vim.o.timeoutlen = 500
             require("which-key").setup({
                 -- your configuration comes here
                 -- or leave it empty to use the default settings

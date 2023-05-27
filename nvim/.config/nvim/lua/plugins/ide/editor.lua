@@ -14,7 +14,7 @@ return {
         config = function()
             require("nvim-treesitter.configs").setup({
                 -- A list of parser names, or "all"
-                ensure_installed = { "c", "help", "python", "javascript", "typescript", "lua", "rust" },
+                ensure_installed = { "c", "python", "javascript", "typescript", "lua", "rust" },
                 -- Install parsers synchronously (only applied to `ensure_installed`)
                 sync_install = false,
                 -- Automatically install missing parsers when entering buffer
@@ -52,25 +52,6 @@ return {
         config = function()
             require("nvim-surround").setup({
                 -- Configuration here, or leave empty to  defaults
-            })
-        end
-    },
-    {
-
-        "utilyre/barbecue.nvim",
-        lazy = true,
-        event = "BufEnter",
-        version = "*",
-        dependencies = {
-            "SmiteshP/nvim-navic",
-            "nvim-tree/nvim-web-devicons", -- optional dependency
-        },
-        after = "nvim-web-devicons",
-        config = function()
-            local kinds = require("symbols")
-            require("barbecue").setup({
-                kinds = kinds,
-                theme = "tokyonight",
             })
         end
     },
