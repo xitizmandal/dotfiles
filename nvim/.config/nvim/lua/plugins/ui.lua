@@ -5,30 +5,25 @@
 ---
 return {
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        'folke/tokyonight.nvim',
+        lazy = false,
+        priority = 1000,
         config = function()
-            require("catppuccin").setup({
-                flavor = "mocha",
-                transparent = "false",
-                term_colors = true,
-                dim_inactive = {
-                    enabled = true,
-                    shade = "dark",
-                    percentage = 0.2,
+            require("tokyonight").setup({
+                style = "night",
+                transparent = true,
+                terminal_colors = true,
+                styles = {
+                    functions = "italic",
+                    sidebars = "transparent",
+                    floats = "transparent",
                 },
-                integrations = {
-                    neotree = true,
-                    symbols_outline = true,
-                    dap = {
-                        enabled = true,
-                        enable_ui = true,
-                    },
-                    which_key = true,
-
-                }
+                sidebars = { "telescope", "nvim-tree", "outline" },
+                dim_inactive = true,
+                hide_inactive_statusline = false,
             })
-            vim.cmd.colorscheme("catppuccin")
+
+            vim.cmd.colorscheme("tokyonight")
         end
     },
     -- nvim-web-devicons
