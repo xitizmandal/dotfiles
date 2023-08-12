@@ -21,7 +21,7 @@ scrolling:
   multiplier: 3
 
 window:
-  opacity: 0.95
+  opacity: 0.90
   dynamic_title: false
   decorations: "buttonless"
   padding:

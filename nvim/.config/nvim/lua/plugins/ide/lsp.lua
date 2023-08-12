@@ -171,8 +171,8 @@ return {
                 -- },
                 diagnostics.flake8,
                 -- formatting.eslint,
-                diagnostics.eslint,
-                code_actions.eslint,
+                -- diagnostics.eslint,
+                -- code_actions.eslint,
                 formatting.prettier.with {
                     prefer_local = true
                 }
