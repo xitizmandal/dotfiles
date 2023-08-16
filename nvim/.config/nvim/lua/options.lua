@@ -29,6 +29,13 @@ vim.o.grepprg = "rg --vimgrep"
 vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.updatetime = 25
 
+vim.o.foldenable = true                                      -- enable fold for nvim-ufo
+vim.o.foldlevel = 99                                         -- set high foldlevel for nvim-ufo
+vim.o.foldlevelstart = 99                                    -- start with all code unfolded
+vim.o.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil -- show foldcolumn in nvim 0.9
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "javascript", "javascriptreact", "json", "typescript", "typescriptreact" },
     command = "setl sw=2"
@@ -79,13 +86,13 @@ vim.diagnostic.config({
 
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-        vim.lsp.handlers.hover, {
+    vim.lsp.handlers.hover, {
         -- Use a sharp border with `FloatBorder` highlights
         border = border_style
     })
 
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-        vim.lsp.handlers.signature_help, {
+    vim.lsp.handlers.signature_help, {
         -- Use a sharp border with `FloatBorder` highlights
         border = border_style
     })

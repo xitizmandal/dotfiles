@@ -5,15 +5,15 @@
 ---
 return {
     {
-        'folke/tokyonight.nvim',
+        'navarasu/onedark.nvim',
         lazy = false,
         priority = 1000,
         config = function()
-            require("tokyonight").setup({
-                style = "night",
-                transparent = true,
-                terminal_colors = true,
-                styles = {
+            require("onedark").setup({
+                style = "dark",
+                transparent = false,
+                term_colors = true,
+                code_styles = {
                     functions = "italic",
                     sidebars = "transparent",
                     floats = "transparent",
@@ -21,9 +21,24 @@ return {
                 sidebars = { "telescope", "nvim-tree", "outline" },
                 dim_inactive = true,
                 hide_inactive_statusline = false,
+                highlights = {
+                    Folded = { fg = '$fg', bg = '$bg0' },
+                    FoldColumn = { fg = "$fg", bg = "$bg0"}
+                },
+                diagnostics = {
+                    darker = false,
+                    background = false,
+                }
+                -- highlights = function(hl, c)
+                --     hl.Folded = {
+                --         bg = c.bg,
+                --         fg = c.fg,
+                --     }
+                -- end
             })
 
-            vim.cmd.colorscheme("tokyonight")
+            require('onedark').load()
+            -- vim.cmd.colorscheme("onedark")
         end
     },
     -- nvim-web-devicons
@@ -48,7 +63,8 @@ return {
     --         })
     --     end
     -- },
-    { 'nvim-lualine/lualine.nvim',
+    {
+        'nvim-lualine/lualine.nvim',
         config = function()
             require 'lualine'.setup {
                 options = {
@@ -123,4 +139,138 @@ return {
             })
         end,
     },
+    {
+        "kevinhwang91/nvim-ufo",
+        -- event = { "InsertEnter" },
+        dependencies = { "kevinhwang91/promise-async" },
+        -- opts = {
+        --     preview = {
+        --         mappings = {
+        --             scrollB = "<C-b>",
+        --             scrollF = "<C-f>",
+        --             scrollU = "<C-u>",
+        --             scrollD = "<C-d>",
+        --         },
+        --     },
+        --     provider_selector = function(_, filetype, buftype)
+        --         local function handleFallbackException(bufnr, err, providerName)
+        --             if type(err) == "string" and err:match "UfoFallbackException" then
+        --                 return require("ufo").getFolds(bufnr, providerName)
+        --             else
+        --                 return require("promise").reject(err)
+        --             end
+        --         end
+        --
+        --         return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
+        --             or function(bufnr)
+        --                 return require("ufo")
+        --                     .getFolds(bufnr, "lsp")
+        --                     :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
+        --                     :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
+        --             end
+        --     end,
+        -- },
+        --
+        config = function()
+            local ftMap = {
+                vim = 'indent',
+                python = { 'indent' },
+                git = ''
+            }
+            local handler = function(virtText, lnum, endLnum, width, truncate)
+                local newVirtText = {}
+                local suffix = (' 󰁂 %d '):format(endLnum - lnum)
+                local sufWidth = vim.fn.strdisplaywidth(suffix)
+                local targetWidth = width - sufWidth
+                local curWidth = 0
+                for _, chunk in ipairs(virtText) do
+                    local chunkText = chunk[1]
+                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                    if targetWidth > curWidth + chunkWidth then
+                        table.insert(newVirtText, chunk)
+                    else
+                        chunkText = truncate(chunkText, targetWidth - curWidth)
+                        local hlGroup = chunk[2]
+                        table.insert(newVirtText, { chunkText, hlGroup })
+                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                        -- str width returned from truncate() may less than 2nd argument, need padding
+                        if curWidth + chunkWidth < targetWidth then
+                            suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+                        end
+                        break
+                    end
+                    curWidth = curWidth + chunkWidth
+                end
+                table.insert(newVirtText, { suffix, 'MoreMsg' })
+                return newVirtText
+            end
+            require('ufo').setup({
+                open_fold_hl_timeout = 150,
+                close_fold_kinds = { 'imports', 'comment' },
+                preview = {
+                    win_config = {
+                        border = { '', '─', '', '', '', '─', '', '' },
+                        winhighlight = 'Normal:Folded',
+                        winblend = 0
+                    },
+                    mappings = {
+                        scrollU = '<C-u>',
+                        scrollD = '<C-d>',
+                        jumpTop = '[',
+                        jumpBot = ']'
+                    }
+                },
+                provider_selector = function(bufnr, filetype, buftype)
+                    -- if you prefer treesitter provider rather than lsp,
+                    -- return ftMap[filetype] or {'treesitter', 'indent'}
+                    return ftMap[filetype] or { 'treesitter', 'indent' }
+
+                    -- refer to ./doc/example.lua for detail
+                end,
+                fold_virt_text_handler = handler
+            })
+
+            -- vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+            -- vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+            -- vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+            -- vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+            vim.keymap.set('n', 'zp', function()
+                local winid = require('ufo').peekFoldedLinesUnderCursor()
+                -- if not winid then
+                --     vim.lsp.buf.hover()
+                -- end
+            end)
+        end
+    },
+    {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+            local builtin = require("statuscol.builtin")
+            require("statuscol").setup({
+                relculright = true,
+                segments = {
+                    {
+                        text = { " ", builtin.foldfunc, " " },
+                        condition = { builtin.not_empty, true, builtin.not_empty },
+                        click = "v:lua.ScFa"
+                    },
+                    {
+                        sign = {
+                            name = { "Diagnostic*" },
+                            condition = { builtin.not_empty },
+                        },
+                        click = "v.lua.ScSa"
+                    },
+                    { text = { builtin.lnumfunc }, click = "v:lua.ScLa", },
+                    {
+                        sign = {
+                            name = { "GitSign*" },
+                            condition = { builtin.not_empty },
+                        },
+                        click = "v.lua.ScSa"
+                    },
+                }
+            })
+        end,
+    }
 }
