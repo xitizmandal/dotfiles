@@ -23,7 +23,7 @@ return {
                 hide_inactive_statusline = false,
                 highlights = {
                     Folded = { fg = '$fg', bg = '$bg0' },
-                    FoldColumn = { fg = "$fg", bg = "$bg0"}
+                    FoldColumn = { fg = "$fg", bg = "$bg0" }
                 },
                 diagnostics = {
                     darker = false,
@@ -56,7 +56,8 @@ return {
             }
         end
     },
-    { "lukas-reineke/virt-column.nvim",
+    {
+        "lukas-reineke/virt-column.nvim",
         config = function()
             require("virt-column").setup({
             })
@@ -247,26 +248,37 @@ return {
             local builtin = require("statuscol.builtin")
             require("statuscol").setup({
                 relculright = true,
+                bt_ignore = { "nofile", "neotree", "outline" },
                 segments = {
                     {
-                        text = { " ", builtin.foldfunc, " " },
-                        condition = { builtin.not_empty, true, builtin.not_empty },
+                        text = { " ", builtin.foldfunc, },
+                        condition = { builtin.not_empty, true, },
                         click = "v:lua.ScFa"
+                    },
+                    {
+                        sign = {
+                            name = { "Dap*" },
+                            condition = { builtin.not_empty },
+                            colwidth = 1
+                        }
                     },
                     {
                         sign = {
                             name = { "Diagnostic*" },
                             condition = { builtin.not_empty },
+                            -- colwidth = 1
                         },
-                        click = "v.lua.ScSa"
                     },
-                    { text = { builtin.lnumfunc }, click = "v:lua.ScLa", },
+                    {
+                        text = { builtin.lnumfunc },
+                        click = "v:lua.ScLa",
+                        colwidth = 2
+                    },
                     {
                         sign = {
                             name = { "GitSign*" },
                             condition = { builtin.not_empty },
                         },
-                        click = "v.lua.ScSa"
                     },
                 }
             })
