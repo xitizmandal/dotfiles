@@ -13,7 +13,7 @@ return {
             require("hop").setup({})
         end,
         keys = {
-            { "F", "<cmd>lua require'hop'.hint_char1()<cr>", noremap = true, silent = true, desc = "Hop" }
+            { "s", "<cmd>lua require'hop'.hint_char1()<cr>", noremap = true, silent = true, desc = "Hop" }
         }
     },
 
