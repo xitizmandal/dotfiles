@@ -7,7 +7,7 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 -- vim.o.mouse = ""
 vim.o.breakindent = true
-vim.o.undofile = true
+-- vim.o.undofile = true
 -- vim.o.smartcase = true
 
 vim.o.expandtab = true
