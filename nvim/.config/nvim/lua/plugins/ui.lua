@@ -66,6 +66,7 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         config = function()
+            local kinds = require("symbols")
             require 'lualine'.setup {
                 options = {
                     icons_enabled = true,
@@ -83,12 +84,41 @@ return {
                             path = 1,
                         }
                     },
-                    lualine_c = { 'branch', 'diff', 'diagnostics' },
+                    lualine_c = { 'branch', 'diff',
+                        {
+                            'diagnostics',
+                            symbols = {
+                                error = kinds["Error"],
+                                warn = kinds["Warn"],
+                                info = kinds["Info"],
+                                hint = kinds["Hint"]
+                            }
+                        }
+                    },
                     lualine_x = { 'encoding',
                         {
                             'filetype',
                             colored = true,
                         },
+                        {
+                            function()
+                                local msg = 'No Active Lsp'
+                                local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+                                local clients = vim.lsp.get_active_clients()
+                                if next(clients) == nil then
+                                    return msg
+                                end
+                                for _, client in ipairs(clients) do
+                                    local filetypes = client.config.filetypes
+                                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+                                        return client.name
+                                    end
+                                end
+                                return msg
+                            end,
+                            icon = ' LSP:',
+                            color = { fg = '#ffffff', gui = 'bold' },
+                        }
                     },
                     lualine_y = { 'progress' },
                     lualine_z = { 'location' }
@@ -283,5 +313,5 @@ return {
                 }
             })
         end,
-    }
+    },
 }

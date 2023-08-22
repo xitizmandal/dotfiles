@@ -53,7 +53,13 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 --
 local border_style = "single"
 -- Diagnostics
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+local kinds = require("symbols")
+local signs = {
+    Error = kinds["Error"],
+    Warn = kinds["Warn"],
+    Hint = kinds["Hint"],
+    Info = kinds["Info"],
+}
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })

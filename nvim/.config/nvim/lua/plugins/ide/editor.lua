@@ -73,7 +73,7 @@ return {
                 preview_bg_highlight = 'Pmenu',
                 autofold_depth = 3,
                 auto_unfold_hover = true,
-                fold_markers = { '', '' },
+                fold_markers = { kinds["FoldMarkerRigh"], kinds["FoldMarkerBottom"] },
                 wrap = false,
                 keymaps = { -- These keymaps can be a string or a table for multiple keys
                     close = { "<Esc>", "q" },
