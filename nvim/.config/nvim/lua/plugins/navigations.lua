@@ -17,7 +17,8 @@ return {
         }
     },
 
-    { "nvim-neo-tree/neo-tree.nvim",
+    {
+        "nvim-neo-tree/neo-tree.nvim",
         version = "v2.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -48,11 +49,21 @@ return {
         },
 
         config = function()
+            local highlights = require("neo-tree.ui.highlights")
             require("neo-tree").setup({
                 close_if_last_window = true,
                 default_component_configs = {
                     name = {
                         use_git_status_colors = false,
+                    },
+                    icon = {
+                        folder_closed = "",
+                        folder_open = "",
+                        folder_empty = "",
+                        -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
+                        -- then these will never be used.
+                        default = "*",
+                        highlight = "NeoTreeFileIcon"
                     },
                     git_status = {
                         symbols = {
@@ -96,10 +107,12 @@ return {
         }
     },
     {
-        'nvim-telescope/telescope.nvim', version = false,
+        'nvim-telescope/telescope.nvim',
+        version = false,
         dependencies = {
             { 'nvim-lua/plenary.nvim' },
-            { 'nvim-telescope/telescope-fzf-native.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
                 build = 'make',
                 config = function()
                     require('telescope').load_extension('fzf')
@@ -149,10 +162,10 @@ return {
                 },
                 extensions = {
                     fzf = {
-                        fuzzy = true, -- false will only do exact matching
+                        fuzzy = true,                   -- false will only do exact matching
                         override_generic_sorter = true, -- override the generic sorter
-                        override_file_sorter = true, -- override the file sorter
-                        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                        override_file_sorter = true,    -- override the file sorter
+                        case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                         -- the default case_mode is "smart_case"
                     },
                     file_browser = {
