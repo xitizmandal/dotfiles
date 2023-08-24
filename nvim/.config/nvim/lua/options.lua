@@ -14,6 +14,7 @@ vim.o.expandtab = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.splitright = true
+vim.o.splitbelow = true
 vim.opt.clipboard = vim.opt.clipboard + 'unnamedplus'
 vim.o.termguicolors = true
 vim.o.t_Co = 256

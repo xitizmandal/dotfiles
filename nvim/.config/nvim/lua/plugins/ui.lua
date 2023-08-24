@@ -11,7 +11,7 @@ return {
         config = function()
             require("onedark").setup({
                 style = "dark",
-                transparent = false,
+                transparent = true,
                 term_colors = true,
                 code_styles = {
                     functions = "italic",
@@ -21,20 +21,14 @@ return {
                 sidebars = { "telescope", "nvim-tree", "outline" },
                 dim_inactive = true,
                 hide_inactive_statusline = false,
-                highlights = {
-                    Folded = { fg = '$fg', bg = '$bg0' },
-                    FoldColumn = { fg = "$fg", bg = "$bg0" }
-                },
+                -- highlights = {
+                --     Folded = { fg = '$fg', bg = '$bg2' },
+                --     FoldColumn = { fg = "$fg", bg = "$bg2" }
+                -- },
                 diagnostics = {
                     darker = false,
                     background = false,
                 }
-                -- highlights = function(hl, c)
-                --     hl.Folded = {
-                --         bg = c.bg,
-                --         fg = c.fg,
-                --     }
-                -- end
             })
 
             require('onedark').load()
@@ -117,7 +111,7 @@ return {
                                 return msg
                             end,
                             icon = ' LSP:',
-                            color = { fg = '#ffffff', gui = 'bold' },
+                            -- color = { fg = '#ffffff', gui = 'bold' },
                         }
                     },
                     lualine_y = { 'progress' },

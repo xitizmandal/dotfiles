@@ -169,7 +169,7 @@ return {
                 -- diagnostics.flake8.with {
                 --     prefer_local = true,
                 -- },
-                diagnostics.flake8,
+                -- diagnostics.flake8,
                 -- formatting.eslint,
                 -- diagnostics.eslint,
                 -- code_actions.eslint,
