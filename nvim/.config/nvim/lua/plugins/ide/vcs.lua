@@ -51,9 +51,9 @@ return {
         'sindrets/diffview.nvim',
         dependencies = 'nvim-lua/plenary.nvim',
         keys = {
-            { '<leader>do', ":DiffviewOpen<CR>",          desc = '[D]iffview [O]pen' },
-            { '<leader>dc', ":DiffviewClose<CR>",         desc = '[D]iffview [C]lose' },
-            { '<leader>dh', ":DiffviewFileHistory %<CR>", desc = '[D]iffview File [H]istory' },
+            { '<leader>vo', ":DiffviewOpen<CR>",          desc = 'Diff[V]iew [O]pen' },
+            { '<leader>vc', ":DiffviewClose<CR>",         desc = 'Diff[V]iew [C]lose' },
+            { '<leader>vh', ":DiffviewFileHistory %<CR>", desc = 'Diff[V]iew File [H]istory' },
         }
     },
 }

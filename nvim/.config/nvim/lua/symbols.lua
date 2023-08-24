@@ -30,7 +30,9 @@ local symbols = {
     Hint = " ",
     Info = " ",
     FoldMarkerRight = "",
-    FoldMarkerBottom = ""
+    FoldMarkerBottom = "",
+    DebugBreakPoint = "",
+    DebugStopped = "",
 }
 
 return symbols
