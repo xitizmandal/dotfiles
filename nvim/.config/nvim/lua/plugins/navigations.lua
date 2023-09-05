@@ -114,15 +114,6 @@ return {
             {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 build = 'make',
-                config = function()
-                    require('telescope').load_extension('fzf')
-                end
-            },
-            {
-                "nvim-telescope/telescope-file-browser.nvim",
-                config = function()
-                    require('telescope').load_extension('file_browser')
-                end
             },
         },
         config = function()
@@ -168,10 +159,6 @@ return {
                         case_mode = "smart_case",       -- or "ignore_case" or "respect_case"
                         -- the default case_mode is "smart_case"
                     },
-                    file_browser = {
-                        layout_strategy = "vertical",
-                        hijack_netrw = false,
-                    },
                 },
                 pickers = {
                     find_files = {
@@ -188,7 +175,7 @@ return {
                     }
                 }
             })
-            -- require('telescope').load_extension('dap')
+            require('telescope').load_extension('fzf')
 
             local builtin = require('telescope.builtin')
 
@@ -197,16 +184,6 @@ return {
             vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]uzzy [B]uffers' })
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]uzzy [G]rep' })
             vim.keymap.set('n', '<leader>fs', builtin.grep_string, { desc = '[F]uzzy [S]tring' })
-            vim.keymap.set('n', '<leader>ft', require("telescope").extensions.file_browser.file_browser,
-                { desc = '[F]uzzy [T]ree' })
-
-            vim.keymap.set('n', '<leader>/', function()
-                -- You can pass additional configuration to telescope to change theme, layout, etc.
-                require('telescope.builtin').grep_string(require('telescope.themes').get_ivy {
-                    -- winblend = 90,
-                    -- previewer = false,
-                })
-            end, { desc = '[/] Fuzzily search in current buffer]' })
         end
     },
 
