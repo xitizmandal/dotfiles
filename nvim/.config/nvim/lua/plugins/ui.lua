@@ -161,6 +161,13 @@ return {
                 -- or leave it empty to use the default settings
                 -- refer to the configuration section below
             })
+
+            local wk = require("which-key")
+            wk.register({
+                ["<leader>h"] = { name = "+Gitsigns" },
+                ["<leader>f"] = { name = "+Telescope" },
+                ["<leader>d"] = { name = "+Debugger" },
+            })
         end,
     },
     {
@@ -288,7 +295,7 @@ return {
                     },
                     {
                         sign = {
-                            name = { "Diagnostic*" },
+                            name = { ".*" },
                             condition = { builtin.not_empty },
                             -- colwidth = 1
                         },
