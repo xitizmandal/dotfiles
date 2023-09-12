@@ -93,10 +93,10 @@ return {
                         vim_item.kind = string.format('%s', vim_item.kind) -- This concatonates the icons with the name of the item kind
                         -- Source
                         vim_item.menu = ({
-                                buffer = "[Buffer]",
-                                nvim_lsp = "[LSP]",
-                                nvim_lua = "[Lua]",
                                 luasnip = "[LuaSnip]",
+                                nvim_lsp = "[LSP]",
+                                buffer = "[Buffer]",
+                                nvim_lua = "[Lua]",
                                 path = "[Path]",
                             })[entry.source.name]
                         return vim_item
