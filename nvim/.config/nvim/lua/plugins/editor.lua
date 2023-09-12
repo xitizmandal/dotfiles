@@ -73,7 +73,7 @@ return {
                 preview_bg_highlight = 'Pmenu',
                 autofold_depth = 3,
                 auto_unfold_hover = true,
-                fold_markers = { kinds["FoldMarkerRigh"], kinds["FoldMarkerBottom"] },
+                fold_markers = { kinds["FoldMarkerRight"], kinds["FoldMarkerBottom"] },
                 wrap = false,
                 keymaps = { -- These keymaps can be a string or a table for multiple keys
                     close = { "<Esc>", "q" },
@@ -160,16 +160,5 @@ return {
         build = function()
             vim.fn["mkdp#util#install"]()
         end
-    },
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-            -- position="right",
-            use_diagnostic_signs = true,
-        },
     },
 }
