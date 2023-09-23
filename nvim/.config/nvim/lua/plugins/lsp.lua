@@ -1,6 +1,7 @@
 return {
     { 'neovim/nvim-lspconfig' },
-    { 'williamboman/mason.nvim',
+    {
+        'williamboman/mason.nvim',
         config = function()
             local mason = require("mason")
             mason.setup({
@@ -19,6 +20,12 @@ return {
         'williamboman/mason-lspconfig.nvim',
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',
+            'simrat39/rust-tools.nvim',
+            {
+                "pmizio/typescript-tools.nvim",
+                dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+                opts = {},
+            },
         },
         config = function()
             local on_attach = function(_, bufnr)
@@ -55,7 +62,7 @@ return {
                     "dockerls",
                     "bashls",
                     "yamlls",
-                    "tsserver",
+                    -- "tsserver",
                     "cssls",
                     "lua_ls",
                     -- "eslint",
@@ -94,41 +101,10 @@ return {
                         capabilites = capabilities,
                     }
                 end,
-                ["rust_analyzer"] = function()
-                    lspconfig["rust_analyzer"].setup({
-                        on_attach = on_attach,
-                        settings = {
-                            ["rust-analyzer"] = {
-                                imports = {
-                                    granularity = {
-                                        group = "module",
-                                    },
-                                    prefix = "self",
-                                },
-                                cargo = {
-                                    buildScripts = {
-                                        enable = true,
-                                    },
-                                },
-                                procMacro = {
-                                    enable = true
-                                },
-                            }
-                        }
-                    })
-                end,
                 ['html'] = function()
                     lspconfig["html"].setup({
                         on_attach = on_attach,
                         filetypes = { "html", "htmldjango" }
-                    })
-                end,
-                ["tsserver"] = function()
-                    lspconfig["tsserver"].setup({
-                        on_attach = function(client, bufnr)
-                            client.server_capabilities.documentFromattingProvider = false
-                            return on_attach(client, bufnr)
-                        end
                     })
                 end,
                 ["pyright"] = function()
@@ -140,6 +116,13 @@ return {
                     })
                 end
             })
+            local rt = require("rust-tools")
+
+            rt.setup({
+                server = {
+                    on_attach = on_attach,
+                },
+            })
 
             -- local util = require('lspconfig.util')
             -- local root_files = {
@@ -150,6 +133,9 @@ return {
             --     'Pipfile',
             --     'pyrightconfig.json',
             -- }
+            require("typescript-tools").setup({
+                on_attach = on_attach
+            })
         end
     },
     {
