@@ -34,7 +34,7 @@ return {
                 vim.keymap.set('n', 'gD', function() vim.lsp.buf.declaration() end, opts)
                 vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
                 vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
-                vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
+                vim.keymap.set('n', 'gR', function() vim.lsp.buf.references() end, opts)
                 vim.keymap.set('n', '<leader>D', function() vim.lsp.buf.type_definition() end, opts)
                 vim.keymap.set('n', '<leader>lh', function() vim.lsp.buf.signature_help() end, opts)
                 vim.keymap.set('n', '<leader>lr', function() vim.lsp.buf.rename() end, opts)
@@ -184,4 +184,5 @@ return {
             })
         end
     },
+    { "folke/neodev.nvim", opts = {} }
 }

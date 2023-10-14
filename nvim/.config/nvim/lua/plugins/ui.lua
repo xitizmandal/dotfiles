@@ -44,17 +44,20 @@ return {
         'lukas-reineke/indent-blankline.nvim',
         config = function()
             vim.opt.list = true
-            require("indent_blankline").setup {
-                space_char_blankline = " ",
-                show_current_context = true,
+            require("ibl").setup {
+                scope = {
+                    enabled = true,
+                    priority = 99,
+                    show_end = false,
+                    highlight = { "Function", "Label"}
+                }
             }
         end
     },
     {
         "lukas-reineke/virt-column.nvim",
         config = function()
-            require("virt-column").setup({
-            })
+            require("virt-column").setup()
         end
     },
     {
@@ -174,34 +177,6 @@ return {
         "kevinhwang91/nvim-ufo",
         -- event = { "InsertEnter" },
         dependencies = { "kevinhwang91/promise-async" },
-        -- opts = {
-        --     preview = {
-        --         mappings = {
-        --             scrollB = "<C-b>",
-        --             scrollF = "<C-f>",
-        --             scrollU = "<C-u>",
-        --             scrollD = "<C-d>",
-        --         },
-        --     },
-        --     provider_selector = function(_, filetype, buftype)
-        --         local function handleFallbackException(bufnr, err, providerName)
-        --             if type(err) == "string" and err:match "UfoFallbackException" then
-        --                 return require("ufo").getFolds(bufnr, providerName)
-        --             else
-        --                 return require("promise").reject(err)
-        --             end
-        --         end
-        --
-        --         return (filetype == "" or buftype == "nofile") and "indent" -- only use indent until a file is opened
-        --             or function(bufnr)
-        --                 return require("ufo")
-        --                     .getFolds(bufnr, "lsp")
-        --                     :catch(function(err) return handleFallbackException(bufnr, err, "treesitter") end)
-        --                     :catch(function(err) return handleFallbackException(bufnr, err, "indent") end)
-        --             end
-        --     end,
-        -- },
-        --
         config = function()
             local ftMap = {
                 vim = 'indent',
@@ -236,6 +211,7 @@ return {
                 return newVirtText
             end
             require('ufo').setup({
+                -- enable_get_fold_virt_text = true,
                 open_fold_hl_timeout = 150,
                 close_fold_kinds = { 'imports', 'comment' },
                 preview = {
@@ -273,46 +249,46 @@ return {
             end)
         end
     },
-    {
-        "luukvbaal/statuscol.nvim",
-        config = function()
-            local builtin = require("statuscol.builtin")
-            require("statuscol").setup({
-                relculright = true,
-                bt_ignore = { "nofile", "neotree", "outline" },
-                segments = {
-                    {
-                        text = { " ", builtin.foldfunc, },
-                        condition = { builtin.not_empty, true, },
-                        click = "v:lua.ScFa"
-                    },
-                    {
-                        sign = {
-                            name = { "Dap*" },
-                            condition = { builtin.not_empty },
-                            colwidth = 1
-                        }
-                    },
-                    {
-                        sign = {
-                            name = { ".*" },
-                            condition = { builtin.not_empty },
-                            -- colwidth = 1
-                        },
-                    },
-                    {
-                        text = { builtin.lnumfunc },
-                        click = "v:lua.ScLa",
-                        colwidth = 2
-                    },
-                    {
-                        sign = {
-                            name = { "GitSign*" },
-                            condition = { builtin.not_empty },
-                        },
-                    },
-                }
-            })
-        end,
-    },
+    -- {
+    --     "luukvbaal/statuscol.nvim",
+    --     config = function()
+    --         local builtin = require("statuscol.builtin")
+    --         require("statuscol").setup({
+    --             relculright = true,
+    --             bt_ignore = { "nofile", "neotree", "outline" },
+    --             segments = {
+    --                 {
+    --                     text = { " ", builtin.foldfunc, },
+    --                     condition = { builtin.not_empty, true, },
+    --                     click = "v:lua.ScFa"
+    --                 },
+    --                 {
+    --                     sign = {
+    --                         name = { "Dap*" },
+    --                         condition = { builtin.not_empty },
+    --                         colwidth = 1
+    --                     }
+    --                 },
+    --                 {
+    --                     sign = {
+    --                         name = { ".*" },
+    --                         condition = { builtin.not_empty },
+    --                         -- colwidth = 1
+    --                     },
+    --                 },
+    --                 {
+    --                     text = { builtin.lnumfunc },
+    --                     click = "v:lua.ScLa",
+    --                     colwidth = 2
+    --                 },
+    --                 {
+    --                     sign = {
+    --                         name = { "GitSign*" },
+    --                         condition = { builtin.not_empty },
+    --                     },
+    --                 },
+    --             }
+    --         })
+    --     end,
+    -- },
 }

@@ -35,6 +35,7 @@ vim.o.foldlevel = 99                                         -- set high foldlev
 vim.o.foldlevelstart = 99                                    -- start with all code unfolded
 vim.o.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil -- show foldcolumn in nvim 0.9
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.colorcolumn = '75,80'
 -- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
