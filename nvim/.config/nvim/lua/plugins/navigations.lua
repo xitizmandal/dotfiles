@@ -19,7 +19,7 @@ return {
 
     {
         "nvim-neo-tree/neo-tree.nvim",
-        version = "v2.x",
+        version = "v3.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -27,12 +27,14 @@ return {
             {
                 -- only needed if you want to use the commands with "_with_window_picker" suffix
                 's1n7ax/nvim-window-picker',
-                version = "v1.*",
+                version = "2.*",
+                name= 'window-picker',
                 config = function()
-                    require 'window-picker'.setup({
-                        autoselect_one = true,
-                        include_current = false,
+                    require('window-picker').setup({
+                        hint = 'floating-big-letter',
                         filter_rules = {
+                            autoselect_one = true,
+                            include_current_win = false,
                             -- filter using buffer options
                             bo = {
                                 -- if the file type is one of following, the window will be ignored
@@ -82,7 +84,7 @@ return {
                     },
                 },
                 window = {
-                    position = "right",
+                    position = "left",
                     -- width = 40,
                 },
                 filesystem = {

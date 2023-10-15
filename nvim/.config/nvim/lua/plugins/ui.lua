@@ -43,13 +43,14 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         config = function()
-            vim.opt.list = true
+
             require("ibl").setup {
                 scope = {
-                    enabled = true,
-                    priority = 99,
+                    enabled = false,
+                    priority = 500,
+                    show_start = false,
                     show_end = false,
-                    highlight = { "Function", "Label"}
+                    -- highlight = { "Function", "Label"}
                 }
             }
         end
@@ -249,46 +250,48 @@ return {
             end)
         end
     },
-    -- {
-    --     "luukvbaal/statuscol.nvim",
-    --     config = function()
-    --         local builtin = require("statuscol.builtin")
-    --         require("statuscol").setup({
-    --             relculright = true,
-    --             bt_ignore = { "nofile", "neotree", "outline" },
-    --             segments = {
-    --                 {
-    --                     text = { " ", builtin.foldfunc, },
-    --                     condition = { builtin.not_empty, true, },
-    --                     click = "v:lua.ScFa"
-    --                 },
-    --                 {
-    --                     sign = {
-    --                         name = { "Dap*" },
-    --                         condition = { builtin.not_empty },
-    --                         colwidth = 1
-    --                     }
-    --                 },
-    --                 {
-    --                     sign = {
-    --                         name = { ".*" },
-    --                         condition = { builtin.not_empty },
-    --                         -- colwidth = 1
-    --                     },
-    --                 },
-    --                 {
-    --                     text = { builtin.lnumfunc },
-    --                     click = "v:lua.ScLa",
-    --                     colwidth = 2
-    --                 },
-    --                 {
-    --                     sign = {
-    --                         name = { "GitSign*" },
-    --                         condition = { builtin.not_empty },
-    --                     },
-    --                 },
-    --             }
-    --         })
-    --     end,
-    -- },
+    {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+            local builtin = require("statuscol.builtin")
+            require("statuscol").setup({
+                relculright = true,
+                bt_ignore = { "nofile", "neotree", "outline" },
+                segments = {
+                    {
+                        text = { " ", builtin.foldfunc, },
+                        condition = { builtin.not_empty, true, },
+                        click = "v:lua.ScFa"
+                    },
+                    {
+                        sign = {
+                            name = { "Dap*" },
+                            condition = { builtin.not_empty },
+                            colwidth = 1
+                        }
+                    },
+                    {
+                        sign = {
+                            name = { ".*" },
+                            condition = { builtin.not_empty },
+                            -- colwidth = 1
+                        },
+                    },
+                    {
+                        text = { builtin.lnumfunc },
+                        click = "v:lua.ScLa",
+                        colwidth = 2
+                    },
+                    {
+                        sign = {
+                            namespace = { "gitsigns" },
+                            colwidth = 1,
+                            wrap = true,
+                            condition = { builtin.not_empty },
+                        },
+                    },
+                }
+            })
+        end,
+    },
 }
