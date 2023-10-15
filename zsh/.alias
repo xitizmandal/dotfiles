@@ -1,6 +1,7 @@
 alias wkpy='cd ~/Documents/projects/learning/python-projects/'
 # alias wkv='bash ~/.scripts/dev-tmux.sh'
 alias wkp='cd ~/Documents/projects/$(ls ~/Documents/projects | fzf)'
+alias dotfiles='cd ~/.dotfiles/'
 
 alias python=python3
 alias v=nvim

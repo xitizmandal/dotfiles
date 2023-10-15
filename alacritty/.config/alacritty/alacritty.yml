@@ -11,16 +11,16 @@ font:
   size: 12
   offset:
     x: 0
-    y: 0
+    y: 2
 
-  AppleFontSmoothing: true
+AppleFontSmoothing: true
 
 scrolling:
   history: 10000
   multiplier: 3
 
 window:
-  opacity: 0.95
+  opacity: 0.90
   dynamic_title: false
   decorations: "buttonless"
   padding:
@@ -58,10 +58,10 @@ colors:
     cyan: '#56b6c2'
     white: '#ffffff'
 
-# shell:
-#   program: /bin/zsh
-#   args:
-#     - -l
-#     - -c
-#     - "tmux attach || tmux"
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"
 theme: One-Dark
