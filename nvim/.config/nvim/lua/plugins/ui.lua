@@ -43,7 +43,6 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         config = function()
-
             require("ibl").setup {
                 scope = {
                     enabled = false,
@@ -294,4 +293,16 @@ return {
             })
         end,
     },
+    {
+        "utilyre/barbecue.nvim",
+        name = "barbecue",
+        version = "*",
+        dependencies = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        opts = {
+            -- configurations go here
+        },
+    }
 }

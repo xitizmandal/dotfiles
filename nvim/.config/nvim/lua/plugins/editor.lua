@@ -16,6 +16,7 @@ return {
 
         },
         config = function()
+            ---@diagnostic disable-next-line: missing-fields
             require("nvim-treesitter.configs").setup({
                 -- A list of parser names, or "all"
                 ensure_installed = { "c", "python", "javascript", "typescript", "lua", "rust" },
@@ -103,9 +104,6 @@ return {
             vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
         end
 
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-context"
     },
     {
         'numToStr/Comment.nvim',
