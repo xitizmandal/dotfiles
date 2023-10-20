@@ -200,6 +200,7 @@ return {
 
     {
         "danymat/neogen",
+        lazy = true,
         dependencies = "nvim-treesitter/nvim-treesitter",
         config = function()
             require('neogen').setup {
@@ -212,18 +213,21 @@ return {
                     }
                 }
             }
-
-            vim.api.nvim_set_keymap("n", "<leader>ng", "<cmd> lua require('neogen').generate()<cr>",
-                { noremap = true, silent = true })
         end,
+        keys = {
+            { "<leader>ng", "<cmd> lua require('neogen').generate()<cr>",
+                { noremap = true, silent = true, desc = "[N]eo [G]enerate" }
+            } }
     },
     {
         "ellisonleao/glow.nvim",
+        lazy = true,
         config = true,
         cmd = "Glow"
     },
     {
         "iamcco/markdown-preview.nvim",
+        lazy = true,
         build = function()
             vim.fn["mkdp#util#install"]()
         end
