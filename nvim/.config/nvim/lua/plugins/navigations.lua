@@ -28,7 +28,7 @@ return {
                 -- only needed if you want to use the commands with "_with_window_picker" suffix
                 's1n7ax/nvim-window-picker',
                 version = "2.*",
-                name= 'window-picker',
+                name = 'window-picker',
                 config = function()
                     require('window-picker').setup({
                         hint = 'floating-big-letter',
@@ -103,12 +103,6 @@ return {
 
     },
     {
-        'ibhagwan/fzf-lua',
-        dependencies = {
-            "nvim-tree/nvim-web-devicons"
-        }
-    },
-    {
         'nvim-telescope/telescope.nvim',
         version = false,
         dependencies = {
@@ -117,6 +111,7 @@ return {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 build = 'make',
             },
+            { "debugloop/telescope-undo.nvim" }
         },
         config = function()
             local actions = require("telescope.actions")
@@ -178,6 +173,7 @@ return {
                 }
             })
             require('telescope').load_extension('fzf')
+            require("telescope").load_extension("undo")
 
             local builtin = require('telescope.builtin')
 
