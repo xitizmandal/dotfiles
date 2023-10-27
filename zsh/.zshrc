@@ -99,3 +99,5 @@ function _switch_cuda {
    nvcc --version
 }
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
+
+eval "$(zoxide init zsh)"
