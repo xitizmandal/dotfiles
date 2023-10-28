@@ -63,6 +63,17 @@ return {
     {
         'nvim-lualine/lualine.nvim',
         config = function()
+            local function diff_source()
+                local gitsigns = vim.b.gitsigns_status_dict
+                if gitsigns then
+                    return {
+                        added = gitsigns.added,
+                        removed = gitsigns.removed,
+                        modified = gitsigns.changed,
+                    }
+                end
+            end
+
             local kinds = require("symbols")
             require 'lualine'.setup {
                 options = {
@@ -81,7 +92,16 @@ return {
                             path = 1,
                         }
                     },
-                    lualine_c = { 'branch', 'diff',
+                    lualine_c = { 'branch',
+                        {
+                            'diff',
+                            source = diff_source,
+                            symbols = {
+                                added = kinds["GitAdd"],
+                                modified = kinds["GitModified"],
+                                removed = kinds["GitDeleted"]
+                            }
+                        },
                         {
                             'diagnostics',
                             symbols = {

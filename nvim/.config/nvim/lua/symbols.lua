@@ -25,7 +25,7 @@ local symbols = {
     Event = "",
     Operator = "󰆕",
     TypeParameter = "",
-    Error = " ",
+    Error = "✖ ",
     Warn = " ",
     Hint = " ",
     Info = " ",
@@ -33,6 +33,18 @@ local symbols = {
     FoldMarkerBottom = "",
     DebugBreakPoint = "",
     DebugStopped = "",
+    GitAdd = " ",
+    GitModified = " ",
+    GitDeleted = " ",
+    GitRenamed = " ",
+    GitUntracked = "",
+    GitIgnored = " ",
+    GitUnstaged = "󰄱 ",
+    GitStaged = " ",
+    GitConflict = "",
+    FolderClosed = "",
+    FolderOpen = "",
+    FolderEmpty = "",
 }
 
 return symbols
