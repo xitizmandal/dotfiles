@@ -35,7 +35,7 @@ vim.o.foldlevel = 99                                         -- set high foldlev
 vim.o.foldlevelstart = 99                                    -- start with all code unfolded
 vim.o.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil -- show foldcolumn in nvim 0.9
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.opt.colorcolumn = '75,80'
+vim.opt.colorcolumn = '80,120'
 -- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -43,16 +43,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     command = "setl sw=2"
 })
 
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---     pattern = { "python" },
---     command = "set colorcolumn=88"
--- })
-
--- vim.api.nvim_create_autocmd({ "WinEnter", "WinLeave" }, {
---     pattern = { "*" },
---     command = "set colorcolumn=+0"
--- })
---
 local border_style = "single"
 -- Diagnostics
 local kinds = require("symbols")
@@ -104,3 +94,10 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
         -- Use a sharp border with `FloatBorder` highlights
         border = border_style
     })
+
+vim.api.nvim_create_autocmd({"BufEnter","BufLeave"}, {
+    pattern = { "*" },
+    callback = function()
+        vim.opt.colorcolumn='80,120'
+    end,
+})
