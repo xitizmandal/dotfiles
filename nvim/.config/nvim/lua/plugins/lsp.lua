@@ -6,6 +6,7 @@ return {
             local mason = require("mason")
             mason.setup({
                 automatic_installation = false,
+                PATH="append",
                 ui = {
                     icons = {
                         server_installed = "✓",
