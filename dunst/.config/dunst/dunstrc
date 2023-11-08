@@ -1,5 +1,5 @@
 [global]
-font = mononoki Nerd Font Mono 9
+font = JetBrains Nerd Font Mono 10
 
 # Allow a small subset of html markup:
 #   <b>bold</b>
@@ -10,9 +10,7 @@ font = mononoki Nerd Font Mono 9
 # For a complete reference see
 # <http://developer.gnome.org/pango/stable/PangoMarkupFormat.html>.
 # If markup is not allowed, those tags will be stripped out of the
-# message.
-markup = yes
-plain_text = no
+# message. markup = yes
 
 # The format of the message.  Possible variables are:
 #   %a  appname
@@ -22,10 +20,10 @@ plain_text = no
 #   %I  iconname (without its path)
 #   %p  progress value if set ([  0%] to [100%]) or nothing
 # Markup is allowed
-format = "<b><u>%a</u>\n%s</b>\n%b\n%p"
+format = "<b>%a</b>\n%s\n%b\n%p"
 
 # Sort messages by urgency.
-sort = no
+sort = yes
 
 # Show how many messages are currently hidden (because of geometry).
 indicate_hidden = yes
@@ -38,16 +36,15 @@ alignment = left
 # window allows bounces back and forth.
 # This option conflicts with "word_wrap".
 # Set to 0 to disable.
-bounce_freq = 0
 
 # Show age of message if message is older than show_age_threshold
 # seconds.
 # Set to -1 to disable.
-show_age_threshold = 8
+show_age_threshold = 60
 
 # Split notifications into multiple lines if they don't fit into
 # geometry.
-word_wrap = yes
+word_wrap = no
 
 # Ignore newlines '\n' in notifications.
 ignore_newline = no
@@ -69,17 +66,18 @@ hide_duplicate_count = yes
 # the top and down respectevly.
 # The width can be negative.  In this case the actual width is the
 # screen width minus the width defined in within the geometry option.
-# geometry = "250x50-15+40"
-geometry = "300x50-16+32"
-
+height=128
+width=256
+offset=16x32
+origin="top-right"
 # Shrink window if it's smaller than the width.  Will be ignored if
 # width is 0.
-shrink = no
+shrink = yes
 
 # The transparency of the window.  Range: [0; 100].
 # This option will only work if a compositing windowmanager is
 # present (e.g. xcompmgr, compiz, etc.).
-transparency = 10
+transparency = 15
 
 # Don't remove messages, if the user is idle (no mouse or keyboard input)
 # for longer than idle_threshold seconds.
@@ -126,7 +124,8 @@ separator_height = 2
 padding = 4
 
 # Horizontal padding.
-horizontal_padding = 4
+horizontal_padding = 8
+text_icon_padding = 8
 
 # Define a color for the separator.
 # possible values are:
@@ -139,8 +138,8 @@ separator_color = auto
 # Print a notification on startup.
 # This is mainly for error detection, since dbus (re-)starts dunst
 # automatically after a crash.
-startup_notification = false
 
+corner_radius = 8
 # dmenu path.
 dmenu = /usr/bin/dmenu -p dunst:
 
@@ -152,12 +151,16 @@ icon_position = left
 max_icon_size = 24
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
+icon_path = /usr/share/icons/Yaru/16x16/mimetypes/:/usr/share/icons/Yaru/48x48/status/:/usr/share/icons/Yaru/16x16/devices/:/usr/share/icons/Yaru/48x48/notifications/:/usr/share/icons/Yaru/48x48/emblems/
 
-frame_width = 0
-frame_color = "#8EC07C"
-
-[shortcuts]
+frame_width = 1
+gap_size = 4
+# frame_color = "#8EC07C"
+progress_bar = true
+progress_bar_height = 8
+progress_bar_frame_width = 1
+progress_bar_min_width = 128
+progress_bar_max_width = 192
 
 # Shortcuts are specified as [modifier+][modifier+]...key
 # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
@@ -200,61 +203,3 @@ foreground = "#B7472A"
 background = "#191311"
 #background = "#2B313C"
 timeout = 8
-
-
-# additional from documentation
-corner_radius = 10000
-
-# Every section that isn't one of the above is interpreted as a rules to
-# override settings for certain messages.
-# Messages can be matched by "appname", "summary", "body", "icon", "category",
-# "msg_urgency" and you can override the "timeout", "urgency", "foreground",
-# "background", "new_icon" and "format".
-# Shell-like globbing will get expanded.
-#
-# SCRIPTING
-# You can specify a script that gets run when the rule matches by
-# setting the "script" option.
-# The script will be called as follows:
-#   script appname summary body icon urgency
-# where urgency can be "LOW", "NORMAL" or "CRITICAL".
-#
-# NOTE: if you don't want a notification to be displayed, set the format
-# to "".
-# NOTE: It might be helpful to run dunst -print in a terminal in order
-# to find fitting options for rules.
-
-#[espeak]
-#    summary = "*"
-#    script = dunst_espeak.sh
-
-#[script-test]
-#    summary = "*script*"
-#    script = dunst_test.sh
-
-#[ignore]
-#    # This notification will not be displayed
-#    summary = "foobar"
-#    format = ""
-
-#[signed_on]
-#    appname = Pidgin
-#    summary = "*signed on*"
-#    urgency = low
-#
-#[signed_off]
-#    appname = Pidgin
-#    summary = *signed off*
-#    urgency = low
-#
-#[says]
-#    appname = Pidgin
-#    summary = *says*
-#    urgency = critical
-#
-#[twitter]
-#    appname = Pidgin
-#    summary = *twitter.com*
-#    urgency = normal
-#
-# vim: ft=cfg
