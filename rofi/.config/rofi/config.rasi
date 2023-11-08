@@ -7,5 +7,5 @@ configuration {
 	sidebar-mode: false;
 	hide-scrollbar: true;
 	fullscreen: false;
-	theme: "~/.config/rofi/mytheme.rasi";
 }
+@theme "~/.config/rofi/mytheme.rasi"
