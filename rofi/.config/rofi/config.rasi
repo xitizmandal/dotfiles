@@ -1,0 +1,11 @@
+configuration {
+	modi: "run,drun,window";
+	font: "mononoki Nerd Font 10";
+	show-icons: true;
+	drun-display-format: "{name}";
+	disable-history: false;
+	sidebar-mode: false;
+	hide-scrollbar: true;
+	fullscreen: false;
+	theme: "~/.config/rofi/mytheme.rasi";
+}

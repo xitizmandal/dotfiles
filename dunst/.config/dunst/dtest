@@ -1,0 +1,9 @@
+#!/bin/bash
+
+pidof dunst && killall dunst
+dunst -conf dunstrc1 &
+
+notify-send -u low "message-one"
+notify-send -u critical "message-two" "Lets write in a long messgae for the notifications"
+notify-send "message-three" "another message"
+
