@@ -3,10 +3,10 @@ return {
         'mfussenegger/nvim-dap',
         config = function()
             local dap = require("dap")
-            local homebrew_prefix = vim.fn.getenv("HOMEBREW_PREFIX")
+            local prefix = "/usr/local/"
 
             dap.defaults.fallback.external_terminal = {
-                command = homebrew_prefix .. '/bin/alacritty',
+                command = prefix .. '/bin/alacritty',
                 args = { '-e' },
             }
             -- local home = vim.fn.getenv("HOME")
