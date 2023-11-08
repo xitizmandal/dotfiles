@@ -115,6 +115,8 @@ return {
                             return on_attach(client, bufnr)
                         end
                     })
+                end,
+                ["tsserver"] = function()
                 end
             })
             local rt = require("rust-tools")

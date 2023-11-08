@@ -231,7 +231,7 @@ return {
                 return newVirtText
             end
             require('ufo').setup({
-                -- enable_get_fold_virt_text = true,
+                enable_get_fold_virt_text = true,
                 open_fold_hl_timeout = 150,
                 close_fold_kinds = { 'imports', 'comment' },
                 preview = {
@@ -267,7 +267,8 @@ return {
                 --     vim.lsp.buf.hover()
                 -- end
             end)
-        end
+        end,
+        enabled=false,
     },
     {
         "luukvbaal/statuscol.nvim",
@@ -278,8 +279,8 @@ return {
                 bt_ignore = { "nofile", "neotree", "outline" },
                 segments = {
                     {
-                        text = { " ", builtin.foldfunc, },
-                        condition = { builtin.not_empty, true, },
+                        text = { builtin.foldfunc, },
+                        condition = { true, },
                         click = "v:lua.ScFa"
                     },
                     {
@@ -312,6 +313,7 @@ return {
                 }
             })
         end,
+        enabled = false,
     },
     {
         "utilyre/barbecue.nvim",
