@@ -46,7 +46,7 @@ floating_modifier $mod
 bindsym Ctrl+$alt+t exec alacritty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -202,7 +202,7 @@ set $urgent_bg_color 		#e53935
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
-bindsym Ctrl+$alt+l exec $HOME/.scripts/lockscreen.sh
+bindsym Ctrl+$alt+q exec $HOME/.scripts/lockscreen.sh
 
 bindsym $mod+space exec rofi -show run  
 bindsym $mod+m exec --no-startup-id i3-msg move workspace to output left 
@@ -215,9 +215,10 @@ bindsym $mod+n [title="ranger-session"] scratchpad show
 bindsym $mod+Shift+n exec --no-startup-id alacritty -t "ranger-session" -e zsh -c "ranger"
 for_window [title="ranger-session"] floating enabled, move to scratchpad
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse set Master -q 5%+
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse set Master -q 5%-
-bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% | notify-send -a "volume" "increas"
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% | notify-send -a "volume" "decrease"
+# bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioPrev exec playerctl previous
@@ -226,7 +227,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86MonBrightnessUp exec  --no-startup-id $HOME/.scripts/brightness.sh inc
 bindsym XF86MonBrightnessDown exec --no-startup-id $HOME/.scripts/brightness.sh dec
 
-exec_always --no-startup-id $HOME/.config/polybar/scripts/spotify/launchlistener.sh
+# exec_always --no-startup-id $HOME/.config/polybar/scripts/spotify/launchlistener.sh
 bindsym $mod+x exec $HOME/.scripts/monitors.sh
 
 
@@ -253,3 +254,4 @@ bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 # for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # for_window [class="obsidian"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # bindsym $mod+o [class="obsidian"] scratchpad show
+exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc

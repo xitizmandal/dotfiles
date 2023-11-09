@@ -3,11 +3,11 @@
 VALUE=10
 
 if [[ "$1" == "inc" ]]; then
-    xbacklight -inc $VALUE
+    brightnessctl set $VALUE%+
 elif [[ "$1" == "dec" ]]; then
-    xbacklight -dec $VALUE
+    brightnessctl set $VALUE%-
 fi
 
-CURRENT_BRIGHTNESS="$(xbacklight -get)"
-CURRENT_BRIGHTNESS=${CURRENT_BRIGHTNESS%.*}
-notify-send -a "Brightness" "$CURRENT_BRIGHTNESS"
+CURRENT_BRIGHTNESS="$(brightnessctl -m | cut -d , -f 4)"
+# CURRENT_BRIGHTNESS=${CURRENT_BRIGHTNESS%.*}
+dunstify -r 1200 -i computer --hints=int:value:"$CURRENT_BRIGHTNESS" -a "Brightness" "$CURRENT_BRIGHTNESS"
