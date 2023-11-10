@@ -13,7 +13,7 @@ return {
             require("hop").setup({})
         end,
         keys = {
-            { "s", "<cmd>lua require'hop'.hint_char1()<cr>", noremap = true, silent = true, desc = "Hop" }
+            { "<leader>h", "<cmd>lua require'hop'.hint_char1()<cr>", noremap = true, silent = true, desc = "Hop" }
         }
     },
 
@@ -28,7 +28,7 @@ return {
                 -- only needed if you want to use the commands with "_with_window_picker" suffix
                 's1n7ax/nvim-window-picker',
                 version = "2.*",
-                name= 'window-picker',
+                name = 'window-picker',
                 config = function()
                     require('window-picker').setup({
                         hint = 'floating-big-letter',
@@ -52,6 +52,7 @@ return {
 
         config = function()
             local highlights = require("neo-tree.ui.highlights")
+            local kinds = require("symbols")
             require("neo-tree").setup({
                 close_if_last_window = true,
                 default_component_configs = {
@@ -59,9 +60,9 @@ return {
                         use_git_status_colors = false,
                     },
                     icon = {
-                        folder_closed = "",
-                        folder_open = "",
-                        folder_empty = "",
+                        folder_closed = kinds["FolderClosed"],
+                        folder_open = kinds["FolderOpen"],
+                        folder_empty = kinds["FolderEmpty"],
                         -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
                         -- then these will never be used.
                         default = "*",
@@ -70,16 +71,16 @@ return {
                     git_status = {
                         symbols = {
                             -- Change type
-                            added     = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
-                            modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-                            deleted   = "✖", -- this can only be used in the git_status source
-                            renamed   = "", -- this can only be used in the git_status source
+                            added     = kinds["GitAdd"], -- or "✚", but this is redundant info if you use git_status_colors on the name
+                            modified  = kinds["GitModified"], -- or "", but this is redundant info if you use git_status_colors on the name
+                            deleted   = kinds["GitDeleted"], -- this can only be used in the git_status source
+                            renamed   = kinds["GitRenamed"], -- this can only be used in the git_status source
                             -- Status type
-                            untracked = "",
-                            ignored   = "",
-                            unstaged  = "",
-                            staged    = "",
-                            conflict  = "",
+                            untracked = kinds["GitUntracked"],
+                            ignored   = kinds["GitIgnored"],
+                            unstaged  = kinds["GitUnstaged"],
+                            staged    = kinds["GitStaged"],
+                            conflict  = kinds["GitConflict"],
                         }
                     },
                 },
@@ -103,12 +104,6 @@ return {
 
     },
     {
-        'ibhagwan/fzf-lua',
-        dependencies = {
-            "nvim-tree/nvim-web-devicons"
-        }
-    },
-    {
         'nvim-telescope/telescope.nvim',
         version = false,
         dependencies = {
@@ -117,6 +112,7 @@ return {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 build = 'make',
             },
+            { "debugloop/telescope-undo.nvim" }
         },
         config = function()
             local actions = require("telescope.actions")
@@ -178,6 +174,7 @@ return {
                 }
             })
             require('telescope').load_extension('fzf')
+            require("telescope").load_extension("undo")
 
             local builtin = require('telescope.builtin')
 
