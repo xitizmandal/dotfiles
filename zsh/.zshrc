@@ -107,7 +107,7 @@ eval "$(zoxide init zsh)"
 function _glogshow(){
     git log \
         --color=always \
-        --format="%C(cyan)%h %C(auto)%s %C(yellow)%ar %d %C(green)%ae" | \
+        --format="%C(cyan)%h %C(auto)%s %C(yellow)%ar %C(red)%d %C(green)%ae" | \
         ( if [ $1 = "preview" ]; then
             fzf -i -e +s --reverse --ansi --preview="echo {} | cut -f 1 -d ' ' |  xargs git show --color=always" 
         else
