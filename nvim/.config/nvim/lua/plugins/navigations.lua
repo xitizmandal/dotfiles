@@ -71,10 +71,10 @@ return {
                     git_status = {
                         symbols = {
                             -- Change type
-                            added     = kinds["GitAdd"], -- or "✚", but this is redundant info if you use git_status_colors on the name
+                            added     = kinds["GitAdd"],      -- or "✚", but this is redundant info if you use git_status_colors on the name
                             modified  = kinds["GitModified"], -- or "", but this is redundant info if you use git_status_colors on the name
-                            deleted   = kinds["GitDeleted"], -- this can only be used in the git_status source
-                            renamed   = kinds["GitRenamed"], -- this can only be used in the git_status source
+                            deleted   = kinds["GitDeleted"],  -- this can only be used in the git_status source
+                            renamed   = kinds["GitRenamed"],  -- this can only be used in the git_status source
                             -- Status type
                             untracked = kinds["GitUntracked"],
                             ignored   = kinds["GitIgnored"],
@@ -85,7 +85,7 @@ return {
                     },
                 },
                 window = {
-                    position = "left",
+                    position = "right",
                     -- width = 40,
                 },
                 filesystem = {

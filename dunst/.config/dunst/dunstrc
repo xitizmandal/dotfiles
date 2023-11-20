@@ -151,7 +151,7 @@ icon_position = left
 max_icon_size = 24
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Yaru/16x16/mimetypes/:/usr/share/icons/Yaru/48x48/status/:/usr/share/icons/Yaru/16x16/devices/:/usr/share/icons/Yaru/48x48/notifications/:/usr/share/icons/Yaru/48x48/emblems/
+# icon_path = /usr/share/icons/Yaru/16x16/mimetypes/:/usr/share/icons/Yaru/48x48/status/:/usr/share/icons/Yaru/16x16/devices/:/usr/share/icons/Yaru/48x48/notifications/:/usr/share/icons/Yaru/48x48/emblems/
 
 frame_width = 1
 gap_size = 4
