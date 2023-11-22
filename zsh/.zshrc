@@ -13,7 +13,7 @@ ZSH_THEME="candy"
 export NVM_LAZY_LOAD=true
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
+    # git
     # vi-mode
     poetry
     zsh-autosuggestions
@@ -72,6 +72,7 @@ if type rg &> /dev/null; then
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 # export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
+export FZF_DEFAULT_OPTS="--bind 'ctrl-d:preview-half-page-down,ctrl-u:preview-half-page-up'"
 export FZF_CTRL_T_OPTS="
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
@@ -102,3 +103,22 @@ eval "$(zoxide init zsh)"
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+function _glogshow(){
+    git log \
+        --color=always \
+        --format="%C(cyan)%h %C(auto)%s %C(yellow)%ar %C(red)%d %C(green)%ae" | \
+        ( if [ $1 = "preview" ]; then
+            fzf -i -e +s --reverse --ansi --preview="echo {} | cut -f 1 -d ' ' |  xargs git show --color=always" 
+        else
+            fzf -i -e +s --ansi --reverse
+        fi)
+}
+
+function glp () {
+    _glogshow "preview"
+}
+
+function glg() {
+    _glogshow "--no-preview"
+}
