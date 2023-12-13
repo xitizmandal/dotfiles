@@ -105,6 +105,7 @@ return {
             vim.fn.sign_define('DapStopped',
                 { text = '', texthl = 'DapStoppedIcon', linehl = 'DapStoppedText', numhl = '' })
 
+            require('dap.ext.vscode').load_launchjs()
         end,
         keys = {
 
