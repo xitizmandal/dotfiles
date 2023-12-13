@@ -313,7 +313,7 @@ return {
                 }
             })
         end,
-        enabled = false,
+        enabled = true,
     },
     {
         "utilyre/barbecue.nvim",
