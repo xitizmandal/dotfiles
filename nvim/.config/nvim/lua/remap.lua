@@ -38,3 +38,5 @@ vim.keymap.set('n', '<leader>lo', ':lopen<cr>', { desc = "location[l]ist [o]pen"
 vim.keymap.set('n', '<leader>lc', ':lclose<cr>', { desc = "location[l]ist [c]lose ", silent = true })
 vim.keymap.set('n', ']b', ':bnext<CR>', {})
 vim.keymap.set('n', '[b', ':bprev<CR>', {})
+
+vim.keymap.set('n', '<leader>gt', ':tab Git<CR>', { desc = "Open [g]it in new [t]ab", silent = true })
