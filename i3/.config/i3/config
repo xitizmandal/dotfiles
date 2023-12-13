@@ -214,12 +214,14 @@ bindsym $mod+Shift+i [instance="*"] scratchpad show
 # File manager
 bindsym $mod+n [title="ranger-session"] scratchpad show
 bindsym $mod+Shift+n exec --no-startup-id alacritty -t "ranger-session" -e zsh -c "ranger"
-for_window [title="ranger-session"] floating enabled, move to scratchpad
+# for_window [title="ranger-session"] floating enabled, move to scratchpad
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% | notify-send -a "volume" "increas"
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% | notify-send -a "volume" "decrease"
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% | $HOME/.scripts/volume.sh
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% | $HOME/.scripts/volume.sh
+
 # bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle |$HOME/.scripts/volume.sh
+
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioPrev exec playerctl previous
@@ -244,16 +246,16 @@ mode "$logout" {
 bindsym $mod+Shift+e mode "$logout"
 # Set wallpaper
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# exec --no-startup-id nitrogen --restore &
+# exec --no-startup-id nitrogen --restore
 exec --no-startup-id picom -b
 exec --no-startup-id xautolock -time 10 -locker blurlock
 
-bindsym --release Print exec scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+# bindsym --release Print exec scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+# bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 # bindsym --release $mod+Shift+Print exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
+# bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
 # for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # for_window [class="obsidian"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # bindsym $mod+o [class="obsidian"] scratchpad show
-exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
+# exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
