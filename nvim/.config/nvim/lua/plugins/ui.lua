@@ -268,7 +268,7 @@ return {
                 -- end
             end)
         end,
-        enabled=false,
+        enabled = false,
     },
     {
         "luukvbaal/statuscol.nvim",
