@@ -203,9 +203,9 @@ exec_always --no-startup-id autorandr --change
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
-bindsym $mod+Shift+q exec --no-startup-id blurlock
+bindsym $mod+Ctrl+q exec --no-startup-id blurlock
 
-bindsym $mod+space exec rofi -show run  
+bindsym $mod+space exec --no-startup-id rofi -show run  
 bindsym $mod+m exec --no-startup-id i3-msg move workspace to output left 
 bindsym $mod+Shift+m exec --no-startup-id i3-msg move workspace to output up
 
@@ -222,16 +222,16 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 # bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master 1+ toggle
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle |$HOME/.scripts/volume.sh
 
-bindsym XF86AudioPause exec playerctl play-pause
-bindsym XF86AudioStop exec playerctl stop
-bindsym XF86AudioPrev exec playerctl previous
-bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioStop exec --no-startup-id playerctl stop
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioNext exec --no-startup-id playerctl next
 
 bindsym XF86MonBrightnessUp exec  --no-startup-id $HOME/.scripts/brightness.sh inc
 bindsym XF86MonBrightnessDown exec --no-startup-id $HOME/.scripts/brightness.sh dec
 
 # exec_always --no-startup-id $HOME/.config/polybar/scripts/spotify/launchlistener.sh
-bindsym $mod+x exec $HOME/.scripts/monitors.sh
+bindsym $mod+x exec --no-startup-id $HOME/.scripts/monitors.sh
 
 
 set $logout Display: [y] logout [n] cancel
@@ -245,14 +245,14 @@ mode "$logout" {
 
 bindsym $mod+Shift+e mode "$logout"
 # Set wallpaper
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# exec --no-startup-id nitrogen --restore
+exec --no-startup-id /usr/bin/lxqt-policykit-agent
+exec_always --no-startup-id nitrogen --restore
 exec --no-startup-id picom -b
 exec --no-startup-id xautolock -time 10 -locker blurlock
 
-# bindsym --release Print exec scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-# bindsym --release Shift+Print exec scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-# bindsym --release $mod+Shift+Print exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+bindsym --release Print exec --no-startup-id scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+bindsym --release Shift+Print exec --no-startup-id scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+bindsym --release $mod+Shift+Print exec --no-startup-id scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 # bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
 # for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
