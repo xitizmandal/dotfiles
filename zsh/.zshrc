@@ -24,7 +24,7 @@ plugins=(
     # tmux
 )
 
-ZSH_TMUX_AUTOSTART=true
+# ZSH_TMUX_AUTOSTART=true
 VIM_MODE_VICMD_KEY='jk'
 # export ZVM_VI_ESCAPE_BINDKEY=jk
 source $ZSH/oh-my-zsh.sh
