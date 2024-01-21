@@ -13,7 +13,9 @@ find . -type d -name "__pycache__" -delete'
 
 alias lg=lazygit
 # alias lsg='exa -l --git --tree --git-ignore'
-alias ll='exa -lha --git'
-alias ltg='exa -lha --tree --git --git-ignore'
-alias lta='exa -lha --tree --git'
-alias lt='exa -lh --tree --git'
+alias ll='eza -lha --git'
+alias ltg='eza -lha --tree --git --git-ignore'
+alias lta='eza -lha --tree --git'
+alias lt='eza -lh --tree --git'
+
+alias prv="poetry run nvim"
