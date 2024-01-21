@@ -14,7 +14,7 @@ local config = {
     font = wezterm.font 'JetBrainsMono Nerd Font Propo',
     font_size = 13,
     -- line_height=1.05,
-    -- macos_window_background_blur = 30,
+    macos_window_background_blur = 30,
     --
     -- window_background_image = '/Users/kshitiz/Pictures/wallpapers/blue_scene.jpg',
     -- window_background_image_hsb = {
