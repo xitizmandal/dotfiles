@@ -106,6 +106,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 function _glogshow(){
     git log \
+        $(if [ -z ${2+x} ]; then echo "HEAD"; else echo "$2"; fi ) \
         --color=always \
         --format="%C(cyan)%h %C(auto)%s %C(yellow)%ar %C(red)%d %C(green)%ae" | \
         ( if [ $1 = "preview" ]; then
@@ -116,9 +117,9 @@ function _glogshow(){
 }
 
 function glp () {
-    _glogshow "preview"
+    _glogshow "preview" $1
 }
 
 function glg() {
-    _glogshow "--no-preview"
+    _glogshow "--no-preview" $1
 }
