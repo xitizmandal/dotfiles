@@ -226,9 +226,32 @@ return {
     },
     {
         "iamcco/markdown-preview.nvim",
-        lazy = true,
+        -- lazy = true,
         build = function()
             vim.fn["mkdp#util#install"]()
         end
     },
+    {
+        'cameron-wags/rainbow_csv.nvim',
+        config = function()
+            vim.g.disable_rainbow_key_mappings = 1
+            vim.g.disable_rainbow_hover = 1
+            require('rainbow_csv').setup()
+        end,
+        ft = {
+            'csv',
+            'tsv',
+            'csv_semicolon',
+            'csv_whitespace',
+            'csv_pipe',
+            'rfc_csv',
+            'rfc_semicolon'
+        },
+        cmd = {
+            'RainbowDelim',
+            'RainbowDelimSimple',
+            'RainbowDelimQuoted',
+            'RainbowMultiDelim'
+        }
+    }
 }
