@@ -5,7 +5,7 @@ alias dotfiles='cd ~/.dotfiles/'
 
 alias python=python3
 alias v=nvim
-alias vim=nvim
+# alias vim=nvim
 
 alias delpyc='
 find . -name "*.py[co]" -delete
@@ -17,3 +17,4 @@ alias ll='exa -lha --git'
 alias ltg='exa -lha --tree --git --git-ignore'
 alias lta='exa -lha --tree --git'
 alias lt='exa -lh --tree --git'
+alias prv='poetry run nvim'
