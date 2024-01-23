@@ -26,7 +26,7 @@ set $mod Mod4
 set $alt Mod1
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:JetBrainsMono Nerd Font Propo 10
+font pango:Mononoki Nerd Font Propo 10
 # font pango:System San Francisco Dispaly 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
@@ -198,7 +198,7 @@ set $urgent_bg_color 		#e53935
  client.urgent 		        $urgent_bg_color	$urget_bg_color		$text_color	        	#00ff00     $urgent_bg_color
 
 # use autorandr for monitor detection
-exec_always --no-startup-id autorandr --change
+# exec_always --no-startup-id autorandr --change
 # Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
@@ -252,7 +252,7 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 
 bindsym --release Print exec --no-startup-id scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 bindsym --release Shift+Print exec --no-startup-id scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-bindsym --release $mod+Shift+Print exec --no-startup-id scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+bindsym --release $mod+Shift+Print --no-startup-id exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 # bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
 # for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
