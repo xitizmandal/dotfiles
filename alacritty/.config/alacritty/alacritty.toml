@@ -23,19 +23,11 @@ background = "#282c34"
 foreground = "#abb2bf"
 
 [font]
-size = 10
-
-[font.bold]
-family = "JetBrainsMono Nerd Font Propo"
-style = "Bold"
-
-[font.italic]
-family = "JetBrainsMono Nerd Font Propo"
-style = "Italic"
-
-[font.normal]
-family = "JetBrainsMono Nerd Font Propo"
-style = "Regular"
+size = 14
+normal = { family = "Mononoki Nerd Font Propo", style = "Regular" }
+bold = { family = "Mononoki Nerd Font Propo", style = "Bold" }
+italic = { family = "Mononoki Nerd Font Propo", style = "Italic" }
+bold_italic = { family = "Mononoki Nerd Font Propo", style = "Bold Italic" }
 
 [font.offset]
 x = 0
@@ -50,10 +42,8 @@ multiplier = 3
 # program = "/bin/zsh"
 
 [window]
-decorations = "None"
+decorations = "buttonless"
 dynamic_title = false
 opacity = 0.95
-
-[window.padding]
-x = 2
-y = 2
+padding = { x = 4, y = 4 }
+# blur = true
