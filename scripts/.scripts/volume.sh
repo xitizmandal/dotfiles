@@ -4,5 +4,5 @@ get_volume() {
 }
 
 CURRENT_VOLUME="$(get_volume)"
-echo $CURRENT_VOLUME
-dunstify -r 1100 -i speaker --hints=int:value:"$CURRENT_VOLUME" -a "Volume" "Volume"
+# echo $CURRENT_VOLUME
+dunstify -r 1100 -i audio-speaker --hints=int:value:"$CURRENT_VOLUME" -a "Volume: $CURRENT_VOLUME" ""
