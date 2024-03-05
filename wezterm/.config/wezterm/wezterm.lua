@@ -11,10 +11,10 @@ local config = {
     },
     -- color_scheme = 'Tokyo Night',
     color_scheme = 'OneDark (base16)',
-    font = wezterm.font 'Mononoki Nerd Font Propo',
-    font_size = 11,
-    harfbuzz_features = {'calt=0', 'clig=0', 'liga=0'},
-    line_height=1.05,
+    font = wezterm.font 'JetBrainsMono Nerd Font Propo',
+    font_size = 10,
+    -- harfbuzz_features = {'calt=0', 'clig=0', 'liga=0'},
+    -- line_height = 1.05,
     -- macos_window_background_blur = 30,
     --
     -- window_background_image = '/Users/kshitiz/Pictures/wallpapers/blue_scene.jpg',
@@ -30,7 +30,15 @@ local config = {
     --     saturation = 1.0,
     -- },
     window_background_opacity = 0.90,
-    window_decorations = "RESIZE",
+    window_decorations = "NONE",
+    audible_bell = "Disabled",
+    keys = {
+        {
+            key = 'm',
+            mods = 'SUPER',
+            action = wezterm.action.DisableDefaultAssignment
+        }
+    }
 }
 
 return config
