@@ -38,6 +38,11 @@ vim.o.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil -- show foldcolumn 
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.opt.colorcolumn = '80,120'
 vim.o.exrc = true
+vim.opt.list = true
+vim.opt.listchars:append {
+    trail="·",
+    eol = "↲",
+}
 -- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -97,9 +102,9 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
         border = border_style
     })
 
-vim.api.nvim_create_autocmd({"BufEnter","BufLeave"}, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave" }, {
     pattern = { "*" },
     callback = function()
-        vim.opt.colorcolumn='80,120'
+        vim.opt.colorcolumn = '80,120'
     end,
 })
