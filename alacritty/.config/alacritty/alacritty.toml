@@ -38,10 +38,8 @@ multiplier = 3
 # program = "/bin/zsh"
 
 [window]
-decorations = "None"
+decorations = "buttonless"
 dynamic_title = false
 opacity = 0.95
-
-[window.padding]
-x = 2
-y = 2
+padding = { x = 4, y = 4 }
+# blur = true
