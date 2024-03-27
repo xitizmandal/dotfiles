@@ -52,7 +52,7 @@ Arc-Dark Color Scheme
 
 /* The whole bar */
 window#waybar {
-    /* color: #dfdfdf; */
+    color: #dfdfdf;
     /* background-color: rgba(0,0,0,0.8); */
     /* background-color: rgba(8,0,37,0.85); */
     background-color: rgba(0,0,0,0);

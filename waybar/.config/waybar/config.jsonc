@@ -8,7 +8,7 @@
     "reload_style_on_change": true,
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/window",
+        // "hyprland/window",
         "hyprland/submap"
     ],
     "modules-center": [],
