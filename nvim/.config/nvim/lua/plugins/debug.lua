@@ -1,7 +1,7 @@
 return {
     {
         'mfussenegger/nvim-dap',
-        lazy=true,
+        lazy = true,
         dependencies = {
             {
                 -- FIX: nvim-dap installation fix
@@ -62,7 +62,10 @@ return {
             },
             {
                 'rcarriga/nvim-dap-ui',
-                dependencies = 'mfussenegger/nvim-dap',
+                dependencies = {
+                    'mfussenegger/nvim-dap',
+                    'nvim-neotest/nvim-nio'
+                },
                 config = function()
                     local dap = require('dap')
                     local dapui = require('dapui')
@@ -109,16 +112,16 @@ return {
         end,
         keys = {
 
-            { '<F5>', function() require('dap').continue() end, { desc = "[D]ebugger [C]ontinue" }},
-            { '<F6>', function() require('dap').step_over() end, { desc = "[D]ebugger [S]tep Over" }},
-            { '<F7>', function() require('dap').step_into() end, { desc = "[D]ebugger Step [I]nto" }},
-            { '<F8>', function() require('dap').step_out() end, { desc = "[D]ebugger Step [O]ut" }},
-            { '<Leader>dp', function() require('dap').toggle_breakpoint() end, { desc = "[D]ebugger Break [P]oint Toggle" }},
-            { '<Leader>ds', function() require('dap').set_breakpoint() end, { desc = "[D]ebugger [S]et Breakpoint" }},
-            { '<Leader>dc', function() require('dap').set_breakpoint(vim.fn.input('Condition: '), nil, nil) end, { desc = "[D]ebugger [C]ondition Breakpoint" }},
-            { '<Leader>dr', function() require('dap').repl.open() end, { desc = "[D]ebugger [R]epl Open" }},
-            { '<Leader>dl', function() require('dap').run_last() end, { desc = "[D]ebugger Run [L]ast" }},
-            { '<Leader>dq', function() require('dap').list_breakpoints() end, { desc = "[D]ebugger list breakpoints [Q]" }},
+            { '<F5>',       function() require('dap').continue() end,                                            { desc = "[D]ebugger [C]ontinue" } },
+            { '<F6>',       function() require('dap').step_over() end,                                           { desc = "[D]ebugger [S]tep Over" } },
+            { '<F7>',       function() require('dap').step_into() end,                                           { desc = "[D]ebugger Step [I]nto" } },
+            { '<F8>',       function() require('dap').step_out() end,                                            { desc = "[D]ebugger Step [O]ut" } },
+            { '<Leader>dp', function() require('dap').toggle_breakpoint() end,                                   { desc = "[D]ebugger Break [P]oint Toggle" } },
+            { '<Leader>ds', function() require('dap').set_breakpoint() end,                                      { desc = "[D]ebugger [S]et Breakpoint" } },
+            { '<Leader>dc', function() require('dap').set_breakpoint(vim.fn.input('Condition: '), nil, nil) end, { desc = "[D]ebugger [C]ondition Breakpoint" } },
+            { '<Leader>dr', function() require('dap').repl.open() end,                                           { desc = "[D]ebugger [R]epl Open" } },
+            { '<Leader>dl', function() require('dap').run_last() end,                                            { desc = "[D]ebugger Run [L]ast" } },
+            { '<Leader>dq', function() require('dap').list_breakpoints() end,                                    { desc = "[D]ebugger list breakpoints [Q]" } },
         }
     }
 }
