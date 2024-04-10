@@ -84,7 +84,7 @@ export FZF_CTRL_R_OPTS="
   --header 'Press CTRL-Y to copy command into clipboard'"
 # export FZF_TMUX_OPTS='-p80%,60%'
 
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"
 export MANPAGER="nvim +Man!"
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -123,3 +123,4 @@ function glp () {
 function glg() {
     _glogshow "--no-preview" $1
 }
+. "$HOME/.cargo/env"
