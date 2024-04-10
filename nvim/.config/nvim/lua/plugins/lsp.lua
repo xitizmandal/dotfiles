@@ -69,7 +69,7 @@ return {
                     -- "eslint",
                     "rust_analyzer",
                     "html",
-                    "ruff-lsp"
+                    "ruff_lsp"
 
                 }
             })
