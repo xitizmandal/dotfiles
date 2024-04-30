@@ -263,3 +263,4 @@ bindsym --release $mod+Shift+Print --no-startup-id exec scrot -u -d 4 $HOME/Pict
 # bindsym $mod+o [class="obsidian"] scratchpad show
 # exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 for_window [title="Picture-in-Picture"] sticky enable
+for_window [class="ssh-askpass"] floating enable
