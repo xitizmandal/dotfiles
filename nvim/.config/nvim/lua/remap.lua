@@ -40,3 +40,5 @@ vim.keymap.set('n', ']b', ':bnext<CR>', {})
 vim.keymap.set('n', '[b', ':bprev<CR>', {})
 
 vim.keymap.set('n', '<leader>gt', ':tab Git<CR>', { desc = "Open [g]it in new [t]ab", silent = true })
+vim.keymap.set('n', '<leader>tt', function() require('options').toggle_virtual_text() end,
+    { desc = "Toggle virtual_text" })

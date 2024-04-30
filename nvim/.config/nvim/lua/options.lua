@@ -41,8 +41,8 @@ vim.o.exrc = true
 -- vim.opt.list = true
 -- vim.opt.listchars:append {
 --     trail="·",
-    -- eol = "\\u21b5",
-    -- 26f1
+-- eol = "\\u21b5",
+-- 26f1
 -- }
 -- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
 
@@ -109,3 +109,31 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave" }, {
         vim.opt.colorcolumn = '80,120'
     end,
 })
+
+M = {}
+M.toggle_virtual_text = function()
+    -- if this Neovim version supports checking if diagnostics are enabled
+    -- then use that for the current state
+    -- local enabled = true
+    -- if vim.diagnostic.is_disabled then
+    --     enabled = not vim.diagnostic.is_disabled()
+    -- end
+    -- enabled = not enabled
+    --
+    --
+    -- if enabled then
+    if vim.diagnostic.config()["virtual_text"] then
+        vim.diagnostic.config({ virtual_text = false })
+    else
+        vim.diagnostic.config({
+            virtual_text = {
+                enable = true,
+                prefix = "",
+                source = "if_many"
+            }
+        })
+    end
+    -- end
+end
+
+return M
