@@ -30,7 +30,7 @@ local config = {
     --     saturation = 1.0,
     -- },
     window_background_opacity = 0.90,
-    window_decorations = "NONE",
+    window_decorations = "RESIZE",
     audible_bell = "Disabled",
     keys = {
         {
