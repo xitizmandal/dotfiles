@@ -5,6 +5,18 @@
 #     update: yes
 #     recursive: yes:
 
+- name: Install dotfiles specific
+  package:
+    name: "{{ item }}"
+    state: "latest"
+  become: yes
+  with_items:
+    - autorandr
+    - dunst
+    - i3
+    - polybar
+    - rofi
+
 - import_tasks: symlinks.yml
   become: no
   vars:
