@@ -11,3 +11,6 @@ scripts/.scripts/firefox-pn.sh
 autorandr/
 nvim/.config/nvim/plugin
 .DS_Store
+
+tmux/plugins/
+!tmux/plugins/one-dark-tmux
