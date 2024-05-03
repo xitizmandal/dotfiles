@@ -6,12 +6,5 @@
     - apt-transport-https
     - cmake
     - software-properties-common
-    - xbacklight
+  become: yes
 
-- name: Installing python (Debian/Ubuntu)
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - python3
-    - python3-pip

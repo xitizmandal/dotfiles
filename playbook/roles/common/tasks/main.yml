@@ -18,6 +18,10 @@
     - zsh
     - curl
     - wget
+    - brightnessctl
+    - zoxide
+    - eza
+  become: yes
 
 - include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
