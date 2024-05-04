@@ -14,12 +14,13 @@
     - { src: "nvim/.config/nvim", dst: ".config/nvim"}
     - { src: "picom/.config/picom", dst: ".config/picom"}
     - { src: "polybar/.config/polybar", dst: ".config/polybar"}
-    - { src: "ranger/.config/ranger", dst: ".config/ranger"}
+    # - { src: "ranger/.config/ranger", dst: ".config/ranger"}
     - { src: "rofi/.config/rofi", dst: ".config/rofi"}
     - { src: "scripts/.scripts", dst: ".scripts"}
     - { src: "tmux/.tmux.conf", dst: ".tmux.conf"}
     - { src: "tmux/plugins", dst: ".tmux/plugins"}
     - { src: "wezterm/.config/wezterm", dst: ".config/wezterm" }
     - { src: "zsh/.zshrc", dst: ".zshrc"}
+    - { src: "zsh/.config/starship.toml", dst: ".config/starship.toml"}
     - { src: "zsh/.alias", dst: ".alias"}
     # - { src: "zsh/themes/candy.zsh-theme", dst: ".oh-my-zsh/custom/themes/candy.zsh-theme"}

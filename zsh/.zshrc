@@ -1,40 +1,30 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+autoload -U compinit
+compinit
+_comp_options+=(globdots)
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=1000
+setopt SHARE_HISTORY
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="custom_candy"
-
-export NVM_LAZY_LOAD=true
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-    # git
-    # vi-mode
-    poetry
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-    zsh-vim-mode
-    colored-man-pages
-    zsh-nvm
-    # tmux
-)
-
-# ZSH_TMUX_AUTOSTART=true
 VIM_MODE_VICMD_KEY='jk'
-# export ZVM_VI_ESCAPE_BINDKEY=jk
-source $ZSH/oh-my-zsh.sh
+# VIM_MODE_INITIAL_KEYMAP='vicmd'
+eval "$(starship init zsh)"
+source ~/.zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source ~/.zsh_plugins/zsh-vim-mode/zsh-vim-mode.plugin.zsh
 
-MODE_INDICATOR_VIINS='%F{15}<%F{8}INSERT>%f'
-MODE_INDICATOR_VICMD='%F{10}<%F{2}NORMAL>%f'
-MODE_INDICATOR_REPLACE='%F{9}<%F{1}REPLACE>%f'
-MODE_INDICATOR_SEARCH='%F{13}<%F{5}SEARCH>%f'
-MODE_INDICATOR_VISUAL='%F{12}<%F{4}VISUAL>%f'
-MODE_INDICATOR_VLINE='%F{12}<%F{4}V-LINE>%f'
+MODE_INDICATOR_VIINS='%F{8}INSERT%f'
+MODE_INDICATOR_VICMD='%F{2}NORMAL%f'
+MODE_INDICATOR_REPLACE='%F{1}REPLACE%f'
+MODE_INDICATOR_SEARCH='%F{5}SEARCH%f'
+MODE_INDICATOR_VISUAL='%F{4}VISUAL%f'
+MODE_INDICATOR_VLINE='%F{4}V-LINE%f'
+
+MODE_CURSOR_VIINS="bar"
+MODE_CURSOR_VICMD="block"
 #
 # Example aliases
 # if [[ $DISPLAY ]]; then
@@ -101,8 +91,9 @@ function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;
 
 eval "$(zoxide init zsh)"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 function _glogshow(){
     git log \
@@ -123,4 +114,4 @@ function glp () {
 function glg() {
     _glogshow "--no-preview" $1
 }
-. "$HOME/.cargo/env"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
