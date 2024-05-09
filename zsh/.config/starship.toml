@@ -1,11 +1,10 @@
 # Move the directory to the second line
 "$schema" = 'https://starship.rs/config-schema.json'
 format = """
-$fill
-$directory$all$character
+$battery$directory$all$character
 """
 right_format = ""
-add_newline = false
+add_newline = true
 continuation_prompt = '> '
 
 # A continuation prompt that displays two filled in arrows
