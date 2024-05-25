@@ -12,7 +12,7 @@ local config = {
     -- color_scheme = 'Tokyo Night',
     color_scheme = 'OneDark (base16)',
     font = wezterm.font 'JetBrainsMono Nerd Font Propo',
-    font_size = 13,
+    font_size = 10,
     -- harfbuzz_features = {'calt=0', 'clig=0', 'liga=0'},
     -- line_height = 1.05,
     -- macos_window_background_blur = 30,

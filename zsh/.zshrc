@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 # zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 autoload -U compinit
 compinit
@@ -8,6 +9,8 @@ SAVEHIST=1000
 setopt SHARE_HISTORY
 
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# case insensitive search
+zstyle ':completion:*' list-colors "m:{a-z}={A-Za-z}"
 
 VIM_MODE_VICMD_KEY='jk'
 # VIM_MODE_INITIAL_KEYMAP='vicmd'
@@ -115,3 +118,4 @@ function glg() {
     _glogshow "--no-preview" $1
 }
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# zprof
