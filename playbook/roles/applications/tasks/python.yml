@@ -4,8 +4,8 @@
     state: "latest"
   with_items:
     - python3
-    - python3-pip
-    - python3-venv
+    - python-pip
+    # - python-venv
   register: python_pip_exists
 
 - name: Check if pyenv exists

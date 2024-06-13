@@ -11,11 +11,13 @@
     state: "latest"
   become: yes
   with_items:
-    - autorandr
+    # - autorandr
     - dunst
-    - i3
-    - polybar
-    - rofi
+    # - i3
+    # - polybar
+    - rofi-wayland
+    - hyprland
+    - waybar
 
 - import_tasks: symlinks.yml
   become: no
