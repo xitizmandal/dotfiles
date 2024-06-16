@@ -192,16 +192,17 @@ window#waybar {
     color: #73daca;
 }
 
-/* #workspaces { */
-/*     font-size:13px; */
-/*     background-color: rgba(0,255,255,0.5); */
-/*     border-radius: 10px; */
-/* } */
+#workspaces {
+    font-size:13px;
+    /* background-color: rgba(0,0,0,0.1); */
+    border-radius: 10px;
+}
 
 #workspaces button {
     /* border-bottom: 3px solid transparent; */
     color: #73daca;
     border-radius: 4px;
+    padding: 0px 2px 0px 2px;
 }
 
 #workspaces button.visible {
