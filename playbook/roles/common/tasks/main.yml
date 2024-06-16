@@ -8,7 +8,7 @@
     - cmake
     - cowsay
     - git
-    - neofetch
+    - fastfetch
     - ranger
     - ripgrep
     - tldr
@@ -21,6 +21,7 @@
     - brightnessctl
     - zoxide
     - eza
+    - bat
   become: yes
 
 - include_tasks: ubuntu.yml
