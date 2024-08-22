@@ -6,7 +6,6 @@
     state: "latest"
   with_items:
     - cmake
-    - cowsay
     - git
     - fastfetch
     - ranger
@@ -14,15 +13,13 @@
     - tldr
     - tmux
     - tree
-    - xclip
     - zsh
     - curl
     - wget
-    - brightnessctl
     - zoxide
     - eza
     - bat
-  become: yes
+  become: false
 
 - include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu"
