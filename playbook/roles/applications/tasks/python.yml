@@ -25,6 +25,7 @@
   failed_when: poetry_exists.rc > 1
   changed_when: poetry_exists.rc == 1
 
-- name: Install poetry
-  shell: curl -sSL https://install.python-poetry.org | python3 
-  when: poetry_exists.rc == 1
+# TODO: manage poetry installation
+#- name: Install poetry
+#  shell: curl -sSL https://install.python-poetry.org | python3 
+#  when: poetry_exists.rc == 1
