@@ -1,3 +1,4 @@
+export PATH="$PATH:/opt/homebrew/bin"
 # zmodload zsh/zprof
 # zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 autoload -U compinit
