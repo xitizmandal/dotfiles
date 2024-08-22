@@ -23,15 +23,11 @@ background = "#282c34"
 foreground = "#abb2bf"
 
 [font]
-size = 14
-normal = { family = "Mononoki Nerd Font Propo", style = "Regular" }
-bold = { family = "Mononoki Nerd Font Propo", style = "Bold" }
-italic = { family = "Mononoki Nerd Font Propo", style = "Italic" }
-bold_italic = { family = "Mononoki Nerd Font Propo", style = "Bold Italic" }
-
-[font.offset]
-x = 0
-y = 2
+size = 13
+bold = { family = "JetBrainsMono Nerd Font Propo", style = "Bold"}
+italic = { family = "JetBrainsMono Nerd Font Propo",style = "Italic"}
+normal = { family = "JetBrainsMono Nerd Font Propo" ,style = "Regular"}
+offset = { x = 0, y = 1}
 
 [scrolling]
 history = 10000

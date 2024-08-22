@@ -6,67 +6,68 @@
   failed_when: zsh_for_user.rc >= 1
   changed_when: zsh_for_user.rc == 0
 
-- name: Check if oh-my-zsh exists
-  stat:
-    path: ~/.oh-my-zsh
-  register: oh_my_zsh_result
-
-- name: Install oh-my-zsh
-  shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
-  when: not oh_my_zsh_result.stat.exists
+# - name: Check if starship exists
+#   command: which startship
+#   register: startship_result
+#   failed_when: startship_result.rc > 1
+#   changed_when: startship_result.rc == 1
+#
+# - name: Install starship
+#   shell: curl -sS https://starship.rs/install.sh | sh
+#   when: not startship_result
 
 - name: Check if zsh-syntax-highlighting exists
   stat:
-    path: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    path: ~/.zsh_plugins/zsh-syntax-highlighting
   register: has_zsh_syntax_highlighting
 
 - name: Install zsh-syntax-highlighting
   when: not has_zsh_syntax_highlighting.stat.exists
   shell: |
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.zsh_plugins}/zsh-syntax-highlighting
 
 - name: Check if zsh-autosuggestions exists
   stat:
-    path: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    path: ~/.zsh_plugins/zsh-autosuggestions
   register: has_zsh_autosuggestions
 
 - name: Install zsh-autosuggestions
   when: not has_zsh_autosuggestions.stat.exists
   shell: |
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.zsh_plugins}/zsh-autosuggestions
 
 - name: Check if zsh-autosuggestions exists
   stat:
-    path: ~/.oh-my-zsh/custom/plugins/poetry
+    path: ~/.zsh_plugins/poetry
   register: has_poetry_zsh
 
 # - name: create oh-my-zsh poetry plugin folder
 #   file:
-#     path: ~/.oh-my-zsh/custom/plugins/poetry/
+#     path: ~/.zsh_plugins/poetry/
 #     state: directory
 #   when: not has_poetry_zsh.stat.exists
 
 # - name: Poetry zsh autocompletion
 #   shell: |
-#     poetry completions zsh > ~/.oh-my-zsh/custom/plugins/poetry/_poetry
+#     poetry completions zsh > ~/.zsh_plugins/poetry/_poetry
 #   when: not has_poetry_zsh.stat.exists
 - name: Check if zsh-vim-mode exists
   stat:
-    path: ~/.oh-my-zsh/custom/plugins/zsh-vim-mode
+    path: ~/.zsh_plugins/zsh-vim-mode
   register: has_zsh_vim_mode
 
 - name: Install zsh-vim-mode
   when: not has_zsh_vim_mode.stat.exists
   shell: |
-    git clone https://github.com/softmoth/zsh-vim-mode.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-vim-mode
+    git clone https://github.com/softmoth/zsh-vim-mode.git ${ZSH_CUSTOM:-~/.zsh_plugins}/zsh-vim-mode
 
 - name: Check if zsh-nvm exists
   stat:
-    path: ~/.oh-my-zsh/custom/plugins/zsh-nvm
+    path: ~/.zsh_plugins/zsh-nvm
   register: has_zsh_nvm
 
 - name: Install zsh-nvm
   when: not has_zsh_nvm.stat.exists
   shell: |
-    git clone https://github.com/lukechilds/zsh-nvm.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-nvm
+    git clone https://github.com/lukechilds/zsh-nvm.git ${ZSH_CUSTOM:-~/.zsh_plugins}/zsh-nvm
 

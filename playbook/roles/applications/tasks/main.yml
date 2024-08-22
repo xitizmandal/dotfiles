@@ -1,6 +1,8 @@
 ---
 # - include_tasks: nvim.yml
-- include_tasks: poetry.yml
 - include_tasks: zsh.yml
 - include_tasks: tmux.yml
 - include_tasks: fzf.yml
+- include_tasks: python.yml
+# - include_tasks: rust.yml
+- include_tasks: node.yml

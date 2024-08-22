@@ -1,8 +1,8 @@
 #!/bin/sh
 # monitor setups
-LAPTOP_DISPLAY="DP-2"
-MAIN_DISPLAY="HDMI-0"
-SECONDARY_DISPLAY="DP-0"
+LAPTOP_DISPLAY="eDP-1"
+MAIN_DISPLAY="HDMI-1-0"
+SECONDARY_DISPLAY="DP-1-2"
 
 
 find_monitors() {
@@ -13,9 +13,9 @@ find_monitors() {
 
 # dual
 dual_setup() {
-    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --ppos 0x0 --rotate normal \
-        --output $LAPTOP_DISPLAY --mode 1920x1080 --pos 0x1080 --rotate normal \
-        --output $SECONDARY_DISPLAY --off
+    xrandr --output $MAIN_DISPLAY --primary --mode 1920x1080 --pos 1920x0 --rotate normal \
+        --output $SECONDARY_DISPLAY --mode 1920x1080 --pos 0x0 --rotate normal \
+        --output $LAPTOP_DISPLAY --off
 }
 
 #primary
@@ -65,22 +65,22 @@ main_laptop() {
 
 all_options() {
     OPTIONS=""
-    OPTIONS="${OPTIONS}1. Dual\\n"
-    OPTIONS="${OPTIONS}2. Laptop\\n"
-    OPTIONS="${OPTIONS}3. Primary\\n"
-    OPTIONS="${OPTIONS}4. Secondary\\n"
-    OPTIONS="${OPTIONS}5. Laptop-Main\\n"
-    OPTIONS="${OPTIONS}6. Main-Laptop\\n"
-    OPTIONS="${OPTIONS}7. Laptop-Secondary\\n"
-    OPTIONS="${OPTIONS}8. Secondary-Laptop\\n"
-    OPTIONS="${OPTIONS}9. Quit\\n"
+    OPTIONS="${OPTIONS}1. Dual\n"
+    OPTIONS="${OPTIONS}2. Laptop\n"
+    OPTIONS="${OPTIONS}3. Primary\n"
+    OPTIONS="${OPTIONS}4. Secondary\n"
+    OPTIONS="${OPTIONS}5. Laptop-Main\n"
+    OPTIONS="${OPTIONS}6. Main-Laptop\n"
+    OPTIONS="${OPTIONS}7. Laptop-Secondary\n"
+    OPTIONS="${OPTIONS}8. Secondary-Laptop\n"
+    OPTIONS="${OPTIONS}9. Quit\n"
 }
 
 options_menu() {
     unset OPTIONS
     all_options
 
-    case "$(echo "$OPTIONS" | rofi -dmenu -i -p 'Display :')" in
+    case "$(printf "$OPTIONS" | rofi -dmenu -i -p 'Display :')" in
         '1. Dual') dual_setup ;;
         '2. Laptop') laptop_setup ;;
         '3. Primary') main_setup ;;
@@ -89,7 +89,8 @@ options_menu() {
         '6. Main-Laptop') laptop_secondary ;;
         '7. Laptop-Secondary') laptop_secondary ;;
         '8. Secondary-Laptop') secondary_laptop ;;
-        '9. Quit') exit 0
+        '9. Quit') exit 0 ;;
+        *) exit 0
         esac
 }
 

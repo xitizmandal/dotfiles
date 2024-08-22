@@ -44,7 +44,7 @@ font pango:JetBrainsMono Nerd Font Propo 10
 floating_modifier $mod
 
 # start a terminal
-bindsym Ctrl+$alt+t exec alacritty
+bindsym Ctrl+$alt+t exec wezterm
 
 # kill focused window
 bindsym $mod+q kill
@@ -203,7 +203,8 @@ exec_always --no-startup-id autorandr --change
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # bindsym Ctrl+$alt+l exec i3lock -c 000000 && sleep 1 && xset s activate
-bindsym $mod+Ctrl+q exec --no-startup-id blurlock
+# bindsym $mod+Ctrl+q exec --no-startup-id betterlockscreen -l
+bindsym $mod+Ctrl+q exec --no-startup-id $HOME/.scripts/lockscreen.sh
 
 bindsym $mod+space exec --no-startup-id rofi -show run  
 bindsym $mod+m exec --no-startup-id i3-msg move workspace to output left 
@@ -212,8 +213,9 @@ bindsym $mod+Shift+m exec --no-startup-id i3-msg move workspace to output up
 bindsym $mod+i move scratchpad
 bindsym $mod+Shift+i [instance="*"] scratchpad show
 # File manager
-bindsym $mod+n [title="ranger-session"] scratchpad show
-bindsym $mod+Shift+n exec --no-startup-id alacritty -t "ranger-session" -e zsh -c "ranger"
+bindsym $mod+n [class="ranger-session"] scratchpad show
+# bindsym $mod+Shift+n exec --no-startup-id alacritty -t "ranger-session" -e zsh -c "ranger"
+bindsym $mod+Shift+n exec --no-startup-id wezterm -e --class "ranger-session" ranger
 # for_window [title="ranger-session"] floating enabled, move to scratchpad
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% | $HOME/.scripts/volume.sh
@@ -245,17 +247,21 @@ mode "$logout" {
 
 bindsym $mod+Shift+e mode "$logout"
 # Set wallpaper
-exec --no-startup-id /usr/bin/lxqt-policykit-agent
+# exec --no-startup-id /usr/lib/polkit-kde-authentication-agent-1
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
 exec_always --no-startup-id nitrogen --restore
 exec --no-startup-id picom -b
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 10 -locker betterlockscreen -l
 
 bindsym --release Print exec --no-startup-id scrot -m $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-bindsym --release Shift+Print exec --no-startup-id scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
-bindsym --release $mod+Shift+Print exec --no-startup-id scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+bindsym --release $alt+Shift+4 exec --no-startup-id scrot -s $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
+bindsym --release $mod+Shift+Print --no-startup-id exec scrot -u -d 4 $HOME/Pictures/screenshots/%s_%H_%M_%d_%m_%Y_$wx$h.png
 # bindsym --release $mod+Shift+Print exec $HOME/.scripts/screenshot_obsidian.sh
 
 # for_window [class="Spotify"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # for_window [class="obsidian"] floating enable, resize set 1500 720, move position center, move scratchpad, scratchpad show
 # bindsym $mod+o [class="obsidian"] scratchpad show
 # exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
+for_window [title="Picture-in-Picture"] sticky enable
+for_window [class="ssh-askpass"] floating enable

@@ -1,0 +1,9 @@
+- name: Check if pyenv exists
+  command: which nvm
+  register: nvm_exists
+  failed_when: nvm_exists.rc > 1
+  changed_when: nvm_exists.rc == 1
+
+- name: Download and install NVM
+  shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  when: nvm_exists.rc == 1

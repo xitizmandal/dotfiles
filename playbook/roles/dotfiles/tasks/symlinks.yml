@@ -7,11 +7,19 @@
     state: link
     force: yes
   with_items:
-    - { src: "alacritty/.config/alacritty", dst: ".config/alacritty"}
     - { src: "bat/.config/bat", dst: ".config/bat"}
+#    - { src: "dunst/.config/dunst", dst: ".config/dunst"}
+#    - { src: "hypr/.config/hypr", dst: ".config/hypr"}
     - { src: "nvim/.config/nvim", dst: ".config/nvim"}
-    - { src: "ranger/.config/ranger", dst: ".config/ranger"}
+#    - { src: "picom/.config/picom", dst: ".config/picom"}
+    # - { src: "ranger/.config/ranger", dst: ".config/ranger"}
+#    - { src: "rofi/.config/rofi", dst: ".config/rofi"}
+#    - { src: "scripts/.scripts", dst: ".scripts"}
     - { src: "tmux/.tmux.conf", dst: ".tmux.conf"}
+    - { src: "tmux/plugins", dst: ".tmux/plugins"}
+#    - { src: "waybar/.config/waybar", dst: ".config/waybar" }
+    - { src: "wezterm/.config/wezterm", dst: ".config/wezterm" }
     - { src: "zsh/.zshrc", dst: ".zshrc"}
+    - { src: "zsh/.config/starship.toml", dst: ".config/starship.toml"}
     - { src: "zsh/.alias", dst: ".alias"}
-    - { src: "zsh/themes/candy.zsh-theme", dst: ".oh-my-zsh/custom/themes/candy.zsh-theme"}
+    # - { src: "zsh/themes/candy.zsh-theme", dst: ".oh-my-zsh/custom/themes/candy.zsh-theme"}

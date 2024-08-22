@@ -1,11 +1,10 @@
-alias wkpy='cd ~/Documents/projects/learning/python-projects/'
 # alias wkv='bash ~/.scripts/dev-tmux.sh'
 alias wkp='cd ~/Documents/projects/$(ls ~/Documents/projects | fzf)'
 alias dotfiles='cd ~/.dotfiles/'
 
 alias python=python3
 alias v=nvim
-alias vim=nvim
+# alias vim=nvim
 
 alias delpyc='
 find . -name "*.py[co]" -delete
@@ -13,9 +12,9 @@ find . -type d -name "__pycache__" -delete'
 
 alias lg=lazygit
 # alias lsg='exa -l --git --tree --git-ignore'
-alias ll='eza -lha --git'
-alias ltg='eza -lha --tree --git --git-ignore'
-alias lta='eza -lha --tree --git'
-alias lt='eza -lh --tree --git'
+alias ls='eza --icons -F --group-directories-first'
+alias ll='eza -lhF --icons --git --group-directories-first --no-user --no-time'
+alias lt='eza --tree --git'
 
-alias prv="poetry run nvim"
+alias prv='poetry run nvim'
+alias cat='bat'

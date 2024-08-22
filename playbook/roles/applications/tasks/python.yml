@@ -1,0 +1,31 @@
+- name: Install python3 and python3-pip
+  package:
+    name: "{{ item }}"
+    state: "latest"
+  with_items:
+    - python3
+    # - python-pip
+    # - python-venv
+  register: python_pip_exists
+
+- name: Check if pyenv exists
+  command: which pyenv
+  register: pyenv_exists
+  failed_when: pyenv_exists.rc > 1
+  changed_when: pyenv_exists.rc == 1
+
+- name: Install pyenv
+  shell: curl https://pyenv.run | bash
+  when: pyenv_exists.rc == 1
+
+
+- name: Check if poetry exists
+  command: which poetry
+  register: poetry_exists
+  failed_when: poetry_exists.rc > 1
+  changed_when: poetry_exists.rc == 1
+
+# TODO: manage poetry installation
+#- name: Install poetry
+#  shell: curl -sSL https://install.python-poetry.org | python3 
+#  when: poetry_exists.rc == 1

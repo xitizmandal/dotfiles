@@ -18,7 +18,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 vim.opt.clipboard = vim.opt.clipboard + 'unnamedplus'
 vim.o.termguicolors = true
-vim.o.t_Co = 256
+-- vim.o.t_Co = 256
 vim.o.cursorline = true
 vim.o.wildmenu = true
 vim.o.pumheight = 10
@@ -38,11 +38,12 @@ vim.o.foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil -- show foldcolumn 
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 vim.opt.colorcolumn = '80,120'
 vim.o.exrc = true
-vim.opt.list = true
-vim.opt.listchars:append {
-    trail="·",
-    eol = "↲",
-}
+-- vim.opt.list = true
+-- vim.opt.listchars:append {
+--     trail="·",
+-- eol = "\\u21b5",
+-- 26f1
+-- }
 -- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -108,3 +109,31 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufLeave" }, {
         vim.opt.colorcolumn = '80,120'
     end,
 })
+
+M = {}
+M.toggle_virtual_text = function()
+    -- if this Neovim version supports checking if diagnostics are enabled
+    -- then use that for the current state
+    -- local enabled = true
+    -- if vim.diagnostic.is_disabled then
+    --     enabled = not vim.diagnostic.is_disabled()
+    -- end
+    -- enabled = not enabled
+    --
+    --
+    -- if enabled then
+    if vim.diagnostic.config()["virtual_text"] then
+        vim.diagnostic.config({ virtual_text = false })
+    else
+        vim.diagnostic.config({
+            virtual_text = {
+                enable = true,
+                prefix = "",
+                source = "if_many"
+            }
+        })
+    end
+    -- end
+end
+
+return M
