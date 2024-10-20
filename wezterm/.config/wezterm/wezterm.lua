@@ -29,7 +29,6 @@ local config = {
     --     -- You can adjust the saturation also.
     --     saturation = 1.0,
     -- },
-    window_background_opacity = 0.90,
     window_decorations = "RESIZE",
     audible_bell = "Disabled",
     keys = {
@@ -37,9 +36,12 @@ local config = {
             key = 'm',
             mods = 'SUPER',
             action = wezterm.action.DisableDefaultAssignment
+        },
+        {
+            key = 'F', mods = "CMD|CTRL", action = wezterm.action.ToggleFullScreen
         }
     },
-    enable_wayland=false
+    -- enable_wayland=false
 }
 
 return config
