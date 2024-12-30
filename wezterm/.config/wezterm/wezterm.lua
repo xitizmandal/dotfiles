@@ -31,17 +31,22 @@ local config = {
     -- },
     window_decorations = "RESIZE",
     audible_bell = "Disabled",
+    native_macos_fullscreen_mode = true,
+    -- disable_default_key_bindings = true,
     keys = {
         {
             key = 'm',
             mods = 'SUPER',
             action = wezterm.action.DisableDefaultAssignment
         },
+        -- { key = 'N', mods = 'CMD|SHIFT', action = wezterm.action.ToggleFullScreen },
         {
-            key = 'F', mods = "CMD|CTRL", action = wezterm.action.ToggleFullScreen
-        }
+            key = 'F',
+            mods = 'CTRL|CMD',
+            action = wezterm.action.DisableDefaultAssignment
+        },
+        { key = 'F', mods = 'CMD|SHIFT', action = wezterm.action.ToggleFullScreen },
     },
-    -- enable_wayland=false
 }
 
 return config
