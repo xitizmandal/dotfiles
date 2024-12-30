@@ -59,7 +59,7 @@ return {
             mason_lspconfig.setup({
                 ensure_installed = {
                     "pyright",
-                    -- "python-lsp-server",
+                    -- "pylsp",
                     "dockerls",
                     "bashls",
                     "yamlls",
@@ -127,6 +127,9 @@ return {
                     on_attach = on_attach,
                 },
             })
+            -- lspconfig.ccls.setup ({
+            --
+            -- })
 
             -- local util = require('lspconfig.util')
             -- local root_files = {

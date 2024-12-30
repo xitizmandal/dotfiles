@@ -11,7 +11,7 @@ return {
         config = function()
             require("onedark").setup({
                 style = "dark",
-                transparent = true,
+                transparent = false,
                 term_colors = true,
                 code_styles = {
                     functions = "italic",

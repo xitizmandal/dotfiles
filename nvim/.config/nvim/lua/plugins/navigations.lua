@@ -110,7 +110,10 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require('oil').setup()
-        end
+        end,
+        keys = {
+            { '<leader>o', ":Oil <cr>", silent = true, desc = "[O]il "}
+        }
     },
     {
         'nvim-telescope/telescope.nvim',
@@ -137,7 +140,7 @@ return {
                         '--column',
                         '--smart-case',
                         '--glob',
-                        '!**/{.git,__pycache__,node_modules,vendor}/*'
+                        '!**/{.git,__pycache__,node_modules,vendor, .ccls}/*'
                     },
                     mappings = {
                         n = {

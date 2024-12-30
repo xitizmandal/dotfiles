@@ -154,7 +154,7 @@ return {
                     relative_width = true,
                     show_numbers = true,
                     show_relative_numbers = true,
-                    width = 16,
+                    width = 8,
                     wrap = false
                 },
                 preview_window = {
