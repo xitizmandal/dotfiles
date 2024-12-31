@@ -6,7 +6,7 @@ return {
             local mason = require("mason")
             mason.setup({
                 automatic_installation = false,
-                PATH="append",
+                PATH = "append",
                 ui = {
                     icons = {
                         server_installed = "✓",
@@ -20,15 +20,22 @@ return {
     {
         'williamboman/mason-lspconfig.nvim',
         dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'simrat39/rust-tools.nvim',
-            {
-                "pmizio/typescript-tools.nvim",
-                dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-                opts = {},
-            },
+            "saghen/blink.cmp",
         },
         config = function()
+            local border_style = "single"
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                vim.lsp.handlers.hover, {
+                    -- Use a sharp border with `FloatBorder` highlights
+                    border = border_style
+                })
+
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+                vim.lsp.handlers.signature_help, {
+                    -- Use a sharp border with `FloatBorder` highlights
+                    border = border_style
+                })
+
             local on_attach = function(_, bufnr)
                 local opts = { buffer = bufnr, remap = false, silent = true }
                 vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
@@ -49,7 +56,8 @@ return {
                 vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev() end, opts)
                 vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next() end, opts)
 
-                vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ bufnr = bufnr }) end, opts)
+                -- vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ bufnr = bufnr }) end,
+                --     opts)
             end
 
 
@@ -69,13 +77,12 @@ return {
                     -- "eslint",
                     "rust_analyzer",
                     "html",
-                    "ruff_lsp"
-
+                    "ruff"
                 }
             })
 
             local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+            capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
                     lspconfig[server_name].setup({
@@ -117,20 +124,9 @@ return {
                         end
                     })
                 end,
-                ["tsserver"] = function()
-                end
+                -- ["tsserver"] = function()
+                -- end
             })
-            local rt = require("rust-tools")
-
-            rt.setup({
-                server = {
-                    on_attach = on_attach,
-                },
-            })
-            -- lspconfig.ccls.setup ({
-            --
-            -- })
-
             -- local util = require('lspconfig.util')
             -- local root_files = {
             --     'pyproject.toml',
@@ -140,56 +136,8 @@ return {
             --     'Pipfile',
             --     'pyrightconfig.json',
             -- }
-            require("typescript-tools").setup({
-                on_attach = on_attach
-            })
         end
     },
-    {
-        'nvimtools/none-ls.nvim',
-        dependencies = { "mason.nvim" },
-        config = function()
-            local null_ls = require("null-ls")
-            local diagnostics = null_ls.builtins.diagnostics
-            local formatting = null_ls.builtins.formatting
-            local code_actions = null_ls.builtins.code_actions
-            -- local command_resolver = require("null-ls.helpers.command_resolver")
+    -- { "folke/neodev.nvim",    opts = {} }
 
-            -- register any number of sources simultaneously
-            local sources = {
-                formatting.black,
-                formatting.isort,
-                -- diagnostics.flake8.with {
-                --     prefer_local = true,
-                -- },
-                -- diagnostics.flake8,
-                -- formatting.eslint,
-                -- diagnostics.eslint,
-                -- code_actions.eslint,
-                formatting.prettier.with {
-                    prefer_local = true
-                }
-            }
-
-            local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-            null_ls.setup({
-                sources = sources,
-                fallback_severity = vim.diagnostic.severity.HINT,
-                on_attach = function(client, bufnr)
-                    if client.supports_method("textDocument/formatting") then
-                        vim.keymap.set('n', '<leader>lf', function() vim.lsp.buf.format({ bufnr = bufnr }) end)
-                        -- vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-                        -- vim.api.nvim_create_autocmd("BufWritePre", {
-                        --     group = augroup,
-                        --     buffer = bufnr,
-                        --     callback = function()
-                        --         vim.lsp.buf.format()
-                        --     end,
-                        -- })
-                    end
-                end
-            })
-        end
-    },
-    { "folke/neodev.nvim", opts = {} }
 }
