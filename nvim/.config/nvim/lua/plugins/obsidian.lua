@@ -17,6 +17,9 @@ return {
         -- see below for full list of optional dependencies 👇
     },
     opts = {
+        ui = {
+            enable=false
+        },
         workspaces = {
             {
                 name = "PKM",
@@ -41,7 +44,7 @@ return {
         },
 
         daily_notes = {
-            folder = "004Archives/Logs/2024",
+            folder = "004Archives/Logs/2025",
             template = "Daily Notes"
         }
 

@@ -51,3 +51,5 @@ vim.o.exrc = true
 -- 26f1
 -- }
 -- vim.o.statuscolumn = '%=%l%s%{foldlevel(v:lnum) > foldlevel(v:lnum - 1) ? (foldclosed(v:lnum) == -1 ? "▼" : "⏵") : " " }'
+--
+vim.wo.conceallevel = 2
