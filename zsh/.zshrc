@@ -120,3 +120,6 @@ function glg() {
 }
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # zprof
+
+# Added by Windsurf
+export PATH="/Users/kmandal/.codeium/windsurf/bin:$PATH"
