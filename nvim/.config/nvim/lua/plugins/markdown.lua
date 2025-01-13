@@ -18,10 +18,10 @@ return {
         -- },
         heading = {
             enabled = true,
-            sign = true,
+            sign = false,
             position = 'overlay',
-            -- icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
-            icons = { '󰼏 ', '󰎨 ' },
+            icons = { '󰲡 ', '󰲣 ', '󰲥 ', '󰲧 ', '󰲩 ', '󰲫 ' },
+            -- icons = { '󰼏 ', '󰎨 ' },
             signs = { '󰫎 ' },
             width = 'full',
             left_margin = 0,

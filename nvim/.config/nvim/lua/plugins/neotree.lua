@@ -276,6 +276,7 @@ return {
                 position = "bottom",
                 -- width = 40,
             },
+            hijack_netrw_behavior = "open_default",
             filesystem = {
                 window = {
                     mappings = {

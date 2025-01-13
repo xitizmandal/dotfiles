@@ -50,6 +50,7 @@ return {
 
     },
     keys = {
-        {"<leader>ot", ":ObsidianToday <CR>"}
+        {"<leader>ot", ":ObsidianToday <CR>"},
+        {"<leader>os", ":ObsidianSearch "}
     }
 }
