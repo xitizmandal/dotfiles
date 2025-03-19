@@ -77,7 +77,7 @@ return {
                     -- "eslint",
                     "rust_analyzer",
                     "html",
-                    "ruff"
+                    -- "ruff"
                 }
             })
 
