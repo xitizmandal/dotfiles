@@ -14,7 +14,7 @@ return {
         'hrsh7th/cmp-nvim-lua',
         'hrsh7th/cmp-nvim-lsp-signature-help',
     },
-    enabled = false,
+    enabled = true,
     opts = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")

@@ -5,6 +5,7 @@ return {
     -- enabled=false,
     -- optional: provides snippets for the snippet source
     dependencies = 'rafamadriz/friendly-snippets',
+	enabled=false,
 
     -- use a release tag to download pre-built binaries
     version = 'v0.*',
@@ -51,7 +52,7 @@ return {
                     enabled = true,
                     module = "blink.cmp.sources.lsp",
                     -- min_keyword_length = 2,
-                    kind = "LSP",
+                    -- kind = "LSP",
                     -- When linking markdown notes, I would get snippets and text in the
                     -- suggestions, I want those to show only if there are no LSP
                     -- suggestions
@@ -117,9 +118,9 @@ return {
                 markdown = { name = 'RenderMarkdown', module = 'render-markdown.integ.blink' },
             },
         },
-        list = {
-            selection = "auto_insert",
-        },
+        -- list = {
+        --     selection = "auto_insert",
+        -- },
         completion = {
             menu = {
                 draw = {
