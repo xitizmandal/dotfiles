@@ -25,14 +25,14 @@ return {
                 name = "PKM",
                 path = "~/Documents/Obsidian/PKM/"
             },
-            {
-                name = "lifeOS",
-                path = "~/Documents/Obsidian/lifeOS",
-            },
-            {
-                name = "VACtrove",
-                path = "~/Documents/Obsidian/VACtrove",
-            },
+            -- {
+            --     name = "lifeOS",
+            --     path = "~/Documents/Obsidian/lifeOS",
+            -- },
+            -- {
+            --     name = "VACtrove",
+            --     path = "~/Documents/Obsidian/VACtrove",
+            -- },
         },
         completion = {
             nvim_cmp = false
@@ -50,7 +50,7 @@ return {
 
     },
     keys = {
-        {"<leader>ot", ":ObsidianToday <CR>"},
+        {"<leader>ot", ":tabnew | ObsidianToday <CR>"},
         {"<leader>os", ":ObsidianSearch "}
     }
 }
