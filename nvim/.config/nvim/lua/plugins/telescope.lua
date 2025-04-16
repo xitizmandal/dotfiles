@@ -74,10 +74,15 @@ return {
 
         local builtin = require('telescope.builtin')
 
-        vim.keymap.set('n', '<leader>tf', builtin.find_files, { desc = '[F]uzzy [F]files' })
-        vim.keymap.set('n', '<leader>tc', builtin.git_files, { desc = '[F]uzzy [C]' })
-        vim.keymap.set('n', '<leader>tb', builtin.buffers, { desc = '[F]uzzy [B]uffers' })
-        vim.keymap.set('n', '<leader>tg', builtin.live_grep, { desc = '[F]uzzy [G]rep' })
-        vim.keymap.set('n', '<leader>ts', builtin.grep_string, { desc = '[F]uzzy [S]tring' })
+        local CallTelescope = function(input)
+            local theme = require('telescope.themes').get_ivy({})
+            input(theme)
+        end
+
+        vim.keymap.set('n', '<leader>tf', function() CallTelescope(builtin.find_files) end, { desc = '[F]uzzy [F]files' })
+        vim.keymap.set('n', '<leader>tc', function() CallTelescope(builtin.git_files) end, { desc = '[F]uzzy [C]' })
+        vim.keymap.set('n', '<leader>tb', function() CallTelescope(builtin.buffers) end, { desc = '[F]uzzy [B]uffers' })
+        vim.keymap.set('n', '<leader>tg', function() CallTelescope(builtin.live_grep) end, { desc = '[F]uzzy [G]rep' })
+        vim.keymap.set('n', '<leader>ts', function() CallTelescope(builtin.grep_string) end, { desc = '[F]uzzy [S]tring' })
     end
 }
