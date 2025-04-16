@@ -52,4 +52,4 @@ yabai -m rule --add app="^Stats$" manage=off mouse_follows_focus=off
 
 yabai -m rule --add app="^Raycast$" manage=off
 
-yabi -m rule --add title="ddterm" manage=off grid="10:1:0:0:1:4"
+yabai -m rule --add title="ddterm" manage=off grid="10:1:0:0:1:4"
