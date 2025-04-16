@@ -1,17 +1,27 @@
+# zmodload zsh/zprof
 export PATH="$PATH:/opt/homebrew/bin"
 # zmodload zsh/zprof
 # zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-autoload -U compinit
-compinit
 _comp_options+=(globdots)
 HISTFILE=~/.zsh_history
+HISTSIZE=5000
+SAVEHIST=5000
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt incappendhistory
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 HISTSIZE=10000
 SAVEHIST=1000
 setopt SHARE_HISTORY
 setopt ignore_eof
 
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-# case insensitive search
+autoload -U compinit && compinit
+# zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# # case insensitive search
 zstyle ':completion:*' list-colors "m:{a-z}={A-Za-z}"
 
 VIM_MODE_VICMD_KEY='jk'
@@ -85,20 +95,9 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 export DISABLE_AUTO_TITLE='true'
 
-function _switch_cuda {
-   v=$1
-   export PATH=$PATH:/usr/local/cuda-$v/bin
-   export CUDADIR=/usr/local/cuda-$v
-   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-$v/lib64
-   nvcc --version
-}
 function gi() { curl -sLw n https://www.toptal.com/developers/gitignore/api/$@ ;}
 
 eval "$(zoxide init zsh)"
-
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 function _glogshow(){
     git log \
@@ -121,6 +120,3 @@ function glg() {
 }
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 # zprof
-
-# Added by Windsurf
-export PATH="/Users/kmandal/.codeium/windsurf/bin:$PATH"
