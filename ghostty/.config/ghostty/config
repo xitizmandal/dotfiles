@@ -1,4 +1,16 @@
 # font-feature = -calt
 # font-feature = -dlig
 # font-feature = -liga
-font-family = "JetBrains Nerd Font Mono"
+font-family = "JetBrains Nerd Font Propo"
+font-size = 13
+mouse-hide-while-typing = true
+
+background = 0E1419
+background-opacity = 0.9
+background-blur = 10
+
+title = " "
+macos-titlebar-style = "hidden"
+macos-window-shadow = false
+
+# vim: set ft=conf
