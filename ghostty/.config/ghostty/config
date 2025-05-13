@@ -7,7 +7,7 @@ mouse-hide-while-typing = true
 
 background = 0E1419
 background-opacity = 0.9
-background-blur = 10
+background-blur = 20
 
 title = " "
 macos-titlebar-style = "hidden"
